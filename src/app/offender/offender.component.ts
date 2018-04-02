@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, Inject  } from '@angula
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Offender } from './offender.model';
 import { Note } from "../shared/note.model";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 
 import { OffenderService } from "./offender.service";
