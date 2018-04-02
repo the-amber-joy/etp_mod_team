@@ -61,6 +61,7 @@ export class OffenderComponent implements OnInit, AppModule {
 
         for (let i = 0; i < 3; i++) {
             this.offender = new Offender();
+            this.offender.id = i + 1;
             this.offender.firstName = 'Offender ';
             this.offender.lastName = (i+1).toString();
             this.offender.score = i+5;
@@ -82,8 +83,7 @@ export class OffenderComponent implements OnInit, AppModule {
     newName: string = '';
 
     doSomething($event: EventEmitter<MatSelectChange>, offender) {
-        this.offender.score = offender.score;
-
+        offender.banStatus = offender.score == 10;
     }
 
     buttonClicked() {

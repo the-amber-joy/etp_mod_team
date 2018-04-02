@@ -28,8 +28,8 @@
     <div class="date-added">First Offense: {{offender.dateAdded | date}}</div>
     <div>
         Last Updated:
-            <span *ngIf="this.offender.lastUpdated.toString() == today">Today</span>
-            <span *ngIf="this.offender.lastUpdated.toString() !== today">{{offender.lastUpdated | date}}</span>
+            <span *ngIf="offender.lastUpdated.toString() == today">Today</span>
+            <span *ngIf="offender.lastUpdated.toString() !== today">{{offender.lastUpdated | date}}</span>
             by Admin{{Admin}}
     </div>
     <form>
@@ -38,9 +38,9 @@
             <mat-select
             placeholder="Score"
             [(value)]="offender.score"
-            [disabled]="this.offender.banStatus"
-            [(ngModel)]="this.offender.score"
-            (selectionChange)="doSomething($event, this.offender)"
+            [disabled]="offender.banStatus"
+            [(ngModel)]="offender.score"
+            (selectionChange)="doSomething($event, offender)"
             name="score">
                 <mat-option [value]=1>1</mat-option>
                 <mat-option [value]=2>2</mat-option>
@@ -59,11 +59,11 @@
             <mat-slide-toggle
             matTooltip="Click to ban"
             color="warn"
-            [(ngModel)]="this.offender.banStatus"
-            [checked]="this.offender.banStatus"
+            [(ngModel)]="offender.banStatus"
+            [checked]="offender.banStatus"
             name="banStatus">
-                <span *ngIf="!this.offender.banStatus">Shit Listed</span>
-                <span *ngIf="this.offender.banStatus">Banned on {{offender.lastUpdated | date}} by Admin{{Admin}}</span>
+                <span *ngIf="!offender.banStatus">Shit Listed</span>
+                <span *ngIf="offender.banStatus">Banned on {{offender.lastUpdated | date}} by Admin{{Admin}}</span>
             </mat-slide-toggle>
         </div>
         <div class="form-group row">
