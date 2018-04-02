@@ -50,16 +50,14 @@ export class OffenderComponent implements OnInit, AppModule {
     @Output()
     selectionChange: EventEmitter<MatSelectChange>
 
-    isCollapsed: boolean;
+    // isCollapsed: boolean;
     offenders: Offender[];
     offender: Offender;
     today: string;
-    copyright: Number;
 
     ngOnInit() {
         this.offenders = [];
         this.today = new Date().toString();
-        this.copyright = new Date().getFullYear();
 
         for (let i = 0; i < 3; i++) {
             this.offender = new Offender();
@@ -69,7 +67,7 @@ export class OffenderComponent implements OnInit, AppModule {
             this.offender.dateAdded = new Date("Oct 4 2017");
             this.offender.lastUpdated = new Date();
             this.offender.notes = [];
-            this.offender.banStatus = this.offender.score == 10;
+            this.offender.banStatus = false;
 
             this.offenders.push(this.offender);
         }
@@ -81,10 +79,11 @@ export class OffenderComponent implements OnInit, AppModule {
 
     }
 
-    newName:string = '';
+    newName: string = '';
 
-    doSomething($event: EventEmitter<MatSelectChange>) {
-        this.offender.banStatus = this.offender.score == 10;
+    doSomething($event: EventEmitter<MatSelectChange>, offender) {
+        this.offender.score = offender.score;
+
     }
 
     buttonClicked() {
