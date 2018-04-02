@@ -1,7 +1,9 @@
-Login page
-Filtering / sorting by offender name
-Delete function? (Won't show up on main view but still searchable in archive)
-Upload image function (for screenshots of offending posts/comments before they get deleted
-Check for duplicates before adding new offender
-Field for link to FB profile in case they change their name
-Ability to Edit name field
+* MVP
+
+* Login page
+  Filtering / sorting by offender name
+  Delete function? (Won't show up on main view but still searchable in archive)
+  Upload image function (for screenshots of offending posts/comments before they get deleted
+  Check for duplicates before adding new offender
+  Field for link to FB profile in case they change their name
+  Ability to Edit name field
