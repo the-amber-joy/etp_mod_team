@@ -1,0 +1,11 @@
+mat-expansion-panel-header {
+    font-size: 20px;
+}
+
+.banned {
+    color: #ef9a9a;
+}
+
+.new-offender, .offenders {
+    margin: 20px auto 10px auto;
+}

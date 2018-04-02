@@ -1,28 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, EventEmitter } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatFormFieldControl, MatInputModule, MatSlideToggleModule, MatDividerModule, MatSelectModule, MatSelectChange, MatExpansionModule } from '@angular/material';
+import {
+  MatButtonModule, MatCheckboxModule, MatFormFieldModule,
+  MatFormFieldControl, MatInputModule, MatSlideToggleModule,
+  MatDividerModule, MatSelectModule, MatSelectChange, MatExpansionModule,
+  MatListModule,
+  MatDialogModule
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { OffenderComponent } from "../app/offender/offender.component";
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from '../app/footer/footer.component';
+import { AddNewComponent } from './offender/add-new/add-new.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     OffenderComponent,
-    // NavbarComponent,
-    FooterComponent
+    AddNewComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    NgbModule.forRoot(),
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -32,7 +34,9 @@ import { FooterComponent } from '../app/footer/footer.component';
     MatSlideToggleModule,
     MatDividerModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatListModule,
+    MatDialogModule
   ],
   providers: [
     HttpClientModule
@@ -40,8 +44,6 @@ import { FooterComponent } from '../app/footer/footer.component';
   bootstrap: [
     AppComponent,
     OffenderComponent,
-    // NavbarComponent,
-    FooterComponent
   ]
 })
 export class AppModule { }

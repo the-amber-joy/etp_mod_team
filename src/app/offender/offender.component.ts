@@ -9,6 +9,7 @@ import { AppModule } from '../app.module';
 import { MatSelectChange } from '@angular/material';
 
 
+
 @Component({
     selector: 'offenders-component',
     templateUrl: './offender.component.html',
@@ -16,7 +17,7 @@ import { MatSelectChange } from '@angular/material';
 })
 export class OffenderComponent implements OnInit, AppModule {
 
-    constructor() {
+    constructor() { 
             // this.getFromUrl('http://catpicture.com').subscribe(value => {
     //     // do something
     //     },
