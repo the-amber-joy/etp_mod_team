@@ -1,91 +1,85 @@
 <mat-list class="newOffender" role="list" style="list-style-type:none">
-    <li>
+    <mat-list-item>
         <mat-form-field>
-            <input matInput placeholder="Who is it now?">
+            <input name="newName" matInput placeholder="Who is it now?">
         </mat-form-field>
-    </li>
-    <li>
-        <button mat-raised-button >Add</button>
-    </li>
+    </mat-list-item>
+    <mat-list-item>
+        <button mat-raised-button (click)="openDialog()">Add</button>
+    </mat-list-item>
 </mat-list>
+
 <div class="offenders">
-<!-- <div class="offenders" *ngFor="let offender of offenders"> -->
-    <mat-accordion>
-        <mat-expansion-panel>
-
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    {{offender.firstName}} {{offender.lastName}}
-                </mat-panel-title>
-                <mat-panel-description>
-                    <span class="points" *ngIf="!offender.banStatus && offender.score < 10">{{offender.score}} Point<span *ngIf="offender.score > 1">s</span></span>
-                    <span class="banned" *ngIf="!offender.banStatus && offender.score == 10">{{offender.score}} Points</span>
-                    <span class="banned" *ngIf="offender.banStatus">Banned</span>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-
-        <div class="date-added">First Offense: {{offender.dateAdded | date}}</div>
-        <div>
-            Last Updated:
-                <span *ngIf="this.offender.lastUpdated.toString() == today">Today</span>
-                <span *ngIf="this.offender.lastUpdated.toString() !== today">{{offender.lastUpdated | date}}</span>
-                by Admin{{Admin}}
+<mat-accordion>
+<mat-expansion-panel *ngFor="let offender of offenders">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{offender.firstName}} {{offender.lastName}}
+        </mat-panel-title>
+        <mat-panel-description>
+            <span class="points" *ngIf="!offender.banStatus && offender.score < 10">{{offender.score}} Point<span *ngIf="offender.score > 1">s</span></span>
+            <span class="banned" *ngIf="!offender.banStatus && offender.score == 10">{{offender.score}} Points</span>
+            <span class="banned" *ngIf="offender.banStatus">Banned</span>
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="date-added">First Offense: {{offender.dateAdded | date}}</div>
+    <div>
+        Last Updated:
+            <span *ngIf="this.offender.lastUpdated.toString() == today">Today</span>
+            <span *ngIf="this.offender.lastUpdated.toString() !== today">{{offender.lastUpdated | date}}</span>
+            by Admin{{Admin}}
+    </div>
+    <form>
+        <div class="form-group row">
+        <mat-form-field>
+            <mat-select
+            placeholder="Score"
+            [(value)]="offender.score"
+            [disabled]="this.offender.banStatus"
+            [(ngModel)]="this.offender.score"
+            (selectionChange)="doSomething($event)"
+            name="score">
+                <mat-option [value]=1>1</mat-option>
+                <mat-option [value]=2>2</mat-option>
+                <mat-option [value]=3>3</mat-option>
+                <mat-option [value]=4>4</mat-option>
+                <mat-option [value]=5>5</mat-option>
+                <mat-option [value]=6>6</mat-option>
+                <mat-option [value]=7>7</mat-option>
+                <mat-option [value]=8>8</mat-option>
+                <mat-option [value]=9>9</mat-option>
+                <mat-option [value]=10>10</mat-option>
+            </mat-select>
+        </mat-form-field>
         </div>
-        <form>
-            <div class="form-group row">
-            <mat-form-field>
-                <mat-select
-                placeholder="Score"
-                [(value)]="offender.score"
-                [disabled]="this.offender.banStatus"
-                [(ngModel)]="this.offender.score"
-                (selectionChange)="doSomething($event)"
-                name="score">
-                    <mat-option [value]=1>1</mat-option>
-                    <mat-option [value]=2>2</mat-option>
-                    <mat-option [value]=3>3</mat-option>
-                    <mat-option [value]=4>4</mat-option>
-                    <mat-option [value]=5>5</mat-option>
-                    <mat-option [value]=6>6</mat-option>
-                    <mat-option [value]=7>7</mat-option>
-                    <mat-option [value]=8>8</mat-option>
-                    <mat-option [value]=9>9</mat-option>
-                    <mat-option [value]=10>10</mat-option>
-                </mat-select>
+        <div class="form-group row">
+            <mat-slide-toggle
+            matTooltip="Click to ban"
+            color="warn"
+            [(ngModel)]="this.offender.banStatus"
+            [checked]="this.offender.banStatus || this.offender.score == 10"
+            name="banStatus">
+                <span *ngIf="!this.offender.banStatus">Shit Listed</span>
+                <span *ngIf="this.offender.banStatus">Banned on {{offender.lastUpdated | date}} by Admin{{Admin}}</span>
+            </mat-slide-toggle>
+        </div>
+        <div class="form-group row">
+            <mat-form-field class="example-form-field">
+                <input matInput name="note" type="text" autocomplete="off" [(ngModel)]="note" placeholder="Add comments" />
+                <button mat-button matSuffix mat-icon-button (click)="note=''">
+                    <mat-icon>x</mat-icon>
+                </button>
             </mat-form-field>
-            </div>
-
-            <div class="form-group row">
-                <mat-slide-toggle
-                color="warn"
-                [(ngModel)]="this.offender.banStatus"
-                [checked]="this.offender.banStatus || this.offender.score == 10"
-                name="banStatus">
-                    <span *ngIf="!this.offender.banStatus">Shit Listed</span>
-                    <span *ngIf="this.offender.banStatus">Banned on {{offender.lastUpdated | date}} by Admin{{Admin}}</span>
-                </mat-slide-toggle>
-            </div>
-
-            <div class="form-group row">
-                <mat-form-field style="width: 300px;">
-                    <textarea matInput
-                    matTextareaAutosize
-                    matAutosizeMinRows="5"
-                    color="accent"
-                    placeholder="Add new notes"
-                    name="notes"
-                    id="notes">
-                    </textarea>
-                </mat-form-field>
-                <mat-list role="list">
-                    <h3 mat-subheader>History</h3>
-                    <mat-list-item role="notes">Previous notes would show up here.</mat-list-item>
-                    <mat-list-item role="notes">Here's another note you might see.</mat-list-item>
-                    <mat-list-item role="notes">This guy has a history.</mat-list-item>
-                </mat-list>
-            </div>
-            <button mat-raised-button color="accent">Save Changes</button>
-        </form>
-    </mat-expansion-panel>
-    </mat-accordion>
+            <ul>
+                <h4>History</h4>
+                <li>{{note}}</li>
+                <li>Previous notes would show up here. <em>(Oct 4, 2017)</em></li>
+                <li>Here's another note you might see. It's a longer note with more stuff in it. The text just goes on and on and on. <em>(Dec 19, 2017)</em></li>
+                <li>This guy has a history. <em>(Jan 23, 2018)</em></li>
+            </ul>
+        </div>
+        <button mat-raised-button color="accent" (click)="buttonClicked()">Save Changes</button>
+    </form>
+</mat-expansion-panel>
+</mat-accordion>
 </div>

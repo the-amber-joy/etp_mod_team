@@ -6,7 +6,7 @@ export class Offender {
     score: number;
     dateAdded: Date;
     lastUpdated: Date;
-    notes: string;
+    notes: Note[];
     banStatus: boolean
 
     // constructor(
