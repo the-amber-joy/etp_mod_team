@@ -13,8 +13,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot -prod",
-    "heroku-prebuild": "rm -rf node_modules && npm cache clean"
+    "postinstall": "ng build --aot -prod"
   },
   "private": false,
   "dependencies": {
