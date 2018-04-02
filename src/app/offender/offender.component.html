@@ -21,8 +21,8 @@
         </mat-panel-title>
         <mat-panel-description>
             <span *ngIf="!offender.banStatus && offender.score < 10">{{offender.score}} Point<span *ngIf="offender.score > 1">s</span></span>
-            <span color="mat-warn" *ngIf="!offender.banStatus && offender.score == 10">{{offender.score}} Points</span>
-            <span class="mat-warn" *ngIf="offender.banStatus">Banned</span>
+            <span class="banned" *ngIf="!offender.banStatus && offender.score == 10">{{offender.score}} Points</span>
+            <span class="banned" *ngIf="offender.banStatus">Banned</span>
         </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="date-added">First Offense: {{offender.dateAdded | date}}</div>
