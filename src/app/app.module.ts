@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, EventEmitter } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatFormFieldControl, MatInputModule, MatSlideToggleModule, MatDividerModule, MatSelectModule, MatSelectChange, MatExpansionModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,7 +21,6 @@ import { FooterComponent } from '../app/footer/footer.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    NgbModule.forRoot(),
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
