@@ -8,6 +8,29 @@ import { OffenderService } from "./offender.service";
 import { AppModule } from '../app.module';
 import { MatSelectChange } from '@angular/material';
 
+
+@Component({
+    selector: 'add-new-dialog',
+    templateUrl: './add-new.dialog.html',
+})
+export class AddNewDialog {
+
+    constructor(
+        public dialogRef: MatDialogRef<AddNewDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    name: string;
+
+    cancelAdd(): void {
+        this.dialogRef.close();
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+}
+
+
 @Component({
     selector: 'offenders-component',
     templateUrl: './offender.component.html',
@@ -78,20 +101,5 @@ export class OffenderComponent implements OnInit, AppModule {
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
         });
-    }
-}
-
-@Component({
-    selector: 'add-new-dialog',
-    templateUrl: './add-new.dialog.html',
-})
-export class AddNewDialog {
-
-    constructor(
-        public dialogRef: MatDialogRef<AddNewDialog>,
-        @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-    onNoClick(): void {
-        this.dialogRef.close();
     }
 }

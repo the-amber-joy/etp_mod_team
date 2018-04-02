@@ -11,13 +11,14 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { OffenderComponent } from "../app/offender/offender.component";
+import { OffenderComponent, AddNewDialog } from "../app/offender/offender.component";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     OffenderComponent,
+    AddNewDialog
   ],
   imports: [
     BrowserModule,

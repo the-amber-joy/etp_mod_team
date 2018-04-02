@@ -1,15 +1,18 @@
 <h1 mat-dialog-title>Adding {{name}} to the Shit List</h1>
+
 <div mat-dialog-content>
     <p>Initial Points:</p>
     <mat-form-field>
-        <number max="10" matInput>
+        <input matInput type="number" max="10" matInput>
     </mat-form-field>
+
     <mat-form-field>
-        <input matInput placeholder="Notes">
+        <input matInput type="text" autocomplete="off"placeholder="Notes">
     </mat-form-field>
-</div>
-<div mat-dialog-actions>
-    <button mat-button (click)="cancelAdd()">Cancel</button>
-    <button mat-button (click)="cancelAdd()">Add</button>
-    <!-- <button mat-button [mat-dialog-close]="data.animal">Add</button> -->
+
+    <div mat-dialog-actions>
+        <button mat-button (click)="cancelAdd()">Cancel</button>
+        <button mat-button (click)="cancelAdd()">Add</button>
+        <!-- <button mat-button [mat-dialog-close]="data.animal">Add</button> -->
+    </div>
 </div>
