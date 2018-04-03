@@ -2,8 +2,26 @@ mat-expansion-panel-header {
     font-size: 20px;
 }
 
+mat-icon {
+    color: accent;
+}
+
+.note-btn:after {
+    font-family: 'FontAwesome';
+    content: "\f055";
+    font-size: 3em;
+}
+
+.note-btn.mat-icon-button {
+     color: #28a745;
+}
+
+.note-btn:disabled {
+    color: rgba(0,0,0,.26);
+}
+
 .banned {
-    color: #ef9a9a;
+    color: #f44336;
 }
 
 .new-offender, .offenders {

@@ -1,0 +1,13 @@
+mat-input-element {
+    color: warn;
+}
+
+.save-button {
+    float: left;
+    color: accent
+}
+
+.cancel-button {
+    float: right;
+    color: warn
+}
