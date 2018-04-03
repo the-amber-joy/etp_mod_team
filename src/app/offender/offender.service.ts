@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { Person } from '../shared/person.model';
+import { Admin } from '../shared/admin.model';
 
 @Injectable()
 export class OffenderService {

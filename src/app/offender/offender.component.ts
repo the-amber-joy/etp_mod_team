@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, Inject  } from '@angula
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Offender } from './offender.model';
 import { Note } from "../shared/note.model";
+import { Admin } from "../shared/admin.model";
 import { Observable } from 'rxjs/Observable';
 
 import { OffenderService } from "./offender.service";
@@ -54,9 +55,12 @@ export class OffenderComponent implements OnInit, AppModule {
     offenders: Offender[];
     offender: Offender;
     today: string;
+    newNote: string;
 
     ngOnInit() {
         this.offenders = [];
+        this.newNote = '';
+
         this.today = new Date().toString();
 
         for (let i = 0; i < 3; i++) {
@@ -69,8 +73,12 @@ export class OffenderComponent implements OnInit, AppModule {
             this.offender.lastUpdated = new Date();
             this.offender.notes = [];
             this.offender.banStatus = false;
-
+            let newNote0 = new Note("Previous notes would show up here.", new Date("Oct 4 2017"), new Admin("Patrick", "Umphrey", "CoachPotato"));
+            let newNote1 = new Note("Here's another note you might see. It's a longer note with more stuff in it.The text just goes on and on and on.", new Date("Dec 19 2017"), new Admin("Susan", "Chambers", "DeadliftQueen"));
+            let newNote2 = new Note("This guy has a history.", new Date("Jan 23 2018"), new Admin("Jer", "Chapman", "PieHater"));
+            this.offender.notes.push(newNote0, newNote1, newNote2);
             this.offenders.push(this.offender);
+            console.log(this.offender.notes[0].comment);
         }
 
         // this.offenders = OffenderService.getList(): Observable < Offender > {

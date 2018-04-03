@@ -67,21 +67,30 @@
             </mat-slide-toggle>
         </div>
         <div class="form-group row">
-            <mat-form-field class="example-form-field">
-                <input matInput name="note" type="text" autocomplete="off" [(ngModel)]="note" placeholder="Add comments" />
-                <button mat-button matSuffix mat-icon-button (click)="note=''">
-                    <mat-icon>x</mat-icon>
+            <mat-form-field>
+                <input matInput name="newNote" type="text" autocomplete="off" [(ngModel)]="newNote" placeholder="Add comments" />
+                <button [disabled]="newNote == ''" mat-button matSuffix mat-icon-button (click)="newNote=''">
+                    <mat-icon *ngIf="newNote != ''">x</mat-icon>
                 </button>
             </mat-form-field>
-            <ul>
-                <h4>History</h4>
-                <li>{{note}}</li>
-                <li>Previous notes would show up here. <em>(Oct 4, 2017)</em></li>
-                <li>Here's another note you might see. It's a longer note with more stuff in it. The text just goes on and on and on. <em>(Dec 19, 2017)</em></li>
-                <li>This guy has a history. <em>(Jan 23, 2018)</em></li>
-            </ul>
+            <button class="note-btn" [disabled]="newNote == ''" mat-button matSuffix label="Add comment" mat-icon-button (click)="addNewNote()">
+            </button>
         </div>
-        <button mat-raised-button color="accent" (click)="buttonClicked()">Save Changes</button>
+        <div class="form-group row">
+            <h3 class="mat-h3">History</h3>
+            <!-- <ul *ngFor="let note of offender.notes">
+                <li>{{note.comment}} <em>({{note.dateAdded | date}} by {{note.addedBy.nickName}})</em></li>
+            </ul> -->
+            <ul *ngFor="let note of offender.notes">
+                <li>
+                    {{note.comment}}
+                    <span>({{note.dateAdded | date}} by {{note.addedBy.nickName}})</span>
+                </li>
+            </ul>
+
+        </div>
+        <button class="save-btn" float="left" mat-raised-button color="primary" (click)="buttonClicked()">Save Changes</button>
+        <button class="cancel-btn"  float="right" mat-raised-button color="warn" (click)="buttonClicked()">Discard Changes</button>
     </form>
 </mat-expansion-panel>
 </mat-accordion>

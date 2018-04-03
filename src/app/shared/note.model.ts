@@ -1,12 +1,12 @@
-import { Person } from "../shared/person.model";
+import { Admin } from "../shared/admin.model";
 
 export class Note {
-    note: string;
+    comment: string;
     dateAdded: Date;
-    addedBy: Person;
+    addedBy: Admin;
 
-    constructor(note: string, dateAdded: Date, addedBy: Person) {
-        this.note = note;
+    constructor(comment: string, dateAdded: Date, addedBy: Admin) {
+        this.comment = comment;
         this.dateAdded = dateAdded;
         this.addedBy = addedBy;
     }
