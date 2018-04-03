@@ -27,3 +27,18 @@ mat-icon {
 .new-offender, .offenders {
     margin: 20px auto 10px auto;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  padding-left: 1.3em;
+}
+li:before {
+  font-family: "FontAwesome";
+  content: "\f075";
+  display: inline-block;
+  margin-left: -1.3em;
+  width: 1.3em;
+}
