@@ -24,7 +24,6 @@ export class OffenderComponent implements OnInit, AppModule {
     ngOnInit() {
         this.getOffenders();
         this.offenders;
-        this.newNote = '';
 
         // this.offenders = OffenderService.getList(url): Observable < Offender > {
         //     return this.httpClient.get('/api/people');
@@ -47,11 +46,9 @@ export class OffenderComponent implements OnInit, AppModule {
         offender.banStatus = offender.score == 10;
     }
 
-    addNewNote() {
-        console.log(this.offender.notes);
+    addNewNote(offender) {
         let noteToAdd = new Note(this.newNote, new Date(), new Admin("Patrick", "Umphrey", "CoachPotato"))
-        this.offender.notes.push(noteToAdd);
-        console.log(this.offender.notes);
+        offender.notes.push(noteToAdd);
         this.newNote = '';
     }
 

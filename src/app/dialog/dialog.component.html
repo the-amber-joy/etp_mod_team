@@ -1,8 +1,12 @@
 <h1 mat-dialog-title>Adding {{data.name}} to the Shit List</h1>
+<div mat-dialog-content>
 
-<!-- <div mat-dialog-content> -->
   <mat-form-field>
-    <mat-select placeholder="Initial Points" [(value)]="data.score" [(ngModel)]="data.score" (selectionChange)="doSomething($event)"
+    <input matInput type="text" name="name" autocomplete="off" [(ngModel)]="data.name" placeholder="Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Initial Points" [(value)]="data.score" [(ngModel)]="data.score"
       name="newOffenderPoints">
       <mat-option [value]=1>1</mat-option>
       <mat-option [value]=2>2</mat-option>
@@ -25,4 +29,4 @@
     <button mat-button (click)="cancelAdd()">Cancel</button>
     <button mat-button [mat-dialog-close]="data">Add</button>
   </div>
-<!-- </div> -->
+</div>
