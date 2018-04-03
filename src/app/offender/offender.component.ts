@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject  } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Offender } from './offender.model';
 import { Note } from "../shared/note.model";
@@ -57,6 +57,7 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     openDialog(): void {
+        console.log("button Clicked");
         let dialogRef = this.dialog.open(DialogComponent, {
             height: '400px',
             width: '600px',
