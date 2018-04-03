@@ -8,29 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { OffenderService } from "./offender.service";
 import { AppModule } from '../app.module';
 import { MatSelectChange } from '@angular/material';
-
-
-@Component({
-    selector: 'add-new-dialog',
-    templateUrl: './add-new.dialog.html',
-})
-export class AddNewDialog {
-
-    constructor(
-        public dialogRef: MatDialogRef<AddNewDialog>,
-        @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-    offenders: Offender[];
-    name: string;
-
-    cancelAdd(): void {
-        this.dialogRef.close();
-    }
-
-    onNoClick(): void {
-        this.dialogRef.close();
-    }
-}
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
     selector: 'offenders-component',
@@ -81,15 +59,16 @@ export class OffenderComponent implements OnInit, AppModule {
         alert("This form doesn't do anything yet");
     }
 
-
     openDialog(): void {
-        let dialogRef = this.dialog.open(AddNewDialog, {
-            width: '250px',
+        let dialogRef = this.dialog.open(DialogComponent, {
+            height: '400px',
+            width: '600px',
             data: { name: this.newName }
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            console.log(`Dialog result: ${result}`);
+            this.newName = '';
         });
     }
 }

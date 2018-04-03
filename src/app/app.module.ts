@@ -11,15 +11,16 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { OffenderComponent, AddNewDialog } from "../app/offender/offender.component";
+import { OffenderComponent } from "../app/offender/offender.component";
 import { OffenderService } from './offender/offender.service';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     OffenderComponent,
-    AddNewDialog
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +48,6 @@ import { OffenderService } from './offender/offender.service';
     AppComponent,
     OffenderComponent,
   ],
-  entryComponents: [AddNewDialog]
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }
