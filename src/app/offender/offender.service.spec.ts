@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { OffenderService } from './offender.service';
 import { Offender } from './offender.model';
 import { Note } from '../shared/note.model';
-import { Person } from '../shared/person.model';
+import { Admin } from '../shared/admin.model';
 
 describe('OffenderService', () => {
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe('OffenderService', () => {
         new Note(
           'some words',
           this.dateAdded,
-          new Person('Big','Admin','BigAdmin',true)
+          new Admin('Big','Admin','BigAdmin')
         )
       ]
     }];

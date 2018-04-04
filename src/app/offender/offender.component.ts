@@ -40,18 +40,9 @@ export class AddNewDialog {
 export class OffenderComponent implements OnInit, AppModule {
     constructor(public dialog: MatDialog) { }
 
-    // constructor() {
-            // this.getFromUrl('http://catpicture.com').subscribe(value => {
-    //     // do something
-    //     },
-    //     error => {
-    //         // handle error here
-    //     });
-    // }
     @Output()
     selectionChange: EventEmitter<MatSelectChange>
 
-    // isCollapsed: boolean;
     offenders: Offender[];
     offender: Offender;
     today: string;
