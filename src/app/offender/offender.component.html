@@ -1,4 +1,4 @@
-<!-- <form ng-submit="openDialog()">
+<form (ngSubmit)="openDialog()">
     <mat-form-field>
         <button mat-button matPrefix mat-icon-button (click)="newName=''">
             <mat-icon *ngIf="newName != ''">x</mat-icon>
@@ -6,20 +6,12 @@
         <input name="newName" autocomplete="off" matInput [(ngModel)]="newName" placeholder="Who is it now?">
     </mat-form-field>
     <button type="submit" color="accent" mat-raised-button [disabled]="newName == ''">Add</button>
-</form> -->
-<form>
-    <mat-form-field>
-        <button mat-button matPrefix mat-icon-button (click)="newName=''">
-            <mat-icon *ngIf="newName != ''">x</mat-icon>
-        </button>
-        <input name="newName" autocomplete="off" matInput [(ngModel)]="newName" placeholder="Who is it now?">
-    </mat-form-field>
-    <button (click)="openDialog()" color="accent" mat-raised-button [disabled]="newName == ''">Add</button>
 </form>
 
 <div class="offenders">
 <mat-accordion>
 <mat-expansion-panel *ngFor="let offender of offenders">
+
     <mat-expansion-panel-header>
         <mat-panel-title>
             {{offender.name}}
@@ -30,6 +22,7 @@
             <span class="banned" *ngIf="offender.banStatus">Banned</span>
         </mat-panel-description>
     </mat-expansion-panel-header>
+
     <div class="date-added">First Offense: {{offender.dateAdded | date}}</div>
     <div>
         Last Updated:
@@ -37,8 +30,8 @@
             <span *ngIf="offender.lastUpdated.toString() !== today">{{offender.lastUpdated | date}}</span>
             by Admin{{Admin}}
     </div>
-    <form>
-        <div class="form-group">
+
+    <div class="form-group">
         <mat-form-field>
             <mat-select
             placeholder="Score"
@@ -59,36 +52,41 @@
                 <mat-option [value]=10>10</mat-option>
             </mat-select>
         </mat-form-field>
-        </div>
-        <div class="form-group">
-            <mat-slide-toggle
-            color="warn"
-            [(ngModel)]="offender.banStatus"
-            [checked]="offender.banStatus"
-            name="banStatus">
-                <span *ngIf="!offender.banStatus">Shit Listed</span>
-                <span *ngIf="offender.banStatus">Banned on {{offender.lastUpdated | date}} by Admin{{Admin}}</span>
-            </mat-slide-toggle>
-        </div>
-        <div class="form-group">
+    </div>
+
+    <div class="form-group">
+        <mat-slide-toggle
+        color="warn"
+        [(ngModel)]="offender.banStatus"
+        [checked]="offender.banStatus"
+        name="banStatus">
+            <span *ngIf="!offender.banStatus">Banned?</span>
+            <span *ngIf="offender.banStatus">Banned on {{offender.lastUpdated | date}} by Admin{{Admin}}</span>
+        </mat-slide-toggle>
+    </div>
+
+    <div class="form-group">
+        <form (ngSubmit)="addNewNote(offender)">
             <mat-form-field>
                 <button [disabled]="newNote == ''" mat-button matPrefix mat-icon-button (click)="newNote=''">
                     <mat-icon *ngIf="newNote != ''">x</mat-icon>
                 </button>
                 <input matInput name="newNote" type="text" autocomplete="off" [(ngModel)]="newNote" placeholder="Add comments" />
             </mat-form-field>
-            <button class="note-btn" [disabled]="newNote == ''" mat-button matSuffix label="Add comment" mat-icon-button (click)="addNewNote(offender)">
-            </button>
-        </div>
-        <div class="form-group">
-            <h3 class="mat-h3">History</h3>
-            <ul *ngFor="let note of offender.notes">
-                <li>{{note.comment}} <em>({{note.dateAdded | date}} by {{note.addedBy.nickName}})</em></li>
-            </ul>
-        </div>
-        <button class="save-btn" float="left" mat-raised-button color="primary" (click)="buttonClicked()">Save Changes</button>
-        <button class="cancel-btn"  float="right" mat-raised-button color="warn" (click)="buttonClicked()">Discard Changes</button>
-    </form>
+            <button class="note-btn" type="submit" [disabled]="newNote == ''" mat-button matSuffix label="Add comment" mat-icon-button></button>
+        </form>
+    </div>
+
+    <div class="form-group">
+        <h3 class="mat-h3">History</h3>
+        <ul *ngFor="let note of offender.notes">
+            <li>{{note.comment}} <em>({{note.dateAdded | date}} by {{note.addedBy.nickName}})</em></li>
+        </ul>
+    </div>
+
+    <button class="save-btn" float="left" mat-raised-button color="primary" (click)="buttonClicked()">Save Changes</button>
+    <button class="cancel-btn"  float="right" mat-raised-button color="warn" (click)="buttonClicked()">Discard Changes</button>
+
 </mat-expansion-panel>
 </mat-accordion>
 </div>
