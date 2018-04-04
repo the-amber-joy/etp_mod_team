@@ -69,23 +69,4 @@ export class OffenderComponent implements OnInit, AppModule {
             this.newName = '';
         });
     }
-
-
-    altOpenDialog() {
-        const dialogConfig = new MatDialogConfig();
-
-        dialogConfig.autoFocus = true;
-        dialogConfig.data = {
-            id: 1,
-            title: 'Angular For Beginners'
-        };
-
-        this.dialog.open(DialogComponent, dialogConfig);
-
-        const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
-
-        dialogRef.afterClosed().subscribe(
-            data => console.log("Dialog output:", data)
-        );
-    }
 }
