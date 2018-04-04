@@ -1,0 +1,7 @@
+.cdk-global-overlay-wrapper {
+  height: auto;
+}
+
+mat-dialog-content {
+  min-height: 300px;
+}
