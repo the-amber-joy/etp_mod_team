@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Adding {{data.name}} to the Shit List</h1>
+<div mat-dialog-content>
+
+  <mat-form-field>
+    <input matInput type="text" name="name" autocomplete="off" [(ngModel)]="data.name" placeholder="Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Initial Points" [(value)]="data.score" [(ngModel)]="data.score"
+      name="newOffenderPoints">
+      <mat-option [value]=1>1</mat-option>
+      <mat-option [value]=2>2</mat-option>
+      <mat-option [value]=3>3</mat-option>
+      <mat-option [value]=4>4</mat-option>
+      <mat-option [value]=5>5</mat-option>
+      <mat-option [value]=6>6</mat-option>
+      <mat-option [value]=7>7</mat-option>
+      <mat-option [value]=8>8</mat-option>
+      <mat-option [value]=9>9</mat-option>
+      <mat-option [value]=10>10</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" name="notes" autocomplete="off" [(ngModel)]="data.notes" placeholder="Notes">
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="cancelAdd()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data">Add</button>
+  </div>
+</div>
