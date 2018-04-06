@@ -80,7 +80,7 @@
     <div class="form-group">
         <h3 class="mat-h3">History</h3>
         <ul *ngFor="let note of offender.notes">
-            <li>{{note.comment}} <em>({{note.dateAdded | date}} by {{note.addedBy.nickName}})</em></li>
+            <li>{{note.note}} <em>({{note.dateAdded | date}} by {{note.addedBy.nickName}})</em></li>
         </ul>
     </div>
 

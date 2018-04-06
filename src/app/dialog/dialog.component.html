@@ -10,7 +10,11 @@
 
   <div class="form-group">
     <mat-form-field>
-      <mat-select placeholder="Initial Points" [(value)]="data.score" [(ngModel)]="data.score" name="newOffenderPoints">
+      <mat-select placeholder="Initial Points"
+      [(value)]="data.score"
+      [(ngModel)]="data.score"
+      (selectionChange)="updateScore($event, data)"
+      name="newOffenderPoints">
         <mat-option [value]=1>1</mat-option>
         <mat-option [value]=2>2</mat-option>
         <mat-option [value]=3>3</mat-option>
@@ -27,14 +31,14 @@
 
   <div class="form-group">
     <mat-form-field>
-      <input matInput type="text" name="notes" autocomplete="off" [(ngModel)]="data.notes" placeholder="Notes">
+      <input matInput type="text" name="note" autocomplete="off" [(ngModel)]="data.note" placeholder="Note">
     </mat-form-field>
   </div>
   <div class="form-group">
 
     <mat-dialog-actions>
       <button mat-button (click)="cancelAdd()">Cancel</button>
-      <button mat-button [mat-dialog-close]="data">Add</button>
+      <button mat-button [mat-dialog-close]="data" (click)=addNew()>Add</button>
     </mat-dialog-actions>
   </div>
 </mat-dialog-content>
