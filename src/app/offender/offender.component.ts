@@ -34,7 +34,7 @@ export class OffenderComponent implements OnInit, AppModule {
     selectionChange: EventEmitter<MatSelectChange>
     offenders: Offender[];
     offender: Offender;
-    newNote: string;
+    newNote: string = '';
     addedName: string = '';
     addedScore: number;
     addedNote: string;
