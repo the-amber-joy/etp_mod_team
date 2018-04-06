@@ -4,13 +4,24 @@
   <div class="form-group">
 
     <mat-form-field>
-      <input matInput type="text" name="name" autocomplete="off" [(ngModel)]="data.name" placeholder="Name">
+      <input matInput
+      [formControl]="nameCtrl"
+      required
+      type="text"
+      name="name"
+      autocomplete="off"
+      [(ngModel)]="data.name"
+      placeholder="Name">
+      <mat-error *ngIf="nameCtrl.invalid">{{getNameError()}}</mat-error>
     </mat-form-field>
   </div>
 
   <div class="form-group">
     <mat-form-field>
-      <mat-select placeholder="Initial Points"
+      <mat-select
+      [formControl]="scoreCtrl"
+      required
+      placeholder="Initial Points"
       [(value)]="data.score"
       [(ngModel)]="data.score"
       (selectionChange)="updateScore($event, data)"
@@ -26,19 +37,29 @@
         <mat-option [value]=9>9</mat-option>
         <mat-option [value]=10>10</mat-option>
       </mat-select>
+      <mat-error *ngIf="scoreCtrl.invalid">{{getScoreError()}}</mat-error>
     </mat-form-field>
   </div>
 
   <div class="form-group">
     <mat-form-field>
-      <input matInput type="text" name="note" autocomplete="off" [(ngModel)]="data.note" placeholder="Note">
+      <input
+       [formControl]="noteCtrl"
+       matInput
+       required
+       type="text"
+       name="note"
+       autocomplete="off"
+       [(ngModel)]="data.note"
+       placeholder="Note">
+      <mat-error *ngIf="noteCtrl.invalid">{{getNotesError()}}</mat-error>
     </mat-form-field>
   </div>
   <div class="form-group">
 
     <mat-dialog-actions>
       <button mat-button (click)="cancelAdd()">Cancel</button>
-      <button mat-button [mat-dialog-close]="data" (click)=addNew()>Add</button>
+      <button mat-button (click)=addNew()>Add</button>
     </mat-dialog-actions>
   </div>
 </mat-dialog-content>

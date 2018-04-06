@@ -74,9 +74,9 @@ export class OffenderComponent implements OnInit, AppModule {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
-            this.offenders.push(result);
-            console.log(this.offenders);
+            if (result) {
+                this.offenders.push(result);
+            }
             this.addedName = '';
         });
     }
