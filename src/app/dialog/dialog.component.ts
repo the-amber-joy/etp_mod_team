@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject, ViewEncapsulation, NgModule } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
 import { Offender } from '../offender/offender.model';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'dialog',
