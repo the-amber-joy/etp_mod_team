@@ -45,10 +45,6 @@ export class DialogComponent implements OnInit {
   selectionChange: EventEmitter<MatSelectChange>
 
 
-  updateScore($event: EventEmitter<MatSelectChange>, data) {
-    this.data.banStatus = data.score == 10;
-  }
-
   addNew() {
     if (this.nameCtrl.valid && this.noteCtrl.valid && this.scoreCtrl.valid) {
       let newOffender = new Offender();

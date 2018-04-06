@@ -44,10 +44,6 @@ export class OffenderComponent implements OnInit, AppModule {
         this.offenders = this.offenderService.getOffenders();
     }
 
-    doSomething($event: EventEmitter<MatSelectChange>, offender) {
-        offender.banStatus = offender.score == 10;
-    }
-
     addNewNote(offender) {
         let noteToAdd = new Note(this.newNote, new Date(), new Admin("Fake", "Tester", "Admin"))
         offender.notes.push(noteToAdd);
@@ -60,7 +56,6 @@ export class OffenderComponent implements OnInit, AppModule {
 
     openDialog(): void {
         // Why does the data only bind if button is clicked, but not on hitting Enter?
-        if (this.addedScore == 10) { this.addedBanStatus = true }
         let dialogRef = this.dialog.open(DialogComponent, {
             data: {
                 name: this.addedName,
@@ -69,7 +64,7 @@ export class OffenderComponent implements OnInit, AppModule {
                 dateAdded: new Date(),
                 lastUpdated: new Date(),
                 nickname: 'newguy',
-                banStatus: this.addedBanStatus
+                banStatus: false
             }
         });
 
