@@ -1,11 +1,11 @@
 <form (ngSubmit)="openDialog()">
     <mat-form-field>
-        <button mat-button matPrefix mat-icon-button (click)="newName=''">
-            <mat-icon *ngIf="newName != ''">x</mat-icon>
+        <button mat-button matPrefix mat-icon-button (click)="addedName=''">
+            <mat-icon *ngIf="addedName != ''">x</mat-icon>
         </button>
-        <input name="newName" autocomplete="off" matInput [(ngModel)]="newName" placeholder="Who is it now?">
+        <input name="addedName" autocomplete="off" matInput [(ngModel)]="addedName" placeholder="Who is it now?">
     </mat-form-field>
-    <button type="submit" color="accent" mat-raised-button [disabled]="newName == ''">Add</button>
+    <button type="submit" color="accent" mat-raised-button [disabled]="addedName == ''">Add</button>
 </form>
 
 <div class="offenders">

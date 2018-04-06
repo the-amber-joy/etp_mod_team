@@ -35,7 +35,9 @@ export class OffenderComponent implements OnInit, AppModule {
     offenders: Offender[];
     offender: Offender;
     newNote: string;
-    newName: string = '';
+    addedName: string = '';
+    addedScore: number;
+    addedNote: string;
 
     getOffenders() {
         this.offenders = this.offenderService.getOffenders();
@@ -46,7 +48,7 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     addNewNote(offender) {
-        let noteToAdd = new Note(this.newNote, new Date(), new Admin("Patrick", "Umphrey", "CoachPotato"))
+        let noteToAdd = new Note(this.newNote, new Date(), new Admin("Fake", "Tester", "Admin"))
         offender.notes.push(noteToAdd);
         this.newNote = '';
     }
@@ -57,14 +59,19 @@ export class OffenderComponent implements OnInit, AppModule {
 
     openDialog(): void {
         // Why does the data only bind if button is clicked, but not on hitting Enter?
-        console.log("button Clicked with new name:", this.newName);
+        console.log("button Clicked with new name:", this.addedName);
         let dialogRef = this.dialog.open(DialogComponent, {
-            data: { name: this.newName }
+            data: {
+                name: this.addedName,
+                score: this.addedScore,
+                note: this.addedNote
+            }
         });
 
         dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
-            this.newName = '';
+            this.offenders.push(result);
+            this.addedName = '';
         });
     }
 }

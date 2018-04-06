@@ -8,7 +8,6 @@ function buildMockOffenderList(): Offender[] {
     let offenders = [];
     for (let i = 0; i < 3; i++) {
         let offender = new Offender();
-        offender.id = i + 1;
         offender.name = 'Offender ' + (i + 1).toString();
         offender.score = i + 5;
         offender.dateAdded = new Date("Oct 4 2017");
