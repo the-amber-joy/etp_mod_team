@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject, NgModule } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material';
-import { Offender } from './offender.model';
+import { Offender } from '../shared/offender.model';
 import { Note } from "../shared/note.model";
 import { Admin } from "../shared/admin.model";
 import { Observable } from 'rxjs/Observable';
@@ -36,16 +36,13 @@ export class OffenderComponent implements OnInit, AppModule {
     offender: Offender;
     newNote: string = '';
     addedName: string = '';
-    addedScore: number;
-    addedNote: string;
-    addedBanStatus: boolean;
 
     getOffenders() {
         this.offenders = this.offenderService.getOffenders();
     }
 
     addNewNote(offender) {
-        let noteToAdd = new Note(this.newNote, new Date(), new Admin("Fake", "Tester", "Admin"))
+        let noteToAdd = new Note(this.newNote, new Admin("Fake", "Tester", "Admin"))
         offender.notes.push(noteToAdd);
         this.newNote = '';
     }
@@ -59,12 +56,8 @@ export class OffenderComponent implements OnInit, AppModule {
         let dialogRef = this.dialog.open(DialogComponent, {
             data: {
                 name: this.addedName,
-                score: this.addedScore,
-                note: this.addedNote,
-                dateAdded: new Date(),
-                lastUpdated: new Date(),
-                nickname: 'newguy',
-                banStatus: false
+                points: Number,
+                note: String
             }
         });
 

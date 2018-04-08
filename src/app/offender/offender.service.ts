@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Offender } from "./offender.model";
+import { Offender } from "../shared/offender.model";
 import { Admin } from '../shared/admin.model';
 import { Note } from '../shared/note.model';
 import { MOCKDATA } from './MOCKDATA';

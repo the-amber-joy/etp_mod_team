@@ -17,28 +17,28 @@
             {{offender.name}}
         </mat-panel-title>
         <mat-panel-description>
-            <span *ngIf="!offender.banStatus && offender.score < 10">{{offender.score}} Point<span *ngIf="offender.score > 1">s</span></span>
-            <span class="banned" *ngIf="!offender.banStatus && offender.score == 10">{{offender.score}} Points</span>
+            <span *ngIf="!offender.banStatus && offender.points < 10">{{offender.points}} Point<span *ngIf="offender.points > 1">s</span></span>
+            <span class="banned" *ngIf="!offender.banStatus && offender.points == 10">{{offender.points}} Points</span>
             <span class="banned" *ngIf="offender.banStatus">Banned</span>
         </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div class="date-added">First Offense: {{offender.dateAdded | date}}</div>
+    <div class="date-added">First Offense: {{offender.created | date}}</div>
     <div>
         Last Updated:
-            <span *ngIf="offender.lastUpdated.toString() == today">Today</span>
-            <span *ngIf="offender.lastUpdated.toString() !== today">{{offender.lastUpdated | date}}</span>
+            <span *ngIf="offender.updated.toString() == today">Today</span>
+            <span *ngIf="offender.updated.toString() !== today">{{offender.updated | date}}</span>
             by Admin{{Admin}}
     </div>
 
     <div class="form-group">
         <mat-form-field>
             <mat-select
-            placeholder="Score"
-            [(value)]="offender.score"
-            [disabled]="offender.banStatus"
-            [(ngModel)]="offender.score"
-            name="score">
+            placeholder="Points"
+            [(value)]="offender.points"
+            [disabled]="offender.isBanned"
+            [(ngModel)]="offender.points"
+            name="points">
                 <mat-option [value]=1>1</mat-option>
                 <mat-option [value]=2>2</mat-option>
                 <mat-option [value]=3>3</mat-option>
@@ -56,11 +56,11 @@
     <div class="form-group">
         <mat-slide-toggle
         color="warn"
-        [(ngModel)]="offender.banStatus"
-        [checked]="offender.banStatus"
-        name="banStatus">
-            <span *ngIf="!offender.banStatus">Banned?</span>
-            <span *ngIf="offender.banStatus">Banned on {{offender.lastUpdated | date}} by Admin{{Admin}}</span>
+        [(ngModel)]="offender.isBanned"
+        [checked]="offender.isBanned"
+        name="isBanned">
+            <span *ngIf="!offender.isBanned">Banned?</span>
+            <span *ngIf="offender.isBanned">Banned on {{offender.lastUpdated | date}} by Admin{{Admin}}</span>
         </mat-slide-toggle>
     </div>
 
@@ -79,7 +79,7 @@
     <div class="form-group">
         <h3 class="mat-h3">History</h3>
         <ul *ngFor="let note of offender.notes">
-            <li>{{note.note}} <em>({{note.dateAdded | date}} by {{note.addedBy.nickName}})</em></li>
+            <li>{{note.note}} <em>({{note.created | date}} by {{note.addedBy.nickName}})</em></li>
         </ul>
     </div>
 

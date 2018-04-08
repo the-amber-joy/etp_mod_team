@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject, ViewEncapsulation, NgModule } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
-import { Offender } from '../offender/offender.model';
+import { Offender } from '../shared/offender.model'
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { Admin } from '../shared/admin.model';
@@ -49,15 +49,12 @@ export class DialogComponent implements OnInit {
     if (this.nameCtrl.valid && this.noteCtrl.valid && this.scoreCtrl.valid) {
       let newOffender = new Offender();
       newOffender.notes = [];
-      let newNote = new Note(this.data.note, new Date(), new Admin("Fake", "Tester", "Admin"));
+      let newNote = new Note(this.data.note, new Admin("Fake", "Tester", "Admin"));
 
       newOffender.name = this.data.name;
-      newOffender.score = this.data.score;
+      newOffender.points = this.data.score;
       newOffender.notes[0] = newNote;
-      newOffender.nickname = this.data.nickname ? this.data.nickname : null;
-      newOffender.dateAdded = new Date();
-      newOffender.lastUpdated = new Date();
-      newOffender.banStatus = this.data.banStatus;
+      newOffender.nickName = this.data.nickname ? this.data.nickname : null;
 
       this.dialogRef.close(newOffender);
     } else { console.log("more data")}
