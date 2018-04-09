@@ -9,7 +9,7 @@
   "scripts": {
     "ng": "ng",
     "proxyserve": "ng serve --proxy-config proxy.config.json",
-    "start": "nodemon server/server.js",
+    "start": "nodemon server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
