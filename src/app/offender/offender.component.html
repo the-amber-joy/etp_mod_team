@@ -12,8 +12,8 @@
 <mat-accordion>
 <mat-expansion-panel *ngFor="let offender of offenders">
 
-    <mat-expansion-panel-header>
-        <mat-panel-title [class.changed-item]="changesMade">
+    <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true">
+        <mat-panel-title>
             {{offender.name}}
         </mat-panel-title>
         <mat-panel-description>
