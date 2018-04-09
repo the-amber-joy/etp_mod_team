@@ -20,21 +20,13 @@
     <mat-form-field>
       <mat-select
       [formControl]="scoreCtrl"
-      required
+      required name="newOffenderPoints"
       placeholder="Initial Points"
       [(value)]="data.score"
-      [(ngModel)]="data.score"
-      name="newOffenderPoints">
-        <mat-option [value]=1>1</mat-option>
-        <mat-option [value]=2>2</mat-option>
-        <mat-option [value]=3>3</mat-option>
-        <mat-option [value]=4>4</mat-option>
-        <mat-option [value]=5>5</mat-option>
-        <mat-option [value]=6>6</mat-option>
-        <mat-option [value]=7>7</mat-option>
-        <mat-option [value]=8>8</mat-option>
-        <mat-option [value]=9>9</mat-option>
-        <mat-option [value]=10>10</mat-option>
+      [(ngModel)]="data.score">
+        <mat-option *ngFor="let point of points" [value]="point.value">
+          {{point.display}}
+        </mat-option>
       </mat-select>
       <mat-error *ngIf="scoreCtrl.invalid">{{getScoreError()}}</mat-error>
     </mat-form-field>
@@ -42,13 +34,10 @@
 
   <div class="form-group">
     <mat-form-field>
-      <input
+      <input matInput
        [formControl]="noteCtrl"
-       matInput
-       required
-       type="text"
-       name="note"
-       autocomplete="off"
+       required name="note"
+       type="text" autocomplete="off"
        [(ngModel)]="data.note"
        placeholder="Note">
       <mat-error *ngIf="noteCtrl.invalid">{{getNotesError()}}</mat-error>

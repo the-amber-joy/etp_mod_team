@@ -17,11 +17,15 @@ export class DialogComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.createDropdown();
+  }
 
+  @Output() selectionChange: EventEmitter<MatSelectChange>
   nameCtrl = new FormControl('', [Validators.required]);
   scoreCtrl = new FormControl(0, [Validators.required]);
   noteCtrl = new FormControl('', [Validators.required]);
+  points = []
 
   getNameError() {
     if (this.nameCtrl.hasError('required')) {
@@ -40,10 +44,6 @@ export class DialogComponent implements OnInit {
       return 'Please add a note about why you are shit-listing ' + this.data.name;
     }
   }
-
-  @Output()
-  selectionChange: EventEmitter<MatSelectChange>
-
 
   addNew() {
     if (this.nameCtrl.valid && this.noteCtrl.valid && this.scoreCtrl.valid) {
@@ -67,4 +67,13 @@ export class DialogComponent implements OnInit {
     this.data = null;
     this.dialogRef.close();
   }
+
+  createDropdown() {
+    for (let i = 0; i > 10; i++) {
+      let point = {"value": i+1, "display": i+1}
+      this.points.push(point);
+    }
+    return this.points;
+  }
+
 }
