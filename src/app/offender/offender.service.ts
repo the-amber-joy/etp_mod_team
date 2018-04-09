@@ -12,11 +12,16 @@ export class OffenderService {
   offenders: Offender[];
   constructor(private httpClient: HttpClient) { }
 
-  // getOffenders(): Offender[] {
+  // getAll(): Offender[] {
   //   return MOCKDATA;
   // }
 
-  getOffenders(): Observable<Offender[]>{
+  getAll(): Observable<Offender[]>{
     return this.httpClient.get<Offender[]>('/api/offenders')
   }
+
+  postNew(): Observable<Offender[]> {
+    return this.httpClient.get<Offender[]>('/api/offenders')
+  }
+
 }
