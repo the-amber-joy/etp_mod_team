@@ -2,7 +2,7 @@ const express = require('express');
 const api = express();
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DATABASE_URL || 'mongodb://localhost:27017/etp_mod_team');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/etp_mod_team');
 const Admin = require('../mongoDBmodels/admin_DBmodel');
 
 

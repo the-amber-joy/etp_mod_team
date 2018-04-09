@@ -2,7 +2,7 @@ const express = require('express');
 const api = express();
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DATABASE_URL || 'mongodb://localhost:27017/etp_mod_team');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/etp_mod_team');
 const Offender = require('../mongoDBmodels/offender_DBmodel');
 const Note = require('../mongoDBmodels/note_DBmodel');
 
@@ -22,10 +22,10 @@ api.route('/offender')
 
 // GET ALL
 api.route('/offenders').get((req, res) => {
-    Offender.find((err, offender) => {
+    Offender.find((err, offenders) => {
         if (err)
             res.send(err);
-        res.json(offender);
+        res.send(offenders);
     });
 });
 

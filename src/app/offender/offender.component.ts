@@ -22,12 +22,6 @@ export class OffenderComponent implements OnInit, AppModule {
 
     ngOnInit() {
         this.getOffenders();
-        this.offenders;
-
-        // this.offenders = OffenderService.getList(url): Observable < Offender > {
-        //     return this.httpClient.get('/api/people');
-        // return an array of typed objects to iterate through
-        // }
     }
 
     @Output()
@@ -38,7 +32,11 @@ export class OffenderComponent implements OnInit, AppModule {
     addedName: string = '';
 
     getOffenders() {
-        this.offenders = this.offenderService.getOffenders();
+        return this.offenderService.getOffenders().subscribe(response => {
+            console.log(response);
+            this.offenders = response;
+            return this.offenders;
+        });
     }
 
     addNewNote(offender) {

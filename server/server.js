@@ -22,5 +22,5 @@ app.set('port', process.env.PORT || 3000);
 const activePort = app.get('port');
 
 app.listen(activePort, () => {
-    console.log('Feel the heat on port ' + activePort + '!');
+    console.log('Makin\' big gainz on port ' + activePort + '. BOOM!');
 });

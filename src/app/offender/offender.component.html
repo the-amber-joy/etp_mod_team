@@ -17,9 +17,9 @@
             {{offender.name}}
         </mat-panel-title>
         <mat-panel-description>
-            <span *ngIf="!offender.banStatus && offender.points < 10">{{offender.points}} Point<span *ngIf="offender.points > 1">s</span></span>
-            <span class="banned" *ngIf="!offender.banStatus && offender.points == 10">{{offender.points}} Points</span>
-            <span class="banned" *ngIf="offender.banStatus">Banned</span>
+            <span *ngIf="!offender.isBanned && offender.points < 10">{{offender.points}} Point<span *ngIf="offender.points > 1">s</span></span>
+            <span class="banned" *ngIf="!offender.isBanned && offender.points == 10">{{offender.points}} Points</span>
+            <span class="banned" *ngIf="offender.isBanned">Banned</span>
         </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -60,7 +60,7 @@
         [checked]="offender.isBanned"
         name="isBanned">
             <span *ngIf="!offender.isBanned">Banned?</span>
-            <span *ngIf="offender.isBanned">Banned on {{offender.lastUpdated | date}} by Admin{{Admin}}</span>
+            <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
         </mat-slide-toggle>
     </div>
 
