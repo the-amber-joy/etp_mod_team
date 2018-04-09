@@ -57,8 +57,8 @@
   <div class="form-group">
 
     <mat-dialog-actions>
-      <button mat-button (click)="cancelAdd()">Cancel</button>
-      <button mat-button (click)=addNew()>Add</button>
+      <button mat-button color="warn" (click)="cancelAdd()">Cancel</button>
+      <button mat-button color="primary" [disabled]="nameCtrl.invalid || scoreCtrl.invalid || noteCtrl.invalid" (click)=addNew()>Add</button>
     </mat-dialog-actions>
   </div>
 </mat-dialog-content>

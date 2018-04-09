@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Offender } from "../shared/offender.model";
 import { Admin } from '../shared/admin.model';
 import { Note } from '../shared/note.model';
-import { MOCKDATA } from './MOCKDATA';
+// import { MOCKDATA } from './MOCKDATA';
 
 @Injectable()
 export class OffenderService {
@@ -12,11 +12,16 @@ export class OffenderService {
   offenders: Offender[];
   constructor(private httpClient: HttpClient) { }
 
-  // getOffenders(): Offender[] {
+  // getAll(): Offender[] {
   //   return MOCKDATA;
   // }
 
-  getOffenders(): Observable<Offender[]>{
+  getAll(): Observable<Offender[]>{
     return this.httpClient.get<Offender[]>('/api/offenders')
   }
+
+  postNew(): Observable<Offender[]> {
+    return this.httpClient.get<Offender[]>('/api/offenders')
+  }
+
 }

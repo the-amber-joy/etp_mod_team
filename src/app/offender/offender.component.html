@@ -12,7 +12,7 @@
 <mat-accordion>
 <mat-expansion-panel *ngFor="let offender of offenders">
 
-    <mat-expansion-panel-header>
+    <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true">
         <mat-panel-title>
             {{offender.name}}
         </mat-panel-title>
@@ -22,7 +22,7 @@
             <span class="banned" *ngIf="offender.isBanned">Banned</span>
         </mat-panel-description>
     </mat-expansion-panel-header>
-
+<div class="dates">
     <div class="date-added">First Offense: {{offender.created | date}}</div>
     <div>
         Last Updated:
@@ -30,14 +30,16 @@
             <span *ngIf="offender.updated.toString() !== today">{{offender.updated | date}}</span>
             by Admin{{Admin}}
     </div>
+</div>
 
-    <div class="form-group">
+    <div class="form-group points" [class.changed-item]="offender.originalPoints != offender.points">
         <mat-form-field>
             <mat-select
             placeholder="Points"
             [(value)]="offender.points"
             [disabled]="offender.isBanned"
             [(ngModel)]="offender.points"
+            (selectionChange)="pointsChanged($event, offender)"
             name="points">
                 <mat-option [value]=1>1</mat-option>
                 <mat-option [value]=2>2</mat-option>
@@ -53,11 +55,12 @@
         </mat-form-field>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" [class.changed-item]="offender.originalStatus != offender.isBanned">
         <mat-slide-toggle
         color="warn"
         [(ngModel)]="offender.isBanned"
         [checked]="offender.isBanned"
+        (change)="banStatusChanged($event, offender)"
         name="isBanned">
             <span *ngIf="!offender.isBanned">Banned?</span>
             <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
@@ -79,12 +82,12 @@
     <div class="form-group">
         <h3 class="mat-h3">History</h3>
         <ul *ngFor="let note of offender.notes">
-            <li>{{note.note}} <em>({{note.created | date}} by {{note.addedBy.nickName}})</em></li>
+            <li [class.changed-item]="note.isNew">{{note.note}} <em>({{note.created | date}} by {{note.addedBy.nickName}})</em></li>
         </ul>
     </div>
 
-    <button class="save-btn" float="left" mat-raised-button color="primary" (click)="buttonClicked()">Save Changes</button>
-    <button class="cancel-btn"  float="right" mat-raised-button color="warn" (click)="buttonClicked()">Discard Changes</button>
+    <button class="save-btn" float="left" mat-raised-button color="primary" [disabled]="!offender.changesMade" (click)="saveChanges(offender)">Save Changes</button>
+    <button class="cancel-btn" float="right" mat-raised-button color="warn" [disabled]="!offender.changesMade" (click)="discardChanges(offender)">Discard Changes</button>
 
 </mat-expansion-panel>
 </mat-accordion>

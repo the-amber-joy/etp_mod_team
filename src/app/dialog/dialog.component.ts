@@ -20,7 +20,7 @@ export class DialogComponent implements OnInit {
   ngOnInit() { }
 
   nameCtrl = new FormControl('', [Validators.required]);
-  scoreCtrl = new FormControl('', [Validators.required] );
+  scoreCtrl = new FormControl(0, [Validators.required]);
   noteCtrl = new FormControl('', [Validators.required]);
 
   getNameError() {
@@ -49,11 +49,14 @@ export class DialogComponent implements OnInit {
     if (this.nameCtrl.valid && this.noteCtrl.valid && this.scoreCtrl.valid) {
       let newOffender = new Offender();
       newOffender.notes = [];
-      let newNote = new Note(this.data.note, new Admin("Fake", "Tester", "Admin"));
-
+      let newNote = new Note(this.data.note, { firstName: "Fake", lastName: "Tester", nickName: "Admin" })
+      newNote.isNew = false;
       newOffender.name = this.data.name;
       newOffender.points = this.data.score;
-      newOffender.notes[0] = newNote;
+      newOffender.originalPoints = this.data.score;
+      newOffender.isBanned = false;
+      newOffender.originalStatus = false;
+      newOffender.notes.push(newNote);
       newOffender.nickName = this.data.nickname ? this.data.nickname : null;
 
       this.dialogRef.close(newOffender);

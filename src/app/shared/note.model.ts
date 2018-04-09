@@ -4,8 +4,10 @@ export class Note {
     note: string;
     created: Date = new Date();
     addedBy: Admin;
-    constructor(note, addedBy) {
+    isNew?: boolean = true;
+
+    constructor(note: string, addedBy: Admin) {
         this.note = note;
-        this.addedBy = addedBy
-    }
+        this.addedBy = addedBy;
+    };
 }

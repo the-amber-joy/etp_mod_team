@@ -21,7 +21,7 @@ api.route('/admin')
 })
 
     // GET ALL
-api.route('/').get((req, res) => {
+api.route('/admin').get((req, res) => {
     Admin.find((err, admin) => {
         if (err)
             res.send(err);

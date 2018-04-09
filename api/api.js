@@ -13,10 +13,7 @@ api.route('/offender')
     Offender.create(req.body, err => {
         if (err)
             res.send(err);
-
-        res.json({
-            message: { "New offender created:": req.body.name }
-        })
+        res.status(201).json({ "New offender created:": req.body.name })
     })
 })
 
@@ -25,12 +22,12 @@ api.route('/offenders').get((req, res) => {
     Offender.find((err, offenders) => {
         if (err)
             res.send(err);
-        res.send(offenders);
+        res.json(offenders);
     });
 });
 
 // GET ONE BY NAME (allows partial string search, case-insensitive)
-api.route('/offender/').get((req, res) => {
+api.route('/offender').get((req, res) => {
     Offender.find({ "name": { $regex: req.headers.name, $options: 'i' } }, (err, offender) => {
         if (err)
             res.send(err);
