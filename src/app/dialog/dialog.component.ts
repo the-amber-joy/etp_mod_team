@@ -13,15 +13,27 @@ import { Note } from '../shared/note.model';
   encapsulation: ViewEncapsulation.None
 })
 export class DialogComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.createPoints()
+  }
 
   nameCtrl = new FormControl('', [Validators.required]);
   scoreCtrl = new FormControl(0, [Validators.required]);
   noteCtrl = new FormControl('', [Validators.required]);
+  points = new Array();
+
+  createPoints() {
+    for (let i = 0; i < 10; i++) {
+      let point = { "value": i + 1, "display": i + 1 };
+      this.points.push(point);
+    }
+  }
+
+  selectPoints(pointValue) {
+    this.data.score = pointValue;
+  }
 
   getNameError() {
     if (this.nameCtrl.hasError('required')) {

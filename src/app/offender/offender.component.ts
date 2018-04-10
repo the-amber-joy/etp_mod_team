@@ -18,8 +18,10 @@ import { notDeepEqual } from 'assert';
     styleUrls: ['./offender.component.css']
 })
 export class OffenderComponent implements OnInit, AppModule {
-    constructor(public dialog: MatDialog,
-        private offenderService: OffenderService) { }
+    constructor(
+        public dialog: MatDialog,
+        private offenderService: OffenderService
+    ) { }
 
     ngOnInit() {
         this.getAll();
