@@ -24,31 +24,9 @@ api.route('/offenders').get((req, res) => {
     });
 });
 
-
-// GET ONE BY NAME (allows partial string search, case-insensitive)
-// api.route('/offender').get((req, res) => {
-//     Offender.find({ "name": { $regex: req.headers.name, $options: 'i' } }, (err, offender) => {
-//         if (err)
-//             res.send(err);
-//         res.json(offender);
-//     });
-// });
-
-
-// UPDATE NAME by ID
-// api.route('/updateOffender/:_id').put((req, res) => {
-//     Offender.findByIdAndUpdate(req.params, { $set: { "name": req.body.newName } }, err => {
-//         if (err)
-//             res.send(err);
-//         res.send(
-//             "Offender name set to " + req.body.newName
-//         );
-//     });
-// });
-
 // UPDATE existing Offender by ID
 api.route('/update').put((req, res) => {
-    Offender.findOneAndUpdate(req.body._id, {
+    Offender.update({ _id: req.body._id }, {
         $push: {
             "notes": {
                 $each: req.body.notes
@@ -66,10 +44,30 @@ api.route('/update').put((req, res) => {
         if (err) {
             console.log(err)
         }
+        console.log(doc);
         return doc;
     })
 });
 
+// GET ONE BY NAME (allows partial string search, case-insensitive)
+// api.route('/offender').get((req, res) => {
+//     Offender.find({ "name": { $regex: req.headers.name, $options: 'i' } }, (err, offender) => {
+//         if (err)
+//             res.send(err);
+//         res.json(offender);
+//     });
+// });
+
+// UPDATE NAME by ID
+// api.route('/updateOffender/:_id').put((req, res) => {
+//     Offender.findByIdAndUpdate(req.params, { $set: { "name": req.body.newName } }, err => {
+//         if (err)
+//             res.send(err);
+//         res.send(
+//             "Offender name set to " + req.body.newName
+//         );
+//     });
+// });
 
 // // DELETE ONE by name
 // api.route('/deleteOffender/:name').delete((req, res) => {
