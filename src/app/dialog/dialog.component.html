@@ -20,8 +20,9 @@
     <mat-form-field>
       <mat-select
       [formControl]="scoreCtrl"
-      required
+      required name="newOffenderPoints"
       placeholder="Initial Points"
+      [(value)]="data.score"
       [(ngModel)]="data.score"
       name="newOffenderPoints">
         <mat-option *ngFor="let point of points" [value]="point.value">
@@ -34,13 +35,10 @@
 
   <div class="form-group">
     <mat-form-field>
-      <input
+      <input matInput
        [formControl]="noteCtrl"
-       matInput
-       required
-       type="text"
-       name="note"
-       autocomplete="off"
+       required name="note"
+       type="text" autocomplete="off"
        [(ngModel)]="data.note"
        placeholder="Note">
       <mat-error *ngIf="noteCtrl.invalid">{{getNotesError()}}</mat-error>

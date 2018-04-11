@@ -19,6 +19,7 @@ export class DialogComponent implements OnInit {
     this.createPoints()
   }
 
+  @Output() selectionChange: EventEmitter<MatSelectChange>
   nameCtrl = new FormControl('', [Validators.required]);
   scoreCtrl = new FormControl(0, [Validators.required]);
   noteCtrl = new FormControl('', [Validators.required]);
@@ -53,7 +54,6 @@ export class DialogComponent implements OnInit {
     }
   }
 
-
   addNew() {
     if (this.nameCtrl.valid && this.noteCtrl.valid && this.scoreCtrl.valid) {
       let newOffender = new Offender();
@@ -76,4 +76,13 @@ export class DialogComponent implements OnInit {
     this.data = null;
     this.dialogRef.close();
   }
+
+  createDropdown() {
+    for (let i = 0; i > 10; i++) {
+      let point = {"value": i+1, "display": i+1}
+      this.points.push(point);
+    }
+    return this.points;
+  }
+
 }
