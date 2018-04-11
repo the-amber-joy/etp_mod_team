@@ -106,14 +106,21 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     saveChanges(offender: Offender) {
+        console.log("now changing:", offender.name, offender.points);
         let newNotes: Note[];
-        newNotes = [];
-        offender.notes.forEach(note => {
-            if (note.isNew) {
-                note.isNew = false;
-                newNotes.push(note)
-            }
-        })
+
+        if (offender.notesAdded) {
+            newNotes = [];
+            offender.notes.forEach(note => {
+                if (note.isNew) {
+                    note.isNew = false;
+                    newNotes.push(note)
+                }
+            })
+        } else {
+            // prevents Mongo from getting cranky about trying to push NULL
+            newNotes = [];
+        }
 
         offender.originalPoints = offender.points;
         offender.originalStatus = offender.isBanned;
