@@ -53,9 +53,6 @@ export class DialogComponent implements OnInit {
     }
   }
 
-  @Output()
-  selectionChange: EventEmitter<MatSelectChange>
-
 
   addNew() {
     if (this.nameCtrl.valid && this.noteCtrl.valid && this.scoreCtrl.valid) {
@@ -72,7 +69,7 @@ export class DialogComponent implements OnInit {
       newOffender.nickName = this.data.nickname ? this.data.nickname : null;
 
       this.dialogRef.close(newOffender);
-    } else { console.log("more data")}
+    }
   }
 
   cancelAdd(): void {

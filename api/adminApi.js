@@ -1,8 +1,6 @@
 const express = require('express');
 const api = express();
 
-const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/etp_mod_team');
 const Admin = require('../mongoDBmodels/admin_DBmodel');
 
 
@@ -12,7 +10,6 @@ api.route('/admin')
     Admin.create(req.body, err => {
         if (err)
             res.send(err);
-
         res.json({
             status: 201,
             body: { "New admin created:": req.body.name }
