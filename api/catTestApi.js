@@ -1,8 +1,7 @@
 const express = require('express');
 const catApi = express();
 
-const mongoose = require('mongoose');
-const CatSchema = require('../mongoDBmodels/testCatModel');
+// const CatSchema = require('../mongoDBmodels/testCatModel');
 
 catApi.route('/cats')
 
