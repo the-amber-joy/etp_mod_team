@@ -18,8 +18,10 @@ import { notDeepEqual } from 'assert';
     styleUrls: ['./offender.component.css']
 })
 export class OffenderComponent implements OnInit, AppModule {
-    constructor(public dialog: MatDialog,
-        private offenderService: OffenderService) { }
+    constructor(
+        public dialog: MatDialog,
+        private offenderService: OffenderService
+    ) { }
 
     ngOnInit() {
         this.getAll();
@@ -34,7 +36,6 @@ export class OffenderComponent implements OnInit, AppModule {
 
     getAll() {
         return this.offenderService.getAll().subscribe(response => {
-            console.log(response);
             this.offenders = response;
             this.offenders.forEach(offender => {
                 offender.originalPoints = offender.points;
@@ -51,7 +52,6 @@ export class OffenderComponent implements OnInit, AppModule {
         offender.changesMade = true;
 
         this.newNote = '';
-        console.log(offender.notes);
     }
 
 
@@ -104,19 +104,33 @@ export class OffenderComponent implements OnInit, AppModule {
         });
     }
 
-    saveChanges(offender) {
-        alert("Sorry, I haven't implemented this function yet! -Amber");
+    saveChanges(offender: Offender) {
+        let newNotes: Note[];
+        newNotes = [];
+        offender.notes.forEach(note => {
+            if (note.isNew) {
+                note.isNew = false;
+                newNotes.push(note)
+            }
+        })
 
-        if (offender.notesAdded) {
-            // POST new notes
-        }
-        if (offender.banStatusChanged) {
-            // PUT new ban status
-        }
-        if (offender.pointsChanged) {
-            // PUT new points
-        }
+        offender.originalPoints = offender.points;
+        offender.originalStatus = offender.isBanned;
+        offender.changesMade = false;
+        offender.updated = new Date();
+
+        this.offenderService.updateStatus({
+            _id: offender._id,
+            notes: newNotes,
+            points: offender.points,
+            originalPoints: offender.originalPoints,
+            isBanned: offender.isBanned,
+            originalStatus: offender.isBanned,
+            updated: offender.updated
+        }).subscribe();
+
     }
+
 
     discardChanges(offender) {
         if (offender.notesAdded) {

@@ -23,10 +23,11 @@
       required name="newOffenderPoints"
       placeholder="Initial Points"
       [(value)]="data.score"
-      [(ngModel)]="data.score">
+      [(ngModel)]="data.score"
+      name="newOffenderPoints">
         <mat-option *ngFor="let point of points" [value]="point.value">
-          {{point.display}}
-        </mat-option>
+        {{point.display}}
+      </mat-option>
       </mat-select>
       <mat-error *ngIf="scoreCtrl.invalid">{{getScoreError()}}</mat-error>
     </mat-form-field>

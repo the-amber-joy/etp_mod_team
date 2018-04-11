@@ -2,9 +2,13 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
 const catApi = require('./api/catTestApi');
 const adminApi = require('./api/adminApi');
 const api = require('./api/api');
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/etp_mod_team');
 
 app.use(express.static(__dirname + '/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
