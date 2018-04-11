@@ -5,11 +5,15 @@ const Admin = require('./admin_DBmodel');
 const Schema = mongoose.Schema;
 
 const Offender = new Schema({
+    _id: mongoose.SchemaTypes.ObjectId,
+    changesMade: { type: Boolean, default: false },
     name: String,
     nickName: String,
     otherNames: [{ altName: String }],
     points: Number,
+    originalPoints: { type: Number, default: this.points },
     isBanned: { type: Boolean, default: false },
+    originalStatus: { type: Boolean, default: this.isBanned },
     addedBy: Admin.schema,
     notes: [ Notes.schema ],
     created: { type: Date, default: Date.now },

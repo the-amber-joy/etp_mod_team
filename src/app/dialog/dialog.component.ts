@@ -13,15 +13,27 @@ import { Note } from '../shared/note.model';
   encapsulation: ViewEncapsulation.None
 })
 export class DialogComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.createPoints()
+  }
 
   nameCtrl = new FormControl('', [Validators.required]);
   scoreCtrl = new FormControl(0, [Validators.required]);
   noteCtrl = new FormControl('', [Validators.required]);
+  points = new Array();
+
+  createPoints() {
+    for (let i = 0; i < 10; i++) {
+      let point = { "value": i + 1, "display": i + 1 };
+      this.points.push(point);
+    }
+  }
+
+  selectPoints(pointValue) {
+    this.data.score = pointValue;
+  }
 
   getNameError() {
     if (this.nameCtrl.hasError('required')) {
@@ -41,9 +53,6 @@ export class DialogComponent implements OnInit {
     }
   }
 
-  @Output()
-  selectionChange: EventEmitter<MatSelectChange>
-
 
   addNew() {
     if (this.nameCtrl.valid && this.noteCtrl.valid && this.scoreCtrl.valid) {
@@ -60,7 +69,7 @@ export class DialogComponent implements OnInit {
       newOffender.nickName = this.data.nickname ? this.data.nickname : null;
 
       this.dialogRef.close(newOffender);
-    } else { console.log("more data")}
+    }
   }
 
   cancelAdd(): void {
