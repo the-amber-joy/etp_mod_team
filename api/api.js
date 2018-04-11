@@ -1,8 +1,6 @@
 const express = require('express');
 const api = express();
 
-const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/etp_mod_team');
 const Offender = require('../mongoDBmodels/offender_DBmodel');
 const Note = require('../mongoDBmodels/note_DBmodel');
 
@@ -12,7 +10,7 @@ api.route('/offender')
     console.log("posting new offender", req.body.name);
     Offender.create(req.body, err => {
         if (err)
-            res.send(err);
+            res.send(err)
         res.status(201).json({ "New offender created:": req.body.name })
     })
 })
@@ -26,7 +24,8 @@ api.route('/offenders').get((req, res) => {
     });
 });
 
-// // GET ONE BY NAME (allows partial string search, case-insensitive)
+
+// GET ONE BY NAME (allows partial string search, case-insensitive)
 // api.route('/offender').get((req, res) => {
 //     Offender.find({ "name": { $regex: req.headers.name, $options: 'i' } }, (err, offender) => {
 //         if (err)
@@ -35,9 +34,10 @@ api.route('/offenders').get((req, res) => {
 //     });
 // });
 
-// // UPDATE ONE NAME by ID
-// api.route('/updateOffender/:id').put((req, res) => {
-//     Offender.findByIdAndUpdate(req.params.id, { $set: { "name": req.body.newName } }, err => {
+
+// UPDATE NAME by ID
+// api.route('/updateOffender/:_id').put((req, res) => {
+//     Offender.findByIdAndUpdate(req.params, { $set: { "name": req.body.newName } }, err => {
 //         if (err)
 //             res.send(err);
 //         res.send(

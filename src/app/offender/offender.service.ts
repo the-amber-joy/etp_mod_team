@@ -12,7 +12,6 @@ export class OffenderService {
   offenders: Offender[];
   constructor(private httpClient: HttpClient) { }
 
-
   getAll(): Observable<Offender[]> {
     return this.httpClient.get<Offender[]>('/api/offenders')
   }
@@ -24,5 +23,4 @@ export class OffenderService {
   updateStatus(body: { _id: number, notes: Note[], points: number, originalPoints: number, isBanned: boolean, originalStatus: boolean, updated: Date }): Observable<Offender>{
     return this.httpClient.put<Offender>('/api/update', body )
   }
-
 }
