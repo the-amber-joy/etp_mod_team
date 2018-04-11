@@ -2,12 +2,13 @@ import { Note } from "../shared/note.model";
 import { Admin } from "./admin.model";
 
 export class Offender {
-    name: String;
-    nickName?: String;
-    otherNames?: { altName: String }[];
-    points: Number;
-    originalPoints?: Number;
-    isBanned: boolean = false;
+    _id: number;
+    name: string;
+    nickName?: string;
+    otherNames?: { altName: string }[];
+    points: number;
+    originalPoints?: number;
+    isBanned: boolean;
     originalStatus?: boolean;
     addedBy: Admin;
     notes: Note[];
