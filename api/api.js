@@ -48,7 +48,7 @@ api.route('/offenders').get((req, res) => {
 
 // UPDATE existing Offender by ID
 api.route('/update').put((req, res) => {
-    Offender.findOneAndUpdate(req._id, {
+    Offender.findOneAndUpdate(req.body._id, {
         $push: {
             "notes": {
                 $each: req.body.notes
