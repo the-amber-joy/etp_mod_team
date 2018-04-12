@@ -13,14 +13,18 @@ import { Note } from '../shared/note.model';
   encapsulation: ViewEncapsulation.None
 })
 export class DialogComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {  }
+  constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public data: {name: string, nickName: string, points: number, note: string}) {  }
 
   ngOnInit() {
     this.createPoints()
+    this.newOffender = new Offender();
   }
 
-  nameCtrl = new FormControl('', [Validators.required]);
-  scoreCtrl = new FormControl(0, [Validators.required]);
+  name = this.data.name;
+  newOffender: Offender;
+  newNote: string;
+  nameCtrl = new FormControl(this.data.name, [Validators.required]);
+  pointsCtrl = new FormControl(0, [Validators.required]);
   noteCtrl = new FormControl('', [Validators.required]);
   points = new Array();
 
@@ -32,7 +36,7 @@ export class DialogComponent implements OnInit {
   }
 
   selectPoints(pointValue) {
-    this.data.score = pointValue;
+    this.data.points = pointValue;
   }
 
   getNameError() {
@@ -42,7 +46,7 @@ export class DialogComponent implements OnInit {
   }
 
   getScoreError() {
-    if (this.scoreCtrl.hasError('required')) {
+    if (this.pointsCtrl.hasError('required')) {
       return 'Please select a value 1-10';
     }
   }
@@ -55,20 +59,19 @@ export class DialogComponent implements OnInit {
 
 
   addNew() {
-    if (this.nameCtrl.valid && this.noteCtrl.valid && this.scoreCtrl.valid) {
-      let newOffender = new Offender();
-      newOffender.notes = [];
-      let newNote = new Note(this.data.note, { firstName: "Fake", lastName: "Tester", nickName: "Admin" })
-      newNote.isNew = false;
-      newOffender.name = this.data.name;
-      newOffender.points = this.data.score;
-      newOffender.originalPoints = this.data.score;
-      newOffender.isBanned = false;
-      newOffender.originalStatus = false;
-      newOffender.notes.push(newNote);
-      newOffender.nickName = this.data.nickname ? this.data.nickname : null;
+    if (this.nameCtrl.valid && this.noteCtrl.valid && this.pointsCtrl.valid) {
+      this.newOffender.notes = [];
 
-      this.dialogRef.close(newOffender);
+      let newNote = new Note(this.newNote, { firstName: "Fake", lastName: "Tester", nickName: "Admin" });
+      newNote.isNew = false;
+      this.newOffender.notes.push(newNote);
+      this.newOffender.name = this.data.name;
+      this.newOffender.points = this.data.points;
+      this.newOffender.originalPoints = this.data.points;
+      this.newOffender.isBanned = false;
+      this.newOffender.originalStatus = false;
+      this.newOffender.nickName = this.data.nickName ? this.data.nickName : null;
+      this.dialogRef.close(this.newOffender);
     }
   }
 

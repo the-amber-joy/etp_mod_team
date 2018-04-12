@@ -52,7 +52,6 @@ export class OffenderComponent implements OnInit, AppModule {
         offender.changesMade = true;
 
         this.newNote = '';
-        console.log(offender.notes);
     }
 
 
@@ -87,13 +86,14 @@ export class OffenderComponent implements OnInit, AppModule {
         }
     }
 
-    openDialog(): void {
+    openDialog() {
         // Why does the data only bind if button is clicked, but not on hitting Enter?
         let dialogRef = this.dialog.open(DialogComponent, {
             data: {
                 name: this.addedName,
-                points: Number,
-                note: new String()
+                nickName: '',
+                note: '',
+                points: 0
             }
         });
 
@@ -106,9 +106,7 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     saveChanges(offender: Offender) {
-        console.log("now changing:", offender.name, offender.points);
-        let newNotes: Note[];
-
+        let newNotes: Note[] = [];
         if (offender.notesAdded) {
             newNotes = [];
             offender.notes.forEach(note => {
@@ -117,9 +115,6 @@ export class OffenderComponent implements OnInit, AppModule {
                     newNotes.push(note)
                 }
             })
-        } else {
-            // prevents Mongo from getting cranky about trying to push NULL
-            newNotes = [];
         }
 
         offender.originalPoints = offender.points;
