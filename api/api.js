@@ -7,13 +7,13 @@ const Note = require('../mongoDBmodels/note_DBmodel');
 // POST NEW
 api.route('/offender')
     .post((req, res, err) => {
-    console.log("posting new offender", req.body.name);
-    Offender.create(req.body, err => {
-        if (err)
-            res.send(err)
-        res.status(201).json({ "New offender created:": req.body.name })
+        Offender.create(req.body, (err, doc) => {
+            if (err)
+                res.send(err)
+            console.log("doc before leaving api", doc)
+            res.send(doc)
+        })
     })
-})
 
 // GET ALL
 api.route('/offenders').get((req, res) => {
@@ -44,7 +44,6 @@ api.route('/update').put((req, res) => {
         if (err) {
             console.log(err)
         }
-        console.log(doc);
         return doc;
     })
 });

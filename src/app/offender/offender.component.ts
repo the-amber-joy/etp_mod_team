@@ -41,12 +41,40 @@ export class OffenderComponent implements OnInit, AppModule {
                 offender.originalPoints = offender.points;
                 offender.originalStatus = offender.isBanned;
             })
+            console.log(this.offenders)
+
             return this.offenders;
         });
     }
 
+    openDialog(addedName) {
+        let dialogRef = this.dialog.open(DialogComponent, {
+            data: {
+                name: addedName,
+                nickName: '',
+                note: '',
+                points: 0
+            }
+        });
+        this.addedName = '';
+
+        dialogRef.afterClosed().subscribe(result => {
+                // console.log("after close result", result._id);
+        });
+
+        dialogRef.beforeClose().subscribe(dialogData => {
+                return this.offenderService.postNew(dialogData).subscribe(response => {
+                    response.originalPoints = response.points
+                    response.originalStatus = response.isBanned
+                    this.offenders.push(response)
+                    console.log("response", response);
+            })
+
+        });
+    }
+
     addNewNote(offender) {
-        let noteToAdd = { note: this.newNote, isNew: true, created: new Date().toISOString(), addedBy: { firstName: "Fake", lastName: "Tester", nickName: "Admin" } }
+        let noteToAdd = { note: this.newNote, isNew: true, created: new Date(), addedBy: { firstName: "Fake", lastName: "Tester", nickName: "Admin" } }
         offender.notes.push(noteToAdd);
         offender.notesAdded = true;
         offender.changesMade = true;
@@ -86,25 +114,6 @@ export class OffenderComponent implements OnInit, AppModule {
         }
     }
 
-    openDialog(addedName) {
-        // Why does the data only bind if button is clicked, but not on hitting Enter?
-        let dialogRef = this.dialog.open(DialogComponent, {
-            data: {
-                name: addedName,
-                nickName: '',
-                note: '',
-                points: 0
-            }
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.offenders.push(result);
-            }
-            this.addedName = '';
-        });
-    }
-
     saveChanges(offender: Offender) {
         let newNotes: Note[] = [];
         if (offender.notesAdded) {
@@ -126,9 +135,7 @@ export class OffenderComponent implements OnInit, AppModule {
             _id: offender._id,
             notes: newNotes,
             points: offender.points,
-            originalPoints: offender.originalPoints,
             isBanned: offender.isBanned,
-            originalStatus: offender.isBanned,
             updated: offender.updated
         }).subscribe();
 

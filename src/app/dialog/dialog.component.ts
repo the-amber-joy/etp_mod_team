@@ -69,7 +69,7 @@ export class DialogComponent implements OnInit {
       this.newOffender.points = this.data.points;
       this.newOffender.originalPoints = this.data.points;
       this.newOffender.isBanned = false;
-      this.newOffender.originalStatus = false;
+      this.newOffender.originalStatus = this.newOffender.isBanned;
       this.newOffender.nickName = this.data.nickName ? this.data.nickName : null;
       this.dialogRef.close(this.newOffender);
     }
