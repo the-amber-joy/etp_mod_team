@@ -20,6 +20,7 @@ export class DialogComponent implements OnInit {
     this.newOffender = new Offender();
   }
 
+  @Output() selectionChange: EventEmitter<MatSelectChange>
   name = this.data.name;
   newOffender: Offender;
   newNote: string;
@@ -57,7 +58,6 @@ export class DialogComponent implements OnInit {
     }
   }
 
-
   addNew() {
     if (this.nameCtrl.valid && this.noteCtrl.valid && this.pointsCtrl.valid) {
       this.newOffender.notes = [];
@@ -69,7 +69,7 @@ export class DialogComponent implements OnInit {
       this.newOffender.points = this.data.points;
       this.newOffender.originalPoints = this.data.points;
       this.newOffender.isBanned = false;
-      this.newOffender.originalStatus = false;
+      this.newOffender.originalStatus = this.newOffender.isBanned;
       this.newOffender.nickName = this.data.nickName ? this.data.nickName : null;
       this.dialogRef.close(this.newOffender);
     }
@@ -79,4 +79,13 @@ export class DialogComponent implements OnInit {
     this.data = null;
     this.dialogRef.close();
   }
+
+  createDropdown() {
+    for (let i = 0; i > 10; i++) {
+      let point = {"value": i+1, "display": i+1}
+      this.points.push(point);
+    }
+    return this.points;
+  }
+
 }

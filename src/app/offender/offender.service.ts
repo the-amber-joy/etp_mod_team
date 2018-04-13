@@ -17,11 +17,10 @@ export class OffenderService {
   }
 
   postNew(body: {offender: Offender}): Observable<Offender> {
-    return this.httpClient.post<Offender>('/api/offenders', body)
+    return this.httpClient.post<Offender>('/api/offender', body)
   }
 
-  updateStatus(body: { _id: number, notes: Note[], points: number, originalPoints: number, isBanned: boolean, originalStatus: boolean, updated: Date }): Observable<Offender>{
-    console.log("service sending body", body);
+  updateStatus(body: { _id: number, notes: Note[], points: number, isBanned: boolean, updated: Date }): Observable<Offender> {
     return this.httpClient.put<Offender>('/api/update', body)
   }
 }

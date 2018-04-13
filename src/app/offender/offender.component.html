@@ -26,8 +26,7 @@
     <div class="date-added">First Offense: {{offender.created | date}}</div>
     <div>
         Last Updated:
-            <span *ngIf="offender.updated.toString() == today">Today</span>
-            <span *ngIf="offender.updated.toString() !== today">{{offender.updated | date}}</span>
+            {{offender.updated | date}}
             by Admin{{Admin}}
     </div>
 </div>
