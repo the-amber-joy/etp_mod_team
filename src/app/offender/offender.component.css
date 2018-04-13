@@ -10,6 +10,10 @@ mat-icon {
     margin-bottom: 25px;
 }
 
+.date-added{
+    font-size: 16px;
+}
+
 .note-btn:after {
     font-family: 'FontAwesome';
     content: "\f055";
