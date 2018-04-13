@@ -86,11 +86,11 @@ export class OffenderComponent implements OnInit, AppModule {
         }
     }
 
-    openDialog() {
+    openDialog(addedName) {
         // Why does the data only bind if button is clicked, but not on hitting Enter?
         let dialogRef = this.dialog.open(DialogComponent, {
             data: {
-                name: this.addedName,
+                name: addedName,
                 nickName: '',
                 note: '',
                 points: 0

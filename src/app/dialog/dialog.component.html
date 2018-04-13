@@ -1,3 +1,4 @@
+<form (ngSubmit)="addNew()">
 <h2 mat-dialog-title>Adding {{data.name}} to the Shit List</h2>
 <mat-dialog-content>
 
@@ -49,8 +50,9 @@
   <div class="form-group">
 
     <mat-dialog-actions>
-      <button mat-button color="warn" (click)="cancelAdd()">Cancel</button>
-      <button mat-button color="primary" [disabled]="nameCtrl.invalid || pointsCtrl.invalid || noteCtrl.invalid" (click)=addNew()>Add</button>
+      <button type="button" color="warn" mat-dialog-close (click)="cancelAdd()">Cancel</button>
+      <button type="submit" mat-button color="primary" [disabled]="nameCtrl.invalid || pointsCtrl.invalid || noteCtrl.invalid">Add</button>
     </mat-dialog-actions>
   </div>
 </mat-dialog-content>
+</form>
