@@ -1,13 +1,12 @@
 * MVP
 
-* Fix Add New Offender modal
 * Login page
   Do I want a separate save button per offender card, or one to save all changes made on the view?
       Mark edited/unsaved items with asterisk or other indicator
       Warning if not saved
-  Filtering / sorting by offender name
-  Delete function? (Won't show up on main view but still searchable in archive)
+  Live filtering / sorting by offender name
+        Check for duplicates before adding new offender?
+  Delete function? (Offender won't show up on main view but still searchable in archive)
   Upload image function (for screenshots of offending posts/comments before they get deleted
-  Check for duplicates before adding new offender
   Field for link to FB profile in case they change their name
-  Ability to Edit name field??
+  Ability to Edit name field

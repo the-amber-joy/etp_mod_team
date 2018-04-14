@@ -6,6 +6,14 @@ mat-icon {
     color: accent;
 }
 
+.dates {
+    margin-bottom: 25px;
+}
+
+.date-added{
+    font-size: 16px;
+}
+
 .note-btn:after {
     font-family: 'FontAwesome';
     content: "\f055";
@@ -32,13 +40,23 @@ ul {
   list-style: none;
   padding: 0;
 }
+
 li {
   padding-left: 1.3em;
 }
+
 li:before {
   font-family: "FontAwesome";
   content: "\f075";
   display: inline-block;
+  margin-left: -1.3em;
+  width: 1.3em;
+}
+
+.changed-item:before {
+  font-family: "FontAwesome";
+  content: "\f069";
+  color: #f44336;
   margin-left: -1.3em;
   width: 1.3em;
 }

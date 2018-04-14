@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject, ViewEncapsulation, NgModule } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
-import { Offender } from '../offender/offender.model';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
+import { Offender } from '../shared/offender.model'
 import { Admin } from '../shared/admin.model';
 import { Note } from '../shared/note.model';
 
@@ -13,15 +13,32 @@ import { Note } from '../shared/note.model';
   encapsulation: ViewEncapsulation.None
 })
 export class DialogComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public data: {name: string, nickName: string, points: number, note: string}) {  }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.createPoints()
+    this.newOffender = new Offender();
+  }
 
-  nameCtrl = new FormControl('', [Validators.required]);
-  scoreCtrl = new FormControl('', [Validators.required] );
+  @Output() selectionChange: EventEmitter<MatSelectChange>
+  name = this.data.name;
+  newOffender: Offender;
+  newNote: string;
+  nameCtrl = new FormControl(this.data.name, [Validators.required]);
+  pointsCtrl = new FormControl(0, [Validators.required]);
   noteCtrl = new FormControl('', [Validators.required]);
+  points = new Array();
+
+  createPoints() {
+    for (let i = 0; i < 10; i++) {
+      let point = { "value": i + 1, "display": i + 1 };
+      this.points.push(point);
+    }
+  }
+
+  selectPoints(pointValue) {
+    this.data.points = pointValue;
+  }
 
   getNameError() {
     if (this.nameCtrl.hasError('required')) {
@@ -30,7 +47,7 @@ export class DialogComponent implements OnInit {
   }
 
   getScoreError() {
-    if (this.scoreCtrl.hasError('required')) {
+    if (this.pointsCtrl.hasError('required')) {
       return 'Please select a value 1-10';
     }
   }
@@ -41,30 +58,34 @@ export class DialogComponent implements OnInit {
     }
   }
 
-  @Output()
-  selectionChange: EventEmitter<MatSelectChange>
-
-
   addNew() {
-    if (this.nameCtrl.valid && this.noteCtrl.valid && this.scoreCtrl.valid) {
-      let newOffender = new Offender();
-      newOffender.notes = [];
-      let newNote = new Note(this.data.note, new Date(), new Admin("Fake", "Tester", "Admin"));
+    if (this.nameCtrl.valid && this.noteCtrl.valid && this.pointsCtrl.valid) {
+      this.newOffender.notes = [];
 
-      newOffender.name = this.data.name;
-      newOffender.score = this.data.score;
-      newOffender.notes[0] = newNote;
-      newOffender.nickname = this.data.nickname ? this.data.nickname : null;
-      newOffender.dateAdded = new Date();
-      newOffender.lastUpdated = new Date();
-      newOffender.banStatus = this.data.banStatus;
-
-      this.dialogRef.close(newOffender);
-    } else { console.log("more data")}
+      let newNote = new Note(this.newNote, { firstName: "Fake", lastName: "Tester", nickName: "Admin" });
+      newNote.isNew = false;
+      this.newOffender.notes.push(newNote);
+      this.newOffender.name = this.data.name;
+      this.newOffender.points = this.data.points;
+      this.newOffender.originalPoints = this.data.points;
+      this.newOffender.isBanned = false;
+      this.newOffender.originalStatus = this.newOffender.isBanned;
+      this.newOffender.nickName = this.data.nickName ? this.data.nickName : null;
+      this.dialogRef.close(this.newOffender);
+    }
   }
 
   cancelAdd(): void {
     this.data = null;
     this.dialogRef.close();
   }
+
+  createDropdown() {
+    for (let i = 0; i > 10; i++) {
+      let point = {"value": i+1, "display": i+1}
+      this.points.push(point);
+    }
+    return this.points;
+  }
+
 }

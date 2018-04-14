@@ -1,18 +1,30 @@
-// server.js
 const express = require('express');
-const path = require('path');
 const app = express();
-// Run the app by serving the static files
-// in the dist directory
-app.use(express.static(__dirname + '/dist'));
+const path = require('path');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-app.get('/*', function (req, res) {
+const catApi = require('./api/catTestApi');
+const adminApi = require('./api/adminApi');
+const api = require('./api/api');
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/etp_mod_team');
+
+app.use(express.static(__dirname + '/dist'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // to parse the request body
+app.use('/catApi', catApi);
+app.use('/api', api);
+app.use('/admin', adminApi);
+
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
-// Start the app by listening on the default
-// Heroku port
-app.set('port', process.env.PORT || 8080);
-app.listen(app.get('port'), function () {
-    console.log('Magic happens on port', app.get('port'));
+// SET PORT AND START SERVER
+app.set('port', process.env.PORT || 3000);
+const activePort = app.get('port');
+
+app.listen(activePort, () => {
+    console.log('Makin\' big gainz on port ' + activePort + '. BOOM!');
 });

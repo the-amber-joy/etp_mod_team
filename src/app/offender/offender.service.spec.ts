@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { OffenderService } from './offender.service';
-import { Offender } from './offender.model';
+import { Offender } from '../shared/offender.model';
 import { Note } from '../shared/note.model';
 import { Admin } from '../shared/admin.model';
 
@@ -29,9 +29,8 @@ describe('OffenderService', () => {
       lastUpdated: this.dateAdded + 1,
       notes: [
         new Note(
-          'some words',
-          this.dateAdded,
-          new Admin('Big','Admin','BigAdmin')
+          'A new note. Some words go here',
+          new Admin('Fake','Tester','Admin')
         )
       ]
     }];
