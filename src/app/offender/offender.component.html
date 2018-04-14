@@ -69,7 +69,7 @@
     <div class="form-group">
         <form (ngSubmit)="addNewNote(offender)">
             <mat-form-field>
-                <button [disabled]="newNote == ''" mat-button matPrefix mat-icon-button (click)="newNote=''">
+                <button type="button" [disabled]="newNote == ''" mat-button matPrefix mat-icon-button (click)="newNote=''">
                     <mat-icon *ngIf="newNote != ''" class="cancelX">x</mat-icon>
                 </button>
                 <input matInput name="newNote" type="text" autocomplete="off" [(ngModel)]="newNote" placeholder="Add comments" />
