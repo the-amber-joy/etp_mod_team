@@ -1,14 +1,14 @@
 {
   "name": "etp_mod_team",
   "engines": {
-    "node": "9.11.1",
-    "npm": "5.8.0"
+    "node": "8.11.1",
+    "npm": "5.6.0"
   },
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "proxyserve": "ng serve --proxy-config proxy.config.json",
+    "proxy": "ng serve --proxy-config proxy.config.json",
     "start": "nodemon server.js",
     "build": "ng build",
     "test": "ng test",
@@ -32,11 +32,14 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
+    "bcrypt": "^2.0.0",
     "body-parser": "^1.18.2",
     "core-js": "^2.4.1",
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
     "mongoose": "^5.0.13",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"

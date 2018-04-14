@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const auth = require('./auth/auth')
 const catApi = require('./api/catTestApi');
 const adminApi = require('./api/adminApi');
 const api = require('./api/api');
