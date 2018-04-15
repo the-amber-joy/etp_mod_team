@@ -106,6 +106,10 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     saveChanges(offender: Offender) {
+        if (this.newNote !== '') {
+            this.addNewNote(offender);
+        }
+
         let newNotes: Note[] = [];
         if (offender.notesAdded) {
             newNotes = [];

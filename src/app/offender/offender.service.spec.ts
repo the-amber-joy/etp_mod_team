@@ -35,13 +35,13 @@ describe('OffenderService', () => {
       ]
     }];
 
-    // let actualoffenders = [];
-    // offenderService.getPersonList().subscribe((offenders: Array<Offender>) => {
-    //   actualoffenders = offenders;
-    // });
+    let actualoffenders = [];
+    offenderService.getAll().subscribe((offenders: Array<Offender>) => {
+      actualoffenders = offenders;
+    });
 
-    // http.expectOne('/api/people').flush(expectedOffenders);
+    http.expectOne('/api/offenders').flush(expectedOffenders);
 
-    // expect(actualoffenders).toEqual(expectedOffenders);
+    expect(actualoffenders).toEqual(expectedOffenders);
   })
 });
