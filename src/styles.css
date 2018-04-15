@@ -8,6 +8,26 @@ body {
     margin: 5%;
 }
 
+.flex-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.mat-expansion-panel-header-description {
+    flex-grow: .30!important;
+}
+.name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+  }
+
+.status {
+    flex-basis: 25%;
+    font-size: 14px;
+    min-width: 50%
+}
+
 form {
     margin: 2%;
 }

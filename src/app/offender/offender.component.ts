@@ -32,6 +32,7 @@ export class OffenderComponent implements OnInit, AppModule {
     offender: Offender;
     newNote: string = '';
     addedName: string = '';
+    watchStatus: string;
 
     getAll() {
         return this.offenderService.getAll().subscribe(response => {
@@ -39,6 +40,7 @@ export class OffenderComponent implements OnInit, AppModule {
             this.offenders.forEach(offender => {
                 offender.originalPoints = offender.points;
                 offender.originalStatus = offender.isBanned;
+                offender.watchStatus = this.getWatchStatus(offender);
             })
             return this.offenders;
         });
@@ -75,14 +77,16 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     pointsChanged($event: EventEmitter<MatSelectChange>, offender) {
-        if (offender.originalPoints == offender.points) {
+        this.getWatchStatus(offender);
+
+        if (offender.points == offender.originalPoints) {
             offender.pointsChanged = false;
         }
-        if (offender.originalPoints != offender.points) {
+        if (offender.points != offender.originalPoints) {
             offender.changesMade = true;
             offender.pointsChanged = true;
-        } else if (offender.originalPoints == offender.points
-            && offender.originalStatus == offender.isBanned
+        } else if (offender.points == offender.originalPoints
+            && offender.isBanned == offender.originalStatus
             && !offender.notesAdded
         ) {
             offender.changesMade = false;
@@ -123,6 +127,7 @@ export class OffenderComponent implements OnInit, AppModule {
 
         offender.originalPoints = offender.points;
         offender.originalStatus = offender.isBanned;
+        offender.watchStatus = this.getWatchStatus(offender);
         offender.changesMade = false;
         offender.updated = new Date();
 
@@ -152,5 +157,14 @@ export class OffenderComponent implements OnInit, AppModule {
             offender.points = offender.originalPoints;
         }
         offender.changesMade = false;
+    }
+
+    getWatchStatus(offender) {
+        if (offender.points == 1) {
+            return "New";
+        } else if (offender.points == 2) {
+            return "Watch";
+        }
+        return "WARNING";
     }
 }

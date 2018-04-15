@@ -12,14 +12,13 @@
 <mat-accordion>
 <mat-expansion-panel *ngFor="let offender of offenders">
 
-    <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true">
-        <mat-panel-title>
-            {{offender.name}}
+    <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true" class="flex-parent">
+        <mat-panel-title class="flex-child">
+            <span class="name">{{offender.name}}</span>
         </mat-panel-title>
-        <mat-panel-description>
-            <span *ngIf="!offender.isBanned && offender.points < 10">{{offender.points}} Point<span *ngIf="offender.points > 1">s</span></span>
-            <span class="banned" *ngIf="!offender.isBanned && offender.points == 10">{{offender.points}} Points</span>
-            <span class="banned" *ngIf="offender.isBanned">Banned</span>
+        <mat-panel-description class="flex-child">
+            <span class="status" *ngIf="!offender.isBanned" [class.warning]="offender.points == 3">{{offender.watchStatus}}</span>
+            <span class="warning status" *ngIf="offender.isBanned">Banned</span>
         </mat-panel-description>
     </mat-expansion-panel-header>
 <div class="dates">
@@ -40,16 +39,9 @@
             [(ngModel)]="offender.points"
             (selectionChange)="pointsChanged($event, offender)"
             name="points">
-                <mat-option [value]=1>1</mat-option>
-                <mat-option [value]=2>2</mat-option>
-                <mat-option [value]=3>3</mat-option>
-                <mat-option [value]=4>4</mat-option>
-                <mat-option [value]=5>5</mat-option>
-                <mat-option [value]=6>6</mat-option>
-                <mat-option [value]=7>7</mat-option>
-                <mat-option [value]=8>8</mat-option>
-                <mat-option [value]=9>9</mat-option>
-                <mat-option [value]=10>10</mat-option>
+                <mat-option [value]=1>New</mat-option>
+                <mat-option [value]=2>Watch</mat-option>
+                <mat-option [value]=3>WARNING</mat-option>
             </mat-select>
         </mat-form-field>
     </div>

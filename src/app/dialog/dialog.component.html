@@ -22,15 +22,14 @@
       <mat-select
       cdkFocusInitial
       [formControl]="pointsCtrl"
-      required name="points"
-      placeholder="Initial Points"
-      [(ngModel)]="data.points"
-      name="newOffenderPoints">
-        <mat-option *ngFor="let num of points" [value]="num.value">
-          {{num.display}}
-        </mat-option>
+      required name="watchStatus"
+      placeholder="Initial Status"
+      [(ngModel)]="data.points">
+        <mat-option [value]=1>New</mat-option>
+        <mat-option [value]=2>Watch</mat-option>
+        <mat-option [value]=3>WARNING</mat-option>
       </mat-select>
-      <mat-error *ngIf="pointsCtrl.invalid">{{getScoreError()}}</mat-error>
+      <mat-error *ngIf="pointsCtrl.invalid">{{getPointsError()}}</mat-error>
     </mat-form-field>
   </div>
 

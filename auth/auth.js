@@ -1,6 +1,6 @@
 const express = require('express');
 const auth = express();
-const flash = require('connect-flash');
+const flash = require('flash');
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
@@ -58,6 +58,8 @@ auth.get('/flash', function (req, res) {
     // Set a flash message by passing the key, followed by the value, to req.flash().
     req.flash('info', 'Flash is back!')
     res.redirect('/');
+    next(); // how should this be used? http://expressjs.com/en/guide/routing.html
+
 });
 
 auth.get('/', function (req, res) {

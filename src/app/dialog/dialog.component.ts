@@ -16,7 +16,6 @@ export class DialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public data: {name: string, nickName: string, points: number, note: string}) {  }
 
   ngOnInit() {
-    this.createPoints()
     this.newOffender = new Offender();
   }
 
@@ -27,14 +26,6 @@ export class DialogComponent implements OnInit {
   nameCtrl = new FormControl(this.data.name, [Validators.required]);
   pointsCtrl = new FormControl(0, [Validators.required]);
   noteCtrl = new FormControl('', [Validators.required]);
-  points = new Array();
-
-  createPoints() {
-    for (let i = 0; i < 10; i++) {
-      let point = { "value": i + 1, "display": i + 1 };
-      this.points.push(point);
-    }
-  }
 
   selectPoints(pointValue) {
     this.data.points = pointValue;
@@ -46,7 +37,7 @@ export class DialogComponent implements OnInit {
     }
   }
 
-  getScoreError() {
+  getPointsError() {
     if (this.pointsCtrl.hasError('required')) {
       return 'Please select a value 1-10';
     }
@@ -71,21 +62,23 @@ export class DialogComponent implements OnInit {
       this.newOffender.isBanned = false;
       this.newOffender.originalStatus = this.newOffender.isBanned;
       this.newOffender.nickName = this.data.nickName ? this.data.nickName : null;
+      this.newOffender.watchStatus = this.getWatchStatus();
       this.dialogRef.close(this.newOffender);
     }
+  }
+
+  getWatchStatus() {
+    if (this.data.points == 1) {
+      return "New";
+    } else if (this.data.points == 2) {
+      return "Watch";
+    }
+    return "WARNING";
   }
 
   cancelAdd(): void {
     this.data = null;
     this.dialogRef.close();
-  }
-
-  createDropdown() {
-    for (let i = 0; i > 10; i++) {
-      let point = {"value": i+1, "display": i+1}
-      this.points.push(point);
-    }
-    return this.points;
   }
 
 }

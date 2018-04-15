@@ -3,16 +3,14 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const flash = require('flash');
 const mongoose = require('mongoose');
-const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
-const connect = require('connect');
 const localDB = require('./config/db').localDB;
 const auth = require('./auth/auth');
-const catApi = require('./api/catTestApi');
-const adminApi = require('./api/adminApi');
+// const adminApi = require('./api/adminApi');
 const api = require('./api/api');
-    // 'mongodb://localhost:27017/etp_mod_team';
+
 
 mongoose.connect(process.env.MONGODB_URI || localDB);
 // CONNECTION EVENTS
@@ -67,9 +65,10 @@ app.use(express.static(__dirname + '/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/catApi', catApi);
 app.use('/api', api);
-app.use('/admin', adminApi);
+// app.use('/admin', adminApi);
+app.use('/auth', auth);
+
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
