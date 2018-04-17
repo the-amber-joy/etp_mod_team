@@ -1,16 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject, NgModule } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+
 import { Offender } from '../shared/offender.model';
 import { Note } from "../shared/note.model";
 import { Admin } from "../shared/admin.model";
-import { Observable } from 'rxjs/Observable';
-import { FormGroup, FormBuilder } from '@angular/forms';
-
 import { OffenderService } from "./offender.service";
 import { AppModule } from '../app.module';
 import { MatSelectChange } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
-import { notDeepEqual } from 'assert';
 
 @Component({
     selector: 'offenders-component',
@@ -33,6 +32,7 @@ export class OffenderComponent implements OnInit, AppModule {
     offender: Offender;
     newNote: string = '';
     addedName: string = '';
+    watchStatus: string;
 
     getAll() {
         return this.offenderService.getAll().subscribe(response => {
@@ -40,9 +40,8 @@ export class OffenderComponent implements OnInit, AppModule {
             this.offenders.forEach(offender => {
                 offender.originalPoints = offender.points;
                 offender.originalStatus = offender.isBanned;
+                offender.watchStatus = this.getWatchStatus(offender);
             })
-            console.log(this.offenders)
-
             return this.offenders;
         });
     }
@@ -58,16 +57,11 @@ export class OffenderComponent implements OnInit, AppModule {
         });
         this.addedName = '';
 
-        dialogRef.afterClosed().subscribe(result => {
-                // console.log("after close result", result._id);
-        });
-
         dialogRef.beforeClose().subscribe(dialogData => {
-                return this.offenderService.postNew(dialogData).subscribe(response => {
-                    response.originalPoints = response.points
-                    response.originalStatus = response.isBanned
-                    this.offenders.push(response)
-                    console.log("response", response);
+            return this.offenderService.postNew(dialogData).subscribe(response => {
+                response.originalPoints = response.points
+                response.originalStatus = response.isBanned
+                this.offenders.push(response)
             })
 
         });
@@ -82,16 +76,17 @@ export class OffenderComponent implements OnInit, AppModule {
         this.newNote = '';
     }
 
-
     pointsChanged($event: EventEmitter<MatSelectChange>, offender) {
-        if (offender.originalPoints == offender.points) {
+        this.getWatchStatus(offender);
+
+        if (offender.points == offender.originalPoints) {
             offender.pointsChanged = false;
         }
-        if (offender.originalPoints != offender.points) {
+        if (offender.points != offender.originalPoints) {
             offender.changesMade = true;
             offender.pointsChanged = true;
-        } else if (offender.originalPoints == offender.points
-            && offender.originalStatus == offender.isBanned
+        } else if (offender.points == offender.originalPoints
+            && offender.isBanned == offender.originalStatus
             && !offender.notesAdded
         ) {
             offender.changesMade = false;
@@ -115,6 +110,10 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     saveChanges(offender: Offender) {
+        if (this.newNote !== '') {
+            this.addNewNote(offender);
+        }
+
         let newNotes: Note[] = [];
         if (offender.notesAdded) {
             newNotes = [];
@@ -128,6 +127,7 @@ export class OffenderComponent implements OnInit, AppModule {
 
         offender.originalPoints = offender.points;
         offender.originalStatus = offender.isBanned;
+        offender.watchStatus = this.getWatchStatus(offender);
         offender.changesMade = false;
         offender.updated = new Date();
 
@@ -138,7 +138,6 @@ export class OffenderComponent implements OnInit, AppModule {
             isBanned: offender.isBanned,
             updated: offender.updated
         }).subscribe();
-
     }
 
     discardChanges(offender) {
@@ -157,7 +156,18 @@ export class OffenderComponent implements OnInit, AppModule {
         if (offender.pointsChanged) {
             offender.points = offender.originalPoints;
         }
-        offender.changesMade = false;
+        offender.changesMade = false
     }
 
+    getWatchStatus(offender) {
+        if (offender.points == 0) {
+            return "Probation"
+        } else if (offender.points == 1) {
+            return "Watching"
+        } else if(offender.points == 2) {
+            return "Warned"
+        } else {
+            return "Final Straw"
+        }
+    }
 }
