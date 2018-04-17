@@ -30,7 +30,7 @@
 
             <div class="form-group points" [class.changed-item]="offender.originalPoints != offender.points">
                 <mat-form-field>
-                    <mat-select placeholder="Points" [(value)]="offender.points" [disabled]="offender.isBanned" [(ngModel)]="offender.points"
+                    <mat-select placeholder="Status" [(value)]="offender.points" [disabled]="offender.isBanned" [(ngModel)]="offender.points"
                         (selectionChange)="pointsChanged($event, offender)" name="points">
                         <mat-option [value]=0>Probation</mat-option>
                         <mat-option [value]=1>Watching</mat-option>
