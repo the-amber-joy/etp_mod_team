@@ -22,7 +22,7 @@
       <mat-select
       [formControl]="pointsCtrl"
       required name="points"
-      placeholder="Initial Points"
+      placeholder="Initial Status"
       [(ngModel)]="data.points"
       name="newOffenderPoints">
         <mat-option *ngFor="let num of points" [value]="num.value">
