@@ -9,85 +9,69 @@
 </form>
 
 <div class="offenders">
-<mat-accordion>
-<mat-expansion-panel *ngFor="let offender of offenders">
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let offender of offenders">
 
-    <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true">
-        <mat-panel-title>
-            {{offender.name}}
-        </mat-panel-title>
-        <mat-panel-description>
-            <span *ngIf="!offender.isBanned && offender.points < 10">{{offender.points}} Point<span *ngIf="offender.points > 1">s</span></span>
-            <span class="banned" *ngIf="!offender.isBanned && offender.points == 10">{{offender.points}} Points</span>
-            <span class="banned" *ngIf="offender.isBanned">Banned</span>
-        </mat-panel-description>
-    </mat-expansion-panel-header>
-<div class="dates">
-    <div class="date-added">First Offense: {{offender.created | date}}</div>
-    <div>
-        Last Updated:
-            {{offender.updated | date}}
-            by Admin{{Admin}}
-    </div>
-</div>
+            <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true" class="flex-parent">
+                <mat-panel-title class="flex-child">
+                    <span class="name">{{offender.name}}</span>
+                </mat-panel-title>
+                <mat-panel-description class="flex-child">
+                    <span class="status" *ngIf="!offender.isBanned" [class.warning]="offender.points == 3">{{offender.watchStatus}}</span>
+                    <span class="warning status" *ngIf="offender.isBanned">Banned</span>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="dates">
+                <div class="date-added">First Offense: {{offender.created | date}}</div>
+                <div>
+                    Last Updated: {{offender.updated | date}} by Admin{{Admin}}
+                </div>
+            </div>
 
-    <div class="form-group points" [class.changed-item]="offender.originalPoints != offender.points">
-        <mat-form-field>
-            <mat-select
-            placeholder="Points"
-            [(value)]="offender.points"
-            [disabled]="offender.isBanned"
-            [(ngModel)]="offender.points"
-            (selectionChange)="pointsChanged($event, offender)"
-            name="points">
-                <mat-option [value]=1>1</mat-option>
-                <mat-option [value]=2>2</mat-option>
-                <mat-option [value]=3>3</mat-option>
-                <mat-option [value]=4>4</mat-option>
-                <mat-option [value]=5>5</mat-option>
-                <mat-option [value]=6>6</mat-option>
-                <mat-option [value]=7>7</mat-option>
-                <mat-option [value]=8>8</mat-option>
-                <mat-option [value]=9>9</mat-option>
-                <mat-option [value]=10>10</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+            <div class="form-group points" [class.changed-item]="offender.originalPoints != offender.points">
+                <mat-form-field>
+                    <mat-select placeholder="Points" [(value)]="offender.points" [disabled]="offender.isBanned" [(ngModel)]="offender.points"
+                        (selectionChange)="pointsChanged($event, offender)" name="points">
+                        <mat-option [value]=0>Probation</mat-option>
+                        <mat-option [value]=1>Watching</mat-option>
+                        <mat-option [value]=2>Warned</mat-option>
+                        <mat-option [value]=3>Final Straw</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-    <div class="form-group" [class.changed-item]="offender.originalStatus != offender.isBanned">
-        <mat-slide-toggle
-        color="warn"
-        [(ngModel)]="offender.isBanned"
-        [checked]="offender.isBanned"
-        (change)="banStatusChanged($event, offender)"
-        name="isBanned">
-            <span *ngIf="!offender.isBanned">Banned?</span>
-            <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
-        </mat-slide-toggle>
-    </div>
+            <div class="form-group" [class.changed-item]="offender.originalStatus != offender.isBanned">
+                <mat-slide-toggle color="warn" [(ngModel)]="offender.isBanned" [checked]="offender.isBanned" (change)="banStatusChanged($event, offender)"
+                    name="isBanned">
+                    <span *ngIf="!offender.isBanned">Banned?</span>
+                    <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
+                </mat-slide-toggle>
+            </div>
 
-    <div class="form-group">
-        <form (ngSubmit)="addNewNote(offender)">
-            <mat-form-field>
-                <button type="button" [disabled]="newNote == ''" mat-button matPrefix mat-icon-button (click)="newNote=''">
-                    <mat-icon *ngIf="newNote != ''" class="cancelX">x</mat-icon>
-                </button>
-                <input matInput name="newNote" type="text" autocomplete="off" [(ngModel)]="newNote" placeholder="Add comments" />
-            </mat-form-field>
-            <button class="note-btn" type="submit" [disabled]="newNote == ''" mat-button matSuffix label="Add comment" mat-icon-button></button>
-        </form>
-    </div>
+            <div class="form-group">
+                <form (ngSubmit)="addNewNote(offender)">
+                    <mat-form-field>
+                        <button type="button" [disabled]="newNote == ''" mat-button matPrefix mat-icon-button (click)="newNote=''">
+                            <mat-icon *ngIf="newNote != ''" class="cancelX">x</mat-icon>
+                        </button>
+                        <input matInput name="newNote" type="text" autocomplete="off" [(ngModel)]="newNote" placeholder="Add comments" />
+                    </mat-form-field>
+                    <button class="note-btn" type="submit" [disabled]="newNote == ''" mat-button matSuffix label="Add comment" mat-icon-button></button>
+                </form>
+            </div>
 
-    <div class="form-group">
-        <h3 class="mat-h3">History</h3>
-        <ul *ngFor="let note of offender.notes">
-            <li [class.changed-item]="note.isNew">{{note.note}} <em>({{note.created | date}} by {{note.addedBy.nickName}})</em></li>
-        </ul>
-    </div>
+            <div class="form-group">
+                <h3 class="mat-h3">History</h3>
+                <ul *ngFor="let note of offender.notes">
+                    <li [class.changed-item]="note.isNew">{{note.note}}
+                        <em>({{note.created | date}} by {{note.addedBy.nickName}})</em>
+                    </li>
+                </ul>
+            </div>
 
-    <button class="save-btn" float="left" mat-raised-button color="primary" [disabled]="!offender.changesMade" (click)="saveChanges(offender)">Save Changes</button>
-    <button class="cancel-btn" float="right" mat-raised-button color="warn" [disabled]="!offender.changesMade" (click)="discardChanges(offender)">Discard Changes</button>
+            <button class="save-btn" float="left" mat-raised-button color="primary" [disabled]="!offender.changesMade" (click)="saveChanges(offender)">Save Changes</button>
+            <button class="cancel-btn" float="right" mat-raised-button color="warn" [disabled]="!offender.changesMade" (click)="discardChanges(offender)">Discard Changes</button>
 
-</mat-expansion-panel>
-</mat-accordion>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>
