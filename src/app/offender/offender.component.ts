@@ -57,13 +57,18 @@ export class OffenderComponent implements OnInit, AppModule {
         });
         this.addedName = '';
 
-        dialogRef.beforeClose().subscribe(dialogData => {
-            return this.offenderService.postNew(dialogData).subscribe(response => {
-                response.originalPoints = response.points
-                response.originalStatus = response.isBanned
-                this.offenders.push(response)
-            })
-
+        dialogRef.afterClosed().subscribe(dialogData => {
+            console.log(dialogData);
+            if (dialogData == null) {
+                return
+            }
+            else {
+                return this.offenderService.postNew(dialogData).subscribe(response => {
+                    response.originalPoints = response.points
+                    response.originalStatus = response.isBanned
+                    this.offenders.push(response)
+                })
+            }
         });
     }
 
