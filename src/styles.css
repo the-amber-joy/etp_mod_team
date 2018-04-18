@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+/* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
 /* @import "~@angular/material/prebuilt-themes/purple-green.css"; */
 
@@ -8,14 +8,15 @@ body {
     margin: 5%;
 }
 
-.date-added{
-    font-size: 16px;
-}
-
 form {
     margin: 2%;
 }
 
-mat-input-element {
-    color: warn;
+.flex-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.cancelX {
+    opacity: 0.5;
 }

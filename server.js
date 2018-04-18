@@ -1,18 +1,83 @@
-// server.js
 const express = require('express');
-const path = require('path');
 const app = express();
-// Run the app by serving the static files
-// in the dist directory
-app.use(express.static(__dirname + '/dist'));
+const path = require('path');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const flash = require('flash');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const localDB = require('./config/db').localDB;
+const auth = require('./auth/auth');
+// const adminApi = require('./api/adminApi');
+const api = require('./api/api');
 
-app.get('/*', function (req, res) {
+
+mongoose.connect(process.env.MONGODB_URI || localDB);
+// CONNECTION EVENTS
+mongoose.connection.on('connected', function () {
+    console.log('Mongoose connected to ' + localDB);
+});
+mongoose.connection.on('error', function (err) {
+    console.log('Mongoose connection error: ' + err);
+});
+mongoose.connection.on('disconnected', function () {
+    console.log('Mongoose disconnected');
+});
+// CAPTURE APP TERMINATION / RESTART EVENTS
+// To be called when process is restarted or terminated
+gracefulShutdown = function (msg, callback) {
+    mongoose.connection.close(function () {
+        console.log('Mongoose disconnected through ' + msg);
+        callback();
+    });
+};
+// For nodemon restarts
+process.once('SIGUSR2', function () {
+    gracefulShutdown('nodemon restart', function () {
+        process.kill(process.pid, 'SIGUSR2');
+    });
+});
+// For app termination
+process.on('SIGINT', function () {
+    gracefulShutdown('app termination', function () {
+        process.exit(0);
+    });
+});
+// For Heroku app termination
+process.on('SIGTERM', function () {
+    gracefulShutdown('Heroku app termination', function () {
+        process.exit(0);
+    });
+});
+
+// https://www.npmjs.com/package/cookie-parser
+app.use(cookieParser())
+// https://github.com/expressjs/session
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+app.use(flash());
+app.use(express.static(__dirname + '/dist'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/api', api);
+// app.use('/admin', adminApi);
+app.use('/auth', auth);
+
+
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
-// Start the app by listening on the default
-// Heroku port
-app.set('port', process.env.PORT || 8080);
-app.listen(app.get('port'), function () {
-    console.log('Magic happens on port', app.get('port'));
+// SET PORT AND START SERVER
+app.set('port', process.env.PORT || 3000);
+const activePort = app.get('port');
+
+app.listen(activePort, () => {
+    console.log('Makin\' big gainz on port ' + activePort + '. BOOM!');
 });

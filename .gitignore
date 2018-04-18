@@ -1,7 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
+dist
+dist/**
 /tmp
 /out-tsc
 
@@ -20,10 +21,10 @@
 # IDE - VSCode
 .vscode/
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
 
 # misc
 /.sass-cache
@@ -41,3 +42,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+config/
+post_sample.json
+todo.txt

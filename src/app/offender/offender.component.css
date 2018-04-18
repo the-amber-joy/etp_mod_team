@@ -6,6 +6,21 @@ mat-icon {
     color: accent;
 }
 
+.app-layout {
+    max-width: 800px;
+    margin-top: 90px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dates {
+    margin-bottom: 25px;
+}
+
+.date-added{
+    font-size: 16px;
+}
+
 .note-btn:after {
     font-family: 'FontAwesome';
     content: "\f055";
@@ -20,7 +35,7 @@ mat-icon {
     color: rgba(0,0,0,.26);
 }
 
-.banned {
+.warning {
     color: #f44336;
 }
 
@@ -32,13 +47,49 @@ ul {
   list-style: none;
   padding: 0;
 }
+
 li {
   padding-left: 1.3em;
 }
+
 li:before {
   font-family: "FontAwesome";
   content: "\f075";
   display: inline-block;
   margin-left: -1.3em;
   width: 1.3em;
+}
+
+.changed-item:before {
+  font-family: "FontAwesome";
+  content: "\f069";
+  color: #f44336;
+  margin-left: -1.3em;
+  width: 1.3em;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.mat-expansion-panel-header-description {
+    flex-grow: .35!important;
+}
+
+.name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status {
+    flex-basis: 25%;
+    font-size: 14px;
+    min-width: 50%
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-bottom: 10px;
 }
