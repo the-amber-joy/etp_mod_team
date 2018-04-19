@@ -6,7 +6,8 @@ import {
   MatButtonModule, MatCheckboxModule, MatFormFieldModule,
   MatFormFieldControl, MatInputModule, MatSlideToggleModule,
   MatDividerModule, MatSelectModule, MatSelectChange, MatExpansionModule,
-  MatListModule, MatDialogModule, MatIconModule, MatMenuModule, MatToolbarModule, MatCardModule, MatProgressSpinnerModule
+  MatListModule, MatDialogModule, MatIconModule, MatMenuModule,
+  MatToolbarModule, MatCardModule, MatProgressSpinnerModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -15,6 +16,7 @@ import { OffenderComponent } from "../app/offender/offender.component";
 import { OffenderService } from './offender/offender.service';
 import { OffenderDialogComponent } from './offender-dialog/offender-dialog.component';
 import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { LoginComponent } from './login/login.component';
     OffenderComponent,
     OffenderDialogComponent,
     LoginComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ import { LoginComponent } from './login/login.component';
     MatIconModule,
     MatToolbarModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [
     HttpClientModule,

@@ -1,17 +1,5 @@
-<mat-toolbar color="primary" class="toolbar">
-    <span>ETP Mod Team</span>
-    <span class="fill-remaining-space"></span>
-    <mat-menu #appMenu="matMenu">
-        <button mat-menu-item (click)="settings()">Settings</button>
-        <button mat-menu-item (click)="logout()">Log Out</button>
-    </mat-menu>
-    <button mat-icon-button [matMenuTriggerFor]="appMenu">
-        <mat-icon>settings</mat-icon>
-    </button>
-</mat-toolbar>
-
 <div class="app-layout">
-<form (ngSubmit)="openDialog(addedName)">
+    <form (ngSubmit)="openDialog(addedName)">
     <mat-form-field>
         <button type="button" matPrefix mat-icon-button (click)="addedName=''">
             <mat-icon *ngIf="addedName != ''" class="cancelX">x</mat-icon>

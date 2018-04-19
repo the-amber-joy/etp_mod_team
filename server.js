@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('flash');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
 const localDB = require('./config/db').localDB;
 const auth = require('./auth/auth');
 // const adminApi = require('./api/adminApi');
@@ -50,15 +49,13 @@ process.on('SIGTERM', function () {
     });
 });
 
-// https://www.npmjs.com/package/cookie-parser
-app.use(cookieParser())
+
 // https://github.com/expressjs/session
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
 }));
 app.use(flash());
 app.use(express.static(__dirname + '/dist'));
@@ -73,6 +70,14 @@ app.use('/auth', auth);
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
+
+app.get('/login', function (req, res) {
+    res.sendFile(path.join(__dirname + '/dist/index.html'));
+})
+
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname + '/dist/index.html'));
+})
 
 // SET PORT AND START SERVER
 app.set('port', process.env.PORT || 3000);

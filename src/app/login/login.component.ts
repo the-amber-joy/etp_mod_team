@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
 
   ngOnInit() {
+    this.showSpinner = false;
   }
 
+  showSpinner: boolean;
   // constructor(private router: Router) {
   // }
 
@@ -17,6 +19,7 @@ export class LoginComponent implements OnInit {
   password: string
 
   login(): void {
+    this.showSpinner = true
     // if (this.username == 'admin' && this.password == 'admin') {
     //   this.router.navigate(["user"]);
     // } else {

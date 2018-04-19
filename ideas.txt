@@ -1,9 +1,7 @@
 * MVP
 
 * Login page
-  Do I want a separate save button per offender card, or one to save all changes made on the view?
-      Mark edited/unsaved items with asterisk or other indicator
-      Warning if not saved
+  Archive (link from header)
   Live filtering / sorting by offender name
         Check for duplicates before adding new offender?
   Delete function? (Offender won't show up on main view but still searchable in archive)

@@ -68,10 +68,6 @@ li:before {
   width: 1.3em;
 }
 
-.fill-remaining-space {
-  flex: 1 1 auto;
-}
-
 .mat-expansion-panel-header-description {
     flex-grow: .35!important;
 }
@@ -85,11 +81,4 @@ li:before {
     flex-basis: 25%;
     font-size: 14px;
     min-width: 50%
-}
-
-.toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin-bottom: 10px;
 }

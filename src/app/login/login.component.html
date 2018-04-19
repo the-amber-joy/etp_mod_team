@@ -1,7 +1,11 @@
 <mat-card class="login-card">
-  <mat-card-header>
-    <mat-card-title>ETP Mod Team</mat-card-title>
-  </mat-card-header>
+  <mat-card-title-group>
+    <mat-card-title>Please Log In</mat-card-title>
+      <mat-card-subtitle>
+      <mat-spinner [style.display]="showSpinner ? 'inline-block' : 'none'" [style.margin]="0" [diameter]="20"></mat-spinner>
+      </mat-card-subtitle>
+      <!-- <img mat-card-lg-img src="http://www.eattrainprogress.com/uploads/1/1/4/7/114724771/etp-logo-v2_orig.png" height="130" width="200"> -->
+    </mat-card-title-group>
   <mat-card-content>
     <form class="login-form">
       <mat-form-field>
@@ -11,12 +15,10 @@
         <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
       </mat-form-field>
     </form>
-    <mat-spinner [diameter]="20"></mat-spinner>
   </mat-card-content>
   <mat-card-actions class="login">
-    <button type="submit" disabled mat-raised-button (click)="login()" color="primary">
+    <button type="submit" mat-raised-button (click)="login()" color="primary">
       Login
-      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" [diameter]="20"></mat-spinner>
     </button>
   </mat-card-actions>
 </mat-card>
