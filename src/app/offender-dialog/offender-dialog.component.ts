@@ -2,18 +2,21 @@ import { Component, OnInit, Input, Output, EventEmitter, Inject, ViewEncapsulati
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
-import { Offender } from '../shared/offender.model'
-import { Admin } from '../shared/admin.model';
-import { Note } from '../shared/note.model';
+import { Offender } from '../models/offender.model'
+import { Admin } from '../models/admin.model';
+import { Note } from '../models/note.model';
 
 @Component({
-  selector: 'dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css'],
+  selector: 'offender-dialog',
+  templateUrl: './offender-dialog.component.html',
+  styleUrls: ['./offender-dialog.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class DialogComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<DialogComponent>, @Inject(MAT_DIALOG_DATA) public data: {name: string, nickName: string, points: number, note: string}) {  }
+export class OffenderDialogComponent implements OnInit {
+  constructor(
+    public dialogRef: MatDialogRef<OffenderDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { name: string, nickName: string, points: number, note: string }
+  ) { }
 
   ngOnInit() {
     this.newOffender = new Offender();

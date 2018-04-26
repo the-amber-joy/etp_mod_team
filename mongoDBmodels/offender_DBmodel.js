@@ -9,6 +9,7 @@ const Offender = new Schema({
     // nickName: String,
     // otherNames: [{ altName: String }],
     points: Number,
+    watchStatus: String,
     isBanned: { type: Boolean, default: false },
     addedBy: Admin.schema,
     notes: [ Notes.schema ],

@@ -1,7 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
+dist
+dist/**
 /tmp
 /out-tsc
 
@@ -42,6 +43,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/config
+config/
 post_sample.json
 todo.txt

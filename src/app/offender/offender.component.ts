@@ -3,13 +3,13 @@ import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angu
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
-import { Offender } from '../shared/offender.model';
-import { Note } from "../shared/note.model";
-import { Admin } from "../shared/admin.model";
+import { Offender } from '../models/offender.model';
+import { Note } from "../models/note.model";
+import { Admin } from "../models/admin.model";
 import { OffenderService } from "./offender.service";
 import { AppModule } from '../app.module';
 import { MatSelectChange } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { OffenderDialogComponent } from '../offender-dialog/offender-dialog.component';
 
 @Component({
     selector: 'offenders-component',
@@ -47,7 +47,7 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     openDialog(addedName) {
-        let dialogRef = this.dialog.open(DialogComponent, {
+        let dialogRef = this.dialog.open(OffenderDialogComponent, {
             data: {
                 name: addedName,
                 nickName: '',
@@ -57,13 +57,18 @@ export class OffenderComponent implements OnInit, AppModule {
         });
         this.addedName = '';
 
-        dialogRef.beforeClose().subscribe(dialogData => {
-            return this.offenderService.postNew(dialogData).subscribe(response => {
-                response.originalPoints = response.points
-                response.originalStatus = response.isBanned
-                this.offenders.push(response)
-            })
-
+        dialogRef.afterClosed().subscribe(dialogData => {
+            console.log(dialogData);
+            if (dialogData == null) {
+                return
+            }
+            else {
+                return this.offenderService.postNew(dialogData).subscribe(response => {
+                    response.originalPoints = response.points
+                    response.originalStatus = response.isBanned
+                    this.offenders.push(response)
+                })
+            }
         });
     }
 
@@ -77,7 +82,7 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     pointsChanged($event: EventEmitter<MatSelectChange>, offender) {
-        this.getWatchStatus(offender);
+        offender.watchStatus = this.getWatchStatus(offender);
 
         if (offender.points == offender.originalPoints) {
             offender.pointsChanged = false;
@@ -155,6 +160,7 @@ export class OffenderComponent implements OnInit, AppModule {
         }
         if (offender.pointsChanged) {
             offender.points = offender.originalPoints;
+            offender.watchStatus = this.getWatchStatus(offender);
         }
         offender.changesMade = false
     }

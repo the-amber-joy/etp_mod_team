@@ -25,9 +25,10 @@
       required name="watchStatus"
       placeholder="Initial Status"
       [(ngModel)]="data.points">
-        <mat-option [value]=1>New</mat-option>
-        <mat-option [value]=2>Watch</mat-option>
-        <mat-option [value]=3>WARNING</mat-option>
+        <mat-option [value]=0>Probation</mat-option>
+        <mat-option [value]=1>Watching</mat-option>
+        <mat-option [value]=2>Warned</mat-option>
+        <mat-option [value]=3>Final Straw</mat-option>
       </mat-select>
       <mat-error *ngIf="pointsCtrl.invalid">{{getPointsError()}}</mat-error>
     </mat-form-field>
