@@ -56,6 +56,7 @@ import { HeaderComponent } from './header/header.component';
   ],
   bootstrap: [
     AppComponent,
+    HeaderComponent
   ],
   entryComponents: [
     OffenderDialogComponent,

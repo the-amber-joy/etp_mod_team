@@ -12,4 +12,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  logOut() {
+    alert("you're not logged in")
+  }
+
+  settings() {
+    alert("you don't have any settings")
+  }
+
+
 }

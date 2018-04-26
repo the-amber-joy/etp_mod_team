@@ -2,7 +2,7 @@
     <form (ngSubmit)="openDialog(addedName)">
     <mat-form-field>
         <button type="button" matPrefix mat-icon-button (click)="addedName=''">
-            <mat-icon *ngIf="addedName != ''" class="cancelX">x</mat-icon>
+            <mat-icon *ngIf="addedName != ''" class="cancelX">close</mat-icon>
         </button>
         <input name="addedName" autocomplete="off" matInput [(ngModel)]="addedName" placeholder="Who is it now?">
     </mat-form-field>
@@ -42,9 +42,14 @@
             </div>
 
             <div class="form-group" [class.changed-item]="offender.originalStatus != offender.isBanned">
+                <mat-icon *ngIf="offender.isBanned">cancel</mat-icon>
+                <mat-icon *ngIf="!offender.isBanned && offender.points == 0">sentiment_satisfied</mat-icon>
+                <mat-icon *ngIf="!offender.isBanned && offender.points == 1">sentiment_neutral</mat-icon>
+                <i *ngIf="!offender.isBanned && offender.points == 2" class="material-icons">sentiment_dissatisfied</i>
+                <i *ngIf="!offender.isBanned && offender.points == 3" class="material-icons">sentiment_very_dissatisfied</i>
                 <mat-slide-toggle color="warn" [(ngModel)]="offender.isBanned" [checked]="offender.isBanned" (change)="banStatusChanged($event, offender)"
                     name="isBanned">
-                    <span *ngIf="!offender.isBanned">Banned?</span>
+                    <span *ngIf="!offender.isBanned">Click to Ban</span>
                     <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
                 </mat-slide-toggle>
             </div>
@@ -53,7 +58,7 @@
                 <form (ngSubmit)="addNewNote(offender)">
                     <mat-form-field>
                         <button type="button" [disabled]="newNote == ''" mat-button matPrefix mat-icon-button (click)="newNote=''">
-                            <mat-icon *ngIf="newNote != ''" class="cancelX">x</mat-icon>
+                            <mat-icon *ngIf="newNote != ''" class="cancelX">close</mat-icon>
                         </button>
                         <input matInput name="newNote" type="text" autocomplete="off" [(ngModel)]="newNote" placeholder="Add comments" />
                     </mat-form-field>
