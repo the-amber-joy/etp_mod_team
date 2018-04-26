@@ -67,4 +67,19 @@ auth.get('/', function (req, res) {
     res.render('index', { messages: req.flash('info') });
 });
 
+// HTML LOGIN FORM
+{/* <form action="/login" method="post">
+    <div>
+        <label>Username:</label>
+        <input type="text" name="username" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password" />
+    </div>
+    <div>
+        <input type="submit" value="Log In" />
+    </div>
+</form> */}
+
 module.exports = auth;
