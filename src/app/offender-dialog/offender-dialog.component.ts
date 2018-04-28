@@ -71,12 +71,15 @@ export class OffenderDialogComponent implements OnInit {
   }
 
   getWatchStatus() {
-    if (this.data.points == 1) {
-      return "New";
-    } else if (this.data.points == 2) {
-      return "Watch";
+    if (this.data.points == 0) {
+      return "Probation";
+    } else if (this.data.points == 1) {
+      return "Watching";
+    } else if(this.data.points == 2) {
+      return "Warned";
+    } else {
+      return "Final Straw"
     }
-    return "WARNING";
   }
 
   cancelAdd(): void {
