@@ -1,11 +1,12 @@
-<form (ngSubmit)="openDialog(addedName)">
+<div class="app-layout">
+    <form (ngSubmit)="openDialog(addedName)">
+    <button type="submit" color="accent" mat-raised-button [disabled]="addedName == ''">Add</button>
     <mat-form-field>
-        <button type="button" matPrefix mat-icon-button (click)="addedName=''">
-            <mat-icon *ngIf="addedName != ''" class="cancelX">x</mat-icon>
+        <button type="button" matSuffix mat-icon-button (click)="addedName=''">
+            <mat-icon *ngIf="addedName != ''" class="cancelX">close</mat-icon>
         </button>
         <input name="addedName" autocomplete="off" matInput [(ngModel)]="addedName" placeholder="Who is it now?">
     </mat-form-field>
-    <button type="submit" color="accent" mat-raised-button [disabled]="addedName == ''">Add</button>
 </form>
 
 <div class="offenders">
@@ -17,7 +18,7 @@
                     <span class="name">{{offender.name}}</span>
                 </mat-panel-title>
                 <mat-panel-description class="flex-child">
-                    <span class="status" *ngIf="!offender.isBanned" [class.warning]="offender.points == 3">{{offender.watchStatus}}</span>
+                    <span class="status" *ngIf="!offender.isBanned">{{offender.watchStatus}}</span>
                     <span class="warning status" *ngIf="offender.isBanned">Banned</span>
                 </mat-panel-description>
             </mat-expansion-panel-header>
@@ -28,8 +29,10 @@
                 </div>
             </div>
 
-            <div class="form-group points" [class.changed-item]="offender.originalPoints != offender.points">
-                <mat-form-field>
+            <div class="form-group status" >
+            <form [class.changed-item]="offender.originalPoints != offender.points || offender.originalStatus != offender.isBanned">
+                <button class="ban-btn button" (click)="banStatusChanged(offender)" [class.banned]="offender.isBanned" mat-button matSuffix label="Click to Ban" mat-icon-button></button>
+                <mat-form-field *ngIf="!offender.isBanned">
                     <mat-select placeholder="Status" [(value)]="offender.points" [disabled]="offender.isBanned" [(ngModel)]="offender.points"
                         (selectionChange)="pointsChanged($event, offender)" name="points">
                         <mat-option [value]=0>Probation</mat-option>
@@ -38,29 +41,23 @@
                         <mat-option [value]=3>Final Straw</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
+            </form>
             </div>
 
-            <div class="form-group" [class.changed-item]="offender.originalStatus != offender.isBanned">
-                <mat-slide-toggle color="warn" [(ngModel)]="offender.isBanned" [checked]="offender.isBanned" (change)="banStatusChanged($event, offender)"
-                    name="isBanned">
-                    <span *ngIf="!offender.isBanned">Banned?</span>
-                    <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
-                </mat-slide-toggle>
+            <div class="form-group notes">
+            <form (ngSubmit)="addNewNote(offender)">
+                <button class="note-btn" type="submit" [disabled]="newNote == ''" mat-button matSuffix label="Add comment" mat-icon-button></button>
+                <mat-form-field>
+                    <button type="button" [disabled]="newNote == ''" mat-button matSuffix mat-icon-button (click)="newNote=''">
+                        <mat-icon *ngIf="newNote != ''" class="cancelX">close</mat-icon>
+                    </button>
+                    <input matInput name="newNote" type="text" autocomplete="off" [(ngModel)]="newNote" placeholder="Add comments" />
+                </mat-form-field>
+            </form>
             </div>
 
-            <div class="form-group">
-                <form (ngSubmit)="addNewNote(offender)">
-                    <mat-form-field>
-                        <button type="button" [disabled]="newNote == ''" mat-button matPrefix mat-icon-button (click)="newNote=''">
-                            <mat-icon *ngIf="newNote != ''" class="cancelX">x</mat-icon>
-                        </button>
-                        <input matInput name="newNote" type="text" autocomplete="off" [(ngModel)]="newNote" placeholder="Add comments" />
-                    </mat-form-field>
-                    <button class="note-btn" type="submit" [disabled]="newNote == ''" mat-button matSuffix label="Add comment" mat-icon-button></button>
-                </form>
-            </div>
-
-            <div class="form-group">
+            <div class="form-group history">
                 <h3 class="mat-h3">History</h3>
                 <ul *ngFor="let note of offender.notes">
                     <li [class.changed-item]="note.isNew">{{note.note}}
@@ -74,4 +71,5 @@
 
         </mat-expansion-panel>
     </mat-accordion>
+</div>
 </div>
