@@ -24,7 +24,7 @@ mat-icon {
 .note-btn:after {
     font-family: 'FontAwesome';
     content: "\f055";
-    font-size: 3em;
+    font-size: 2em;
 }
 
 .note-btn.mat-icon-button {
@@ -33,6 +33,20 @@ mat-icon {
 
 .note-btn:disabled {
     color: rgba(0,0,0,.26);
+}
+
+.ban-btn:after {
+    font-family: 'FontAwesome';
+    content: "\f05e";
+    font-size: 2em;
+}
+
+.ban-btn.mat-icon-button {
+     color: rgba(0,0,0,.26);
+}
+
+.ban-btn:disabled {
+    color: #f44336;
 }
 
 .warning {

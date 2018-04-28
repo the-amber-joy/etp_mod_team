@@ -115,34 +115,59 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     saveChanges(offender: Offender) {
+        let confirmBan = false;
+        let newNotes: Note[] = [];
+
+        function saveNotes() {
+            if (offender.notesAdded) {
+                newNotes = [];
+                offender.notes.forEach(note => {
+                    if (note.isNew) {
+                        note.isNew = false;
+                        newNotes.push(note)
+                    }
+                })
+            }
+        }
+
         if (this.newNote !== '') {
             this.addNewNote(offender);
         }
 
-        let newNotes: Note[] = [];
-        if (offender.notesAdded) {
-            newNotes = [];
-            offender.notes.forEach(note => {
-                if (note.isNew) {
-                    note.isNew = false;
-                    newNotes.push(note)
-                }
-            })
+        if (offender.originalStatus !== offender.isBanned && offender.isBanned == true) {
+            confirmBan = confirm("Are you sure you want to ban " + offender.name + "? This action cannot be undone.");
+            if (confirmBan == true) {
+                saveNotes();
+                this.resetOffender(offender);
+                this.offenderService.updateStatus({
+                    _id: offender._id,
+                    notes: newNotes,
+                    points: offender.points,
+                    isBanned: offender.isBanned,
+                    updated: offender.updated
+                }).subscribe();
+            }
         }
 
+        if (confirmBan == false) {
+            saveNotes();
+            this.offenderService.updateStatus({
+                _id: offender._id,
+                notes: newNotes,
+                points: offender.points,
+                isBanned: offender.isBanned,
+                updated: offender.updated
+            }).subscribe();
+            this.resetOffender(offender);
+        }
+    }
+
+    resetOffender(offender) {
         offender.originalPoints = offender.points;
         offender.originalStatus = offender.isBanned;
         offender.watchStatus = this.getWatchStatus(offender);
         offender.changesMade = false;
         offender.updated = new Date();
-
-        this.offenderService.updateStatus({
-            _id: offender._id,
-            notes: newNotes,
-            points: offender.points,
-            isBanned: offender.isBanned,
-            updated: offender.updated
-        }).subscribe();
     }
 
     discardChanges(offender) {
