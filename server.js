@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const localDB = 'mongodb://localhost:27017/etp_mod_team?maxIdleTimeMS=15000';
 const auth = require('./auth/auth');
 // const adminApi = require('./api/adminApi');
-const api = require('./api/api');
+const api = require('./api/offenders');
 
 
 mongoose.connect(process.env.MONGODB_URI || localDB);

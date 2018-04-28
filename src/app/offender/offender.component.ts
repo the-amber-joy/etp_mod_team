@@ -105,7 +105,7 @@ export class OffenderComponent implements OnInit, AppModule {
 
     banStatusChanged(offender) {
         offender.isBanned = !offender.isBanned;
-        
+
         if (offender.originalStatus == offender.isBanned) {
             offender.banStatusChanged = false;
         }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../shared/auth.service";
+
 
 @Component({
   selector: 'app-header',
@@ -7,13 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private auth: AuthService
+  ) { }
 
   ngOnInit() {
   }
 
   logOut() {
-    alert("you're not logged in")
+    // Send call to user authentication API
+    // Call logout method
+    return this.auth.logOut();
   }
 
   settings() {

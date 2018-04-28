@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 const saltRounds = 8;
 
-const Admin = require('../mongoDBmodels/admin_DBmodel');
+const user = require('../mongoDBmodels/admin_DBmodel');
 
 const hash = 'thisIsTheHashedPasswordInTheDatabase';
 var plaintextPassword = 'bacon';
@@ -31,7 +31,7 @@ bcrypt.compare(someOtherPlaintextPassword, hash, function (err, res) {
 // PASSPORT CONFIGURATION
 passport.use(new LocalStrategy(
     function (username, password, done) {
-        Admin.findOne({ username: username }, function (err, user) {
+        user.findOne({ username: username }, function (err, user) {
             if (err) { return done(err); }
             if (!user) {
                 return done(null, false, { message: 'Username not found.' });

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Offender } from "../models/offender.model";
-import { Admin } from '../models/admin.model';
 import { Note } from '../models/note.model';
 
 @Injectable()
