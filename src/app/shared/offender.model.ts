@@ -4,8 +4,8 @@ import { Admin } from "./admin.model";
 export class Offender {
     _id?: number;
     name: string;
-    nickName?: string; // future feature
-    otherNames?: { altName: string }[]; // future feature
+    nickName?: string;
+    otherNames?: { altName: string }[];
     points: number;
     originalPoints?: number;
     watchStatus: string;
