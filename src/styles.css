@@ -32,6 +32,11 @@ form {
     margin: 2%;
 }
 
+.flex-child {
+  flex: 1;
+  min-width: 0;
+}
+
 .cancelX {
     opacity: 0.5;
 }

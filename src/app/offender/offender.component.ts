@@ -3,13 +3,13 @@ import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angu
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
-import { Offender } from '../shared/offender.model';
-import { Note } from "../shared/note.model";
-import { Admin } from "../shared/admin.model";
+import { Offender } from '../models/offender.model';
+import { Note } from "../models/note.model";
+import { Admin } from "../models/admin.model";
 import { OffenderService } from "./offender.service";
 import { AppModule } from '../app.module';
 import { MatSelectChange } from '@angular/material';
-import { DialogComponent } from '../dialog/dialog.component';
+import { OffenderDialogComponent } from '../offender-dialog/offender-dialog.component';
 
 @Component({
     selector: 'offenders-component',
@@ -47,7 +47,7 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     openDialog(addedName) {
-        let dialogRef = this.dialog.open(DialogComponent, {
+        let dialogRef = this.dialog.open(OffenderDialogComponent, {
             data: {
                 name: addedName,
                 nickName: '',
@@ -82,14 +82,19 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     pointsChanged($event: EventEmitter<MatSelectChange>, offender) {
-        this.getWatchStatus(offender);
+        offender.watchStatus = this.getWatchStatus(offender);
 
         if (offender.points == offender.originalPoints) {
             offender.pointsChanged = false;
         }
-        if (offender.points != offender.originalPoints) {
+        if (offender.points != offender.originalPoints || offender.isBanned != offender.originalStatus) {
+            if (offender.points != offender.originalPoints) {
+                offender.pointsChanged = true;
+            }
+            if (offender.isBanned != offender.originalStatus) {
+                offender.banStatusChanged = true;
+            }
             offender.changesMade = true;
-            offender.pointsChanged = true;
         } else if (offender.points == offender.originalPoints
             && offender.isBanned == offender.originalStatus
             && !offender.notesAdded
@@ -98,7 +103,9 @@ export class OffenderComponent implements OnInit, AppModule {
         }
     }
 
-    banStatusChanged($event: EventEmitter<any>, offender) {
+    banStatusChanged(offender) {
+        offender.isBanned = !offender.isBanned;
+        
         if (offender.originalStatus == offender.isBanned) {
             offender.banStatusChanged = false;
         }
@@ -115,34 +122,59 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     saveChanges(offender: Offender) {
+        let confirmBan = false;
+        let newNotes: Note[] = [];
+
+        function saveNotes() {
+            if (offender.notesAdded) {
+                newNotes = [];
+                offender.notes.forEach(note => {
+                    if (note.isNew) {
+                        note.isNew = false;
+                        newNotes.push(note)
+                    }
+                })
+            }
+        }
+
         if (this.newNote !== '') {
             this.addNewNote(offender);
         }
 
-        let newNotes: Note[] = [];
-        if (offender.notesAdded) {
-            newNotes = [];
-            offender.notes.forEach(note => {
-                if (note.isNew) {
-                    note.isNew = false;
-                    newNotes.push(note)
-                }
-            })
+        if (offender.originalStatus !== offender.isBanned && offender.isBanned == true) {
+            confirmBan = confirm("Are you sure you want to ban " + offender.name + "?");
+            if (confirmBan == true) {
+                saveNotes();
+                this.resetOffender(offender);
+                this.offenderService.updateStatus({
+                    _id: offender._id,
+                    notes: newNotes,
+                    points: offender.points,
+                    isBanned: offender.isBanned,
+                    updated: offender.updated
+                }).subscribe();
+            }
         }
 
+        if (confirmBan == false) {
+            saveNotes();
+            this.offenderService.updateStatus({
+                _id: offender._id,
+                notes: newNotes,
+                points: offender.points,
+                isBanned: offender.isBanned,
+                updated: offender.updated
+            }).subscribe();
+            this.resetOffender(offender);
+        }
+    }
+
+    resetOffender(offender) {
         offender.originalPoints = offender.points;
         offender.originalStatus = offender.isBanned;
         offender.watchStatus = this.getWatchStatus(offender);
         offender.changesMade = false;
         offender.updated = new Date();
-
-        this.offenderService.updateStatus({
-            _id: offender._id,
-            notes: newNotes,
-            points: offender.points,
-            isBanned: offender.isBanned,
-            updated: offender.updated
-        }).subscribe();
     }
 
     discardChanges(offender) {
@@ -160,6 +192,7 @@ export class OffenderComponent implements OnInit, AppModule {
         }
         if (offender.pointsChanged) {
             offender.points = offender.originalPoints;
+            offender.watchStatus = this.getWatchStatus(offender);
         }
         offender.changesMade = false
     }

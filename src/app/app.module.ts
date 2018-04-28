@@ -6,21 +6,26 @@ import {
   MatButtonModule, MatCheckboxModule, MatFormFieldModule,
   MatFormFieldControl, MatInputModule, MatSlideToggleModule,
   MatDividerModule, MatSelectModule, MatSelectChange, MatExpansionModule,
-  MatListModule, MatDialogModule, MatIconModule, MatTooltipModule
+  MatListModule, MatDialogModule, MatIconModule, MatMenuModule,
+  MatToolbarModule, MatCardModule, MatProgressSpinnerModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { OffenderComponent } from "../app/offender/offender.component";
 import { OffenderService } from './offender/offender.service';
-import { DialogComponent } from './dialog/dialog.component';
+import { OffenderDialogComponent } from './offender-dialog/offender-dialog.component';
+import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     OffenderComponent,
-    DialogComponent
+    OffenderDialogComponent,
+    LoginComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,11 @@ import { DialogComponent } from './dialog/dialog.component';
     MatListModule,
     MatDialogModule,
     MatIconModule,
-    MatTooltipModule
+    MatMenuModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     HttpClientModule,
@@ -47,8 +56,10 @@ import { DialogComponent } from './dialog/dialog.component';
   ],
   bootstrap: [
     AppComponent,
-    OffenderComponent,
+    HeaderComponent
   ],
-  entryComponents: [DialogComponent]
+  entryComponents: [
+    OffenderDialogComponent,
+  ]
 })
 export class AppModule { }
