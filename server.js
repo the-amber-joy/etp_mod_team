@@ -6,7 +6,7 @@ const session = require('express-session');
 const flash = require('flash');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const localDB = require('./config/db').localDB;
+const localDB = 'mongodb://localhost:27017/etp_mod_team?maxIdleTimeMS=15000';
 const auth = require('./auth/auth');
 // const adminApi = require('./api/adminApi');
 const api = require('./api/api');
