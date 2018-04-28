@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="form-group points" [class.changed-item]="offender.originalPoints != offender.points">
+            <div class="form-group points" [class.changed-item]="offender.originalPoints != offender.points || offender.originalStatus != offender.isBanned">
                 <mat-form-field *ngIf="!offender.isBanned">
                     <mat-select placeholder="Status" [(value)]="offender.points" [disabled]="offender.isBanned" [(ngModel)]="offender.points"
                         (selectionChange)="pointsChanged($event, offender)" name="points">
@@ -40,18 +40,10 @@
                     </mat-select>
                 </mat-form-field>
                 <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
-                <button class="ban-btn" [disabled]="offender.isBanned" mat-button matSuffix label="Click to Ban" mat-icon-button></button>
+                <button class="ban-btn button" (click)="banStatusChanged(offender)" [class.banned]="offender.isBanned" mat-button matSuffix label="Click to Ban" mat-icon-button></button>
             </div>
 
-            <div class="form-group" [class.changed-item]="offender.originalStatus != offender.isBanned">
-                <mat-slide-toggle color="warn" [(ngModel)]="offender.isBanned" [checked]="offender.isBanned" (change)="banStatusChanged($event, offender)"
-                    name="isBanned">
-                    <span *ngIf="!offender.isBanned">Click to Ban</span>
-                    <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
-                </mat-slide-toggle>
-            </div>
-
-            <div class="form-group">
+            <div class="form-group status">
                 <form (ngSubmit)="addNewNote(offender)">
                     <mat-form-field>
                         <button type="button" [disabled]="newNote == ''" mat-button matPrefix mat-icon-button (click)="newNote=''">

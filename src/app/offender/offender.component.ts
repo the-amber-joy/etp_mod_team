@@ -87,9 +87,14 @@ export class OffenderComponent implements OnInit, AppModule {
         if (offender.points == offender.originalPoints) {
             offender.pointsChanged = false;
         }
-        if (offender.points != offender.originalPoints) {
+        if (offender.points != offender.originalPoints || offender.isBanned != offender.originalStatus) {
+            if (offender.points != offender.originalPoints) {
+                offender.pointsChanged = true;
+            }
+            if (offender.isBanned != offender.originalStatus) {
+                offender.banStatusChanged = true;
+            }
             offender.changesMade = true;
-            offender.pointsChanged = true;
         } else if (offender.points == offender.originalPoints
             && offender.isBanned == offender.originalStatus
             && !offender.notesAdded
@@ -98,7 +103,9 @@ export class OffenderComponent implements OnInit, AppModule {
         }
     }
 
-    banStatusChanged($event: EventEmitter<any>, offender) {
+    banStatusChanged(offender) {
+        offender.isBanned = !offender.isBanned;
+        
         if (offender.originalStatus == offender.isBanned) {
             offender.banStatusChanged = false;
         }
@@ -135,7 +142,7 @@ export class OffenderComponent implements OnInit, AppModule {
         }
 
         if (offender.originalStatus !== offender.isBanned && offender.isBanned == true) {
-            confirmBan = confirm("Are you sure you want to ban " + offender.name + "? This action cannot be undone.");
+            confirmBan = confirm("Are you sure you want to ban " + offender.name + "?");
             if (confirmBan == true) {
                 saveNotes();
                 this.resetOffender(offender);

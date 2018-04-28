@@ -45,7 +45,7 @@ mat-icon {
      color: rgba(0,0,0,.26);
 }
 
-.ban-btn:disabled {
+.ban-btn.banned {
     color: #f44336;
 }
 
