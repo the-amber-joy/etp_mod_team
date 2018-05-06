@@ -10,12 +10,20 @@ api.route('/offender')
         Offender.create(req.body, (err, doc) => {
             if (err)
                 res.send(err)
+                console.log(err)
             res.send(doc)
         })
     })
 
 // GET ALL
 api.route('/offenders').get((req, res) => {
+
+    // Admin.find({ "createdBy": _id })
+    //     .populate("createdBy")
+    //     .exec(function (err, offenders) {
+    //         // stuff in here
+    //     });
+
     Offender.find((err, offenders) => {
         if (err)
             res.send(err);
@@ -37,7 +45,9 @@ api.route('/update').put((req, res) => {
                 "originalStatus": req.body.isBanned,
                 "points": req.body.points,
                 "originalPoints": req.body.points,
-                "updated": req.body.updated
+                "updated": req.body.updated,
+                "updatedBy": req.body.updatedBy
+
             }
     }, { new: true }, (err, doc, res) => {
         if (err) {

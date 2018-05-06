@@ -3,13 +3,14 @@ import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angu
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
-import { Offender } from '../models/offender.model';
-import { Note } from "../models/note.model";
-import { Admin } from "../models/admin.model";
+import { Offender } from '../shared/offender.model';
+import { Note } from "../shared/note.model";
+import { Admin } from "../shared/admin.model";
 import { OffenderService } from "./offender.service";
 import { AppModule } from '../app.module';
 import { MatSelectChange } from '@angular/material';
 import { OffenderDialogComponent } from '../offender-dialog/offender-dialog.component';
+import { HeaderService } from '../header/header.service';
 
 @Component({
     selector: 'offenders-component',
@@ -17,10 +18,14 @@ import { OffenderDialogComponent } from '../offender-dialog/offender-dialog.comp
     styleUrls: ['./offender.component.css']
 })
 export class OffenderComponent implements OnInit, AppModule {
+    currentUser: Admin;
     constructor(
         public dialog: MatDialog,
-        private offenderService: OffenderService
-    ) { }
+        private offenderService: OffenderService,
+        private headerService: HeaderService
+    ) {
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
+    }
 
     ngOnInit() {
         this.getAll();
@@ -35,6 +40,13 @@ export class OffenderComponent implements OnInit, AppModule {
     watchStatus: string;
 
     getAll() {
+        this.headerService.currentUser(
+            {
+                show: true,
+                user: this.currentUser
+            }
+        );
+
         return this.offenderService.getAll().subscribe(response => {
             this.offenders = response;
             this.offenders.forEach(offender => {
@@ -52,7 +64,8 @@ export class OffenderComponent implements OnInit, AppModule {
                 name: addedName,
                 nickName: '',
                 note: '',
-                points: 0
+                points: 0,
+                admin: this.currentUser
             }
         });
         this.addedName = '';
@@ -73,7 +86,7 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     addNewNote(offender) {
-        let noteToAdd = { note: this.newNote, isNew: true, created: new Date(), addedBy: { firstName: "Fake", lastName: "Tester", nickName: "Admin" } }
+        let noteToAdd = { note: this.newNote, isNew: true, created: new Date(), createdBy: this.currentUser }
         offender.notes.push(noteToAdd);
         offender.notesAdded = true;
         offender.changesMade = true;
@@ -105,13 +118,13 @@ export class OffenderComponent implements OnInit, AppModule {
 
     banStatusChanged(offender) {
         offender.isBanned = !offender.isBanned;
-
         if (offender.originalStatus == offender.isBanned) {
             offender.banStatusChanged = false;
         }
         if (offender.originalStatus != offender.isBanned) {
             offender.banStatusChanged = true;
             offender.changesMade = true;
+            offender.updatedBy = this.currentUser;
         } else if (
             offender.originalStatus == offender.isBanned
             && offender.originalPoints == offender.points
@@ -121,7 +134,8 @@ export class OffenderComponent implements OnInit, AppModule {
         }
     }
 
-    saveChanges(offender: Offender) {
+    saveChanges(offender: Offender, currentUser: Admin) {
+        currentUser = this.currentUser;
         let confirmBan = false;
         let newNotes: Note[] = [];
 
@@ -134,6 +148,7 @@ export class OffenderComponent implements OnInit, AppModule {
                         newNotes.push(note)
                     }
                 })
+                offender.updatedBy = currentUser;
             }
         }
 
@@ -142,31 +157,28 @@ export class OffenderComponent implements OnInit, AppModule {
         }
 
         if (offender.originalStatus !== offender.isBanned && offender.isBanned == true) {
-            confirmBan = confirm("Are you sure you want to ban " + offender.name + "?");
-            if (confirmBan == true) {
-                saveNotes();
-                this.resetOffender(offender);
-                this.offenderService.updateStatus({
-                    _id: offender._id,
-                    notes: newNotes,
-                    points: offender.points,
-                    isBanned: offender.isBanned,
-                    updated: offender.updated
-                }).subscribe();
-            }
+            saveNotes();
+            this.resetOffender(offender);
+            this.offenderService.updateStatus({
+                _id: offender._id,
+                notes: newNotes,
+                points: offender.points,
+                isBanned: offender.isBanned,
+                updated: offender.updated,
+                updatedBy: this.currentUser
+            }).subscribe();
         }
 
-        if (confirmBan == false) {
             saveNotes();
             this.offenderService.updateStatus({
                 _id: offender._id,
                 notes: newNotes,
                 points: offender.points,
                 isBanned: offender.isBanned,
-                updated: offender.updated
+                updated: offender.updated,
+                updatedBy: this.currentUser
             }).subscribe();
             this.resetOffender(offender);
-        }
     }
 
     resetOffender(offender) {

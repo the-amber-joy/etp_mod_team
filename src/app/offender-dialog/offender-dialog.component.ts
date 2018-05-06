@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter, Inject, ViewEncapsulati
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
-import { Offender } from '../models/offender.model'
-import { Admin } from '../models/admin.model';
-import { Note } from '../models/note.model';
+import { Offender } from '../shared/offender.model'
+import { Admin } from '../shared/admin.model';
+import { Note } from '../shared/note.model';
 
 @Component({
   selector: 'offender-dialog',
@@ -15,7 +15,14 @@ import { Note } from '../models/note.model';
 export class OffenderDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<OffenderDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { name: string, nickName: string, points: number, note: string }
+      @Inject(MAT_DIALOG_DATA)
+      public data: {
+              name: string,
+              nickName: string,
+              points: number,
+              note: string,
+              admin: any
+      }
   ) { }
 
   ngOnInit() {
@@ -40,12 +47,6 @@ export class OffenderDialogComponent implements OnInit {
     }
   }
 
-  getPointsError() {
-    if (this.pointsCtrl.hasError('required')) {
-      return 'Please select a value 1-10';
-    }
-  }
-
   getNotesError() {
     if (this.noteCtrl.hasError('required')) {
       return 'Please add a note about why you are shit-listing ' + this.data.name;
@@ -54,20 +55,22 @@ export class OffenderDialogComponent implements OnInit {
 
   addNew() {
     if (this.nameCtrl.valid && this.noteCtrl.valid && this.pointsCtrl.valid) {
-      this.newOffender.notes = [];
+        this.newOffender.notes = [];
 
-      let newNote = new Note(this.newNote, { firstName: "Fake", lastName: "Tester", nickName: "Admin" });
-      newNote.isNew = false;
-      this.newOffender.notes.push(newNote);
-      this.newOffender.name = this.data.name;
-      this.newOffender.points = this.data.points;
-      this.newOffender.originalPoints = this.data.points;
-      this.newOffender.isBanned = false;
-      this.newOffender.originalStatus = this.newOffender.isBanned;
-      this.newOffender.nickName = this.data.nickName ? this.data.nickName : null;
-      this.newOffender.watchStatus = this.getWatchStatus();
-      this.dialogRef.close(this.newOffender);
-    }
+        let newNote = new Note(this.newNote, this.data.admin);
+        newNote.isNew = false;
+        this.newOffender.notes.push(newNote);
+        this.newOffender.name = this.data.name;
+        this.newOffender.points = this.data.points;
+        this.newOffender.originalPoints = this.data.points;
+        this.newOffender.isBanned = false;
+        this.newOffender.originalStatus = this.newOffender.isBanned;
+        this.newOffender.nickName = this.data.nickName ? this.data.nickName : null;
+        this.newOffender.watchStatus = this.getWatchStatus();
+        this.newOffender.createdBy = this.data.admin;
+        this.newOffender.updatedBy = this.data.admin;
+        this.dialogRef.close(this.newOffender);
+        }
   }
 
   getWatchStatus() {

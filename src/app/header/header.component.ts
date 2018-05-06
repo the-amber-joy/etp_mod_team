@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../shared/auth.service";
+import { Admin } from '../shared/admin.model';
+import { Subscription } from 'rxjs';
+import { HeaderService } from './header.service';
 
 
 @Component({
@@ -8,23 +11,29 @@ import { AuthService } from "../shared/auth.service";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+    currentUser: Admin;
+    userData: any;
+    subscription: Subscription;
+    APP_TITLE = "ETP Mod Team";
 
-  constructor(
-    private auth: AuthService
-  ) { }
+    constructor(
+        private auth: AuthService,
+        private headerService: HeaderService
+    ) {
+        this.subscription = headerService
+            .returnUser()
+            .subscribe(result => {
+                this.userData = result;
+            });
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
+        this.APP_TITLE = this.currentUser ? "Welcome, " + this.currentUser.firstName + "!" : this.APP_TITLE;
+    }
 
-  logOut() {
-    // Send call to user authentication API
-    // Call logout method
-    return this.auth.logOut();
-  }
-
-  settings() {
-    alert("you don't have any settings")
-  }
-
-
+    logOut() {
+        this.auth.logOut();
+        this.currentUser = null;
+    }
 }

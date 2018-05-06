@@ -1,6 +1,5 @@
 * MVP
 
-* Login page
   Archive (link from header)
   Live filtering / sorting by offender name
         Check for duplicates before adding new offender?

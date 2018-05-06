@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <div class="app-layout">
     <form (ngSubmit)="openDialog(addedName)">
     <button type="submit" color="accent" mat-raised-button [disabled]="addedName == ''">Add</button>
@@ -25,7 +27,7 @@
             <div class="dates">
                 <div class="date-added">First Offense: {{offender.created | date}}</div>
                 <div>
-                    Last Updated: {{offender.updated | date}} by Admin{{Admin}}
+                    Last Updated: {{offender.updated | date}} by {{offender.updatedBy.displayName}}
                 </div>
             </div>
 
@@ -41,7 +43,7 @@
                         <mat-option [value]=3>Final Straw</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by Admin{{Admin}}</span>
+                <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by {{this.currentUser.displayName}}</span>
             </form>
             </div>
 
@@ -61,12 +63,12 @@
                 <h3 class="mat-h3">History</h3>
                 <ul *ngFor="let note of offender.notes">
                     <li [class.changed-item]="note.isNew">{{note.note}}
-                        <em>({{note.created | date}} by {{note.addedBy.nickName}})</em>
+                        <em>({{note.created | date}} by {{note.createdBy.displayName}})</em>
                     </li>
                 </ul>
             </div>
 
-            <button class="save-btn" float="left" mat-raised-button color="primary" [disabled]="!offender.changesMade" (click)="saveChanges(offender)">Save Changes</button>
+            <button class="save-btn" float="left" mat-raised-button color="primary" [disabled]="!offender.changesMade" (click)="saveChanges(offender, currentUser)">Save Changes</button>
             <button class="cancel-btn" float="right" mat-raised-button color="warn" [disabled]="!offender.changesMade" (click)="discardChanges(offender)">Discard Changes</button>
 
         </mat-expansion-panel>

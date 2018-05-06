@@ -1,8 +1,8 @@
 export class Admin {
-    login?: string;
+    _id?: string;
+    username: string;
     password?: string;
     firstName: string;
     lastName: string;
-    nickName?: string;
-    constructor(firstName, lastName, nickName){}
+    displayName: string;
 }

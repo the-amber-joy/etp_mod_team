@@ -1,21 +1,27 @@
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const flash = require('flash');
+// const flash = require('flash');
+const expressJwt = require('express-jwt');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const localDB = 'mongodb://localhost:27017/etp_mod_team?maxIdleTimeMS=15000';
-const auth = require('./auth/auth');
-// const adminApi = require('./api/adminApi');
+const secret = require('./config').secret;
+const db = require('./config').db;
+const auth = require('./auth/users.controller');
 const api = require('./api/offenders');
 
+let DBconnection = mongoose.connect(process.env.MONGODB_URI || db.local );
 
-mongoose.connect(process.env.MONGODB_URI || localDB);
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose connected to ' + localDB);
+    if (process.env.MONGODB_URI == undefined) {
+        console.log('Mongoose connected to ' + db.local);
+    } else {
+        console.log('Mongoose connected to ' + process.env.MONGODB_URI);
+    }
 });
 mongoose.connection.on('error', function (err) {
     console.log('Mongoose connection error: ' + err);
@@ -50,37 +56,39 @@ process.on('SIGTERM', function () {
     });
 });
 
-// https://www.npmjs.com/package/cookie-parser
-app.use(cookieParser())
-// https://github.com/expressjs/session
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}));
-app.use(flash());
+// app.use(flash());
+app.use(cors());
 app.use(express.static(__dirname + '/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api', api);
-// app.use('/admin', adminApi);
-app.use('/auth', auth);
+app.use(expressJwt({
+    secret: secret,
+    getToken: function (req) {
+        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+            return req.headers.authorization.split(' ')[1];
+        } else if (req.query && req.query.token) {
+            return req.query.token;
+        }
+        return null;
+    }
+}).unless({ path: ['/auth/login', '/auth/register'] }));
 
+// error handler
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).send('Invalid Token');
+    } else {
+        throw err;
+    }
+});
+
+app.use('/api', api);
+app.use('/auth', auth);
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
-
-app.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname + '/dist/index.html'));
-})
-
-app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname + '/dist/index.html'));
-})
 
 // SET PORT AND START SERVER
 app.set('port', process.env.PORT || 3000);

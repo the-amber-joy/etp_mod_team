@@ -43,6 +43,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-config/
+config.json
 post_sample.json
 todo.txt

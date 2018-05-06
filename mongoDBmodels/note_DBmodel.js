@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const NoteSchema = new Schema({
     note: String,
     created: { type: Date, default: Date.now },
-    addedBy: Admin.schema
+    createdBy: { type: Admin.schema, ref: 'Admins' }
 });
 
 module.exports = mongoose.model('Note', NoteSchema);

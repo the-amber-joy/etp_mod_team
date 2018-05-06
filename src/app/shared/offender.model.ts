@@ -11,10 +11,11 @@ export class Offender {
     watchStatus: string;
     isBanned: boolean;
     originalStatus?: boolean;
-    addedBy: Admin;
     notes: Note[];
     notesAdded: boolean = false;
     created: Date = new Date();
     updated: Date = new Date();
+    createdBy: Admin;
+    updatedBy: Admin;
     changesMade?: boolean;
 }

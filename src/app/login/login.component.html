@@ -1,24 +1,41 @@
+<app-header></app-header>
+
 <mat-card class="login-card">
-  <mat-card-title-group>
-    <mat-card-title>Please Log In</mat-card-title>
-      <mat-card-subtitle>
-      <mat-spinner [style.display]="showSpinner ? 'inline-block' : 'none'" [style.margin]="0" [diameter]="20"></mat-spinner>
-      </mat-card-subtitle>
-      <!-- <img mat-card-lg-img src="http://www.eattrainprogress.com/uploads/1/1/4/7/114724771/etp-logo-v2_orig.png" height="130" width="200"> -->
-    </mat-card-title-group>
-  <mat-card-content>
-    <form class="login-form">
-      <mat-form-field>
-        <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
-      </mat-form-field>
+    <form class="login-form" (ngSubmit)="login()">
+        <mat-card-title-group>
+        <mat-card-title>Please Log In</mat-card-title>
+        <img mat-card-lg-img src="http://www.eattrainprogress.com/uploads/1/1/4/7/114724771/etp-logo-v2_orig.png" height="65" width="100">
+            <mat-card-subtitle *ngIf="loginFailed">{{errorMsg}}</mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content>
+        <mat-form-field>
+            <input
+            matInput
+            [formControl]="loginCtrl"
+            placeholder="Username"
+            [(ngModel)]="username"
+            name="username"
+            type="text"
+            required>
+        </mat-form-field>
+        <mat-form-field>
+            <input
+            matInput
+            [formControl]="passwordCtrl"
+            placeholder="Password"
+            [(ngModel)]="password"
+            type="password"
+            name="password"
+            required>
+        </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions class="login">
+        <button type="submit"
+        [disabled]="loginCtrl.invalid || passwordCtrl.invalid"
+        mat-raised-button
+        color="primary">
+            Login
+        </button>
+        </mat-card-actions>
     </form>
-  </mat-card-content>
-  <mat-card-actions class="login">
-    <button type="submit" mat-raised-button (click)="login()" color="primary">
-      Login
-    </button>
-  </mat-card-actions>
 </mat-card>

@@ -2,58 +2,58 @@
 <h2 mat-dialog-title>Adding {{data.name}} to the Shit List</h2>
 <mat-dialog-content>
 
-  <div class="form-group">
+    <div class="form-group">
 
-    <mat-form-field>
-      <input matInput
-      [formControl]="nameCtrl"
-      required
-      type="text"
-      name="name"
-      autocomplete="off"
-      [(ngModel)]="data.name"
-      placeholder="Name">
-      <mat-error *ngIf="nameCtrl.invalid">{{getNameError()}}</mat-error>
-    </mat-form-field>
-  </div>
+        <mat-form-field>
+        <input matInput
+        [formControl]="nameCtrl"
+        required
+        type="text"
+        name="name"
+        autocomplete="off"
+        [(ngModel)]="data.name"
+        placeholder="Name">
+        <mat-error *ngIf="nameCtrl.invalid">{{getNameError()}}</mat-error>
+        </mat-form-field>
+    </div>
 
-  <div class="form-group">
-    <mat-form-field>
-      <mat-select
-      cdkFocusInitial
-      [formControl]="pointsCtrl"
-      required name="watchStatus"
-      placeholder="Initial Status"
-      [(ngModel)]="data.points">
-        <mat-option [value]=0>Probation</mat-option>
-        <mat-option [value]=1>Watching</mat-option>
-        <mat-option [value]=2>Warned</mat-option>
-        <mat-option [value]=3>Final Straw</mat-option>
-      </mat-select>
-      <mat-error *ngIf="pointsCtrl.invalid">{{getPointsError()}}</mat-error>
-    </mat-form-field>
-  </div>
+    <div class="form-group">
+        <mat-form-field>
+        <mat-select
+        [formControl]="pointsCtrl"
+        required name="watchStatus"
+        placeholder="Initial Status"
+        [(ngModel)]="data.points">
+            <mat-option [value]=0>Probation</mat-option>
+            <mat-option [value]=1>Watching</mat-option>
+            <mat-option [value]=2>Warned</mat-option>
+            <mat-option [value]=3>Final Straw</mat-option>
+        </mat-select>
+        <mat-error *ngIf="pointsCtrl.invalid">{{getPointsError()}}</mat-error>
+        </mat-form-field>
+    </div>
 
-  <div class="form-group">
-    <mat-form-field>
-      <input
-      [formControl]="noteCtrl"
-      matInput
-      required
-      type="text"
-      name="newNote"
-      autocomplete="off"
-      [(ngModel)]="newNote"
-      placeholder="Notes">
-      <mat-error *ngIf="noteCtrl.invalid">{{getNotesError()}}</mat-error>
-    </mat-form-field>
-  </div>
-  <div class="form-group">
+    <div class="form-group">
+        <mat-form-field>
+            <input
+            [formControl]="noteCtrl"
+            matInput
+            required
+            cdkFocusInitial
+            type="text"
+            name="newNote"
+            autocomplete="off"
+            [(ngModel)]="newNote"
+            placeholder="Notes">
+            <mat-error *ngIf="noteCtrl.invalid">{{getNotesError()}}</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="form-group">
 
-    <mat-dialog-actions>
-      <button type="button" color="warn" mat-dialog-close (click)="cancelAdd()">Cancel</button>
-      <button type="submit" mat-button color="primary" [disabled]="nameCtrl.invalid || pointsCtrl.invalid || noteCtrl.invalid">Add</button>
-    </mat-dialog-actions>
-  </div>
+        <mat-dialog-actions>
+            <button type="button" color="warn" mat-dialog-close (click)="cancelAdd()">Cancel</button>
+            <button type="submit" mat-button color="primary" [disabled]="nameCtrl.invalid || pointsCtrl.invalid || noteCtrl.invalid">Add</button>
+        </mat-dialog-actions>
+    </div>
 </mat-dialog-content>
 </form>

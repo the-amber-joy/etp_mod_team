@@ -1,12 +1,14 @@
 <mat-toolbar color="primary" class="toolbar">
-  <span>ETP Mod Team</span>
-  <span class="fill-remaining-space"></span>
-  <mat-menu #appMenu="matMenu">
-    <!-- <i mat-menu-item>nothing here yet</i> -->
-    <!-- <button mat-menu-item (click)="settings()">Settings</button> -->
-    <button mat-menu-item (click)="logOut()">Log Out</button>
-  </mat-menu>
-  <button *ngIf="isAuthenticated" mat-icon-button [matMenuTriggerFor]="appMenu">
-    <mat-icon>settings</mat-icon>
-  </button>
+    <span>{{APP_TITLE}}</span>
+    <span *ngIf="currentUser" class="fill-remaining-space"></span>
+        <mat-menu #appMenu="matMenu">
+            <i *ngIf="currentUser" #currentUser mat-menu-item>{{userData.user.displayName}}</i>
+            <!-- <button mat-menu-item (click)="settings()">Settings</button> -->
+            <span *ngIf="currentUser" [routerLink]="['/login']" mat-menu-item (click)="logOut()">
+                Log Out
+            </span>
+        </mat-menu>
+        <button *ngIf="currentUser" mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon>settings</mat-icon>
+        </button>
 </mat-toolbar>

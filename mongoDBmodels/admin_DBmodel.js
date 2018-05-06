@@ -4,8 +4,7 @@ var Schema = mongoose.Schema;
 var Admin = new Schema({
   firstName: String,
   lastName: String,
-  nickName: String,
-  email: String,
+  displayName: String,
   username: String,
   hash: String
 });
