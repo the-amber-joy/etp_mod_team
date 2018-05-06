@@ -71,7 +71,6 @@ export class OffenderComponent implements OnInit, AppModule {
         this.addedName = '';
 
         dialogRef.afterClosed().subscribe(dialogData => {
-            console.log(dialogData);
             if (dialogData == null) {
                 return
             }
