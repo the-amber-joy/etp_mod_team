@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var Q = require('q');
 const User = require('../mongoDBmodels/admin_DBmodel')
-// const secret = require('../config.json').secret;
+const secret = require('../config.json').secret;
 var service = {};
 
 service.authenticate = authenticate;
