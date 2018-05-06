@@ -46,3 +46,4 @@ Thumbs.db
 config.json
 post_sample.json
 todo.txt
+.env
