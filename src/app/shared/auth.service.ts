@@ -10,7 +10,7 @@ export class AuthService {
     constructor(private httpClient: HttpClient) { }
 
     login(username: string, password: string) {
-        return this.httpClient.post<any>(api + '/auth/login', { username: username, password: password })
+        return this.httpClient.post<any>('/auth/login', { username: username, password: password })
             .map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {

@@ -15,14 +15,14 @@ export class OffenderService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<Offender[]> {
-    return this.httpClient.get<Offender[]>(api + '/api/offenders')
+    return this.httpClient.get<Offender[]>('/api/offenders')
   }
 
   postNew(body: {offender: Offender}): Observable<Offender> {
-      return this.httpClient.post<Offender>(api + '/api/offender', body)
+      return this.httpClient.post<Offender>('/api/offender', body)
   }
 
   updateStatus(body: { _id: number, notes: Note[], points: number, isBanned: boolean, updated: Date, updatedBy: Admin }): Observable<Offender> {
-      return this.httpClient.put<Offender>(api + '/api/update', body)
+      return this.httpClient.put<Offender>('/api/update', body)
   }
 }
