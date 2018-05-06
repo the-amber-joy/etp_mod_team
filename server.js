@@ -8,20 +8,14 @@ const session = require('express-session');
 const expressJwt = require('express-jwt');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const secret = require('./config').secret;
-const db = require('./config').db;
 const auth = require('./auth/users.controller');
 const api = require('./api/offenders');
 
-let DBconnection = mongoose.connect(process.env.MONGODB_URI || db.local );
+let DBconnection = mongoose.connect(process.env.MONGODB_URI);
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {
-    if (process.env.MONGODB_URI == undefined) {
-        console.log('Mongoose connected to ' + db.local);
-    } else {
-        console.log('Mongoose connected to ' + process.env.MONGODB_URI);
-    }
+    console.log('Mongoose connected to ' + process.env.MONGODB_URI);
 });
 mongoose.connection.on('error', function (err) {
     console.log('Mongoose connection error: ' + err);
@@ -63,7 +57,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(expressJwt({
-    secret: process.env.secret || secret,
+    secret: process.env.secret,
     getToken: function (req) {
         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
             return req.headers.authorization.split(' ')[1];
@@ -91,7 +85,7 @@ app.get('/', function (req, res) {
 });
 
 // SET PORT AND START SERVER
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT);
 const activePort = app.get('port');
 
 app.listen(activePort, () => {
