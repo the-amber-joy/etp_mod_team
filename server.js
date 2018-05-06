@@ -8,8 +8,8 @@ const session = require('express-session');
 const expressJwt = require('express-jwt');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const secret = require('./config').secret;
-const db = require('./config').db;
+// const secret = require('./config').secret;
+// const db = require('./config').db;
 const auth = require('./auth/users.controller');
 const api = require('./api/offenders');
 
