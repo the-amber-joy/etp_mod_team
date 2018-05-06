@@ -7,7 +7,7 @@ import {
     MatFormFieldControl, MatInputModule, MatSlideToggleModule,
     MatDividerModule, MatSelectModule, MatSelectChange, MatExpansionModule,
     MatListModule, MatDialogModule, MatIconModule, MatMenuModule,
-    MatToolbarModule, MatCardModule
+    MatToolbarModule, MatCardModule, MatTableModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,7 +23,6 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './shared/auth.service';
 import { HeaderModule } from './header/header.module';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-
 
 @NgModule({
     declarations: [
@@ -55,7 +54,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
         MatToolbarModule,
         MatCardModule,
         AppRoutingModule,
-        HeaderModule
+        HeaderModule,
+        MatTableModule
     ],
     providers: [
         HttpClientModule,

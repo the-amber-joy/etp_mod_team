@@ -1,3 +1,23 @@
-<p class="user-content">
-  user works!
-</p>
+<app-header></app-header>
+
+<div class="user-content example-container mat-elevation-z8">
+<mat-table #table [dataSource]="users">
+    <!-- Display Name Column -->
+    <ng-container matColumnDef="displayName">
+        <mat-header-cell *matHeaderCellDef> Display Name </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.displayName}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.firstName}} {{user.lastName}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+</mat-table>
+<div class="back">
+    <a [routerLink]="['/']" mat-menu-item><mat-icon>arrow_back</mat-icon>Back to Main</a>
+</div>
+</div>

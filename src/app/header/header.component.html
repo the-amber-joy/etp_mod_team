@@ -4,6 +4,7 @@
         <span class="fill-remaining-space"></span>
         <mat-menu #appMenu="matMenu">
             <i #currentUser mat-menu-item>{{userData.user.displayName}}</i>
+            <button mat-menu-item [routerLink]="['/users']">Moderator List</button>
             <button mat-menu-item [routerLink]="['/resetpassword']">Settings</button>
             <span  [routerLink]="['/login']" mat-menu-item (click)="logOut()">
                 Log Out

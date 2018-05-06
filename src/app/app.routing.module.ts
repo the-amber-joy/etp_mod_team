@@ -7,7 +7,7 @@ import { OffenderComponent } from './offender/offender.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-    { path: 'user', component: UserComponent, canActivate: [AuthGuard]  },
+    { path: 'users', component: UserComponent, canActivate: [AuthGuard]  },
     { path: 'login', component: LoginComponent },
     { path: 'resetpassword', component: ResetPasswordComponent, canActivate: [AuthGuard] },
     { path: '', component: OffenderComponent, canActivate: [AuthGuard]  },

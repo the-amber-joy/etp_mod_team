@@ -38,20 +38,25 @@ function authenticate(username, password) {
 }
 
 function getAll() {
-    // var deferred = Q.defer();
+    var deferred = Q.defer();
 
-    // db.users.find().toArray(function (err, users) {
-    //     if (err) deferred.reject(err.name + ': ' + err.message);
+    User.find((err, users) => {
+        if (err) deferred.reject(err.name + ': ' + err.message);
 
-    //     // return users (without hashed passwords)
-    //     users = _.map(users, function (user) {
-    //         return _.omit(user, 'hash');
-    //     });
+        // return users (without hashed passwords)
+        users = _.map(users, function (user) {
+            return _.omit(user, 'hash');
+        });
 
-    //     deferred.resolve(users);
-    // });
+        users = _.map(users, function (user) {
+            return _.pick(user, ['firstName', 'lastName', 'displayName']);
+        });
 
-    // return deferred.promise;
+        deferred.resolve(users);
+        }
+    );
+
+    return deferred.promise;
 }
 
 function create(userParam) {

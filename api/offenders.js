@@ -18,12 +18,6 @@ api.route('/offender')
 // GET ALL
 api.route('/offenders').get((req, res) => {
 
-    // Admin.find({ "createdBy": _id })
-    //     .populate("createdBy")
-    //     .exec(function (err, offenders) {
-    //         // stuff in here
-    //     });
-
     Offender.find((err, offenders) => {
         if (err)
             res.send(err);

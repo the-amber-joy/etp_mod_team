@@ -33,4 +33,8 @@ export class AuthService {
         return this.httpClient.put<any>(api + '/users/update', { user: user, password: password });
     }
 
+    getAll(): Observable<Admin[]> {
+        return this.httpClient.get<Admin[]>(api + '/users/getAll')
+    }
+
 }

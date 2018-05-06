@@ -6,6 +6,8 @@ var userService = require('./user.service');
 router.post('/login', login);
 router.post('/register', register);
 router.put('/update', update);
+router.get('/getAll', getAll);
+
 // router.get('/resetpassword/:id/:token', userResetPassword);
 
 module.exports = router;
@@ -44,6 +46,15 @@ function update(req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
+}
+
+function getAll(req, res) {
+    userService.getAll()
+        .then(function (users) {
+            res.send(users)
+    })
+
+
 }
 
 // function resetPassword(req, res) {
