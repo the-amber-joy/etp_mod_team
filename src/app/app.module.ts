@@ -22,6 +22,7 @@ import { JwtInterceptorProvider } from './jwt.interceptor';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './shared/auth.service';
 import { HeaderModule } from './header/header.module';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { HeaderModule } from './header/header.module';
         OffenderDialogComponent,
         LoginComponent,
         UserComponent,
+        ResetPasswordComponent,
     ],
     imports: [
         BrowserModule,

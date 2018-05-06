@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
+import { Admin } from './admin.model';
 
 var api = environment.api;
 
@@ -12,7 +13,7 @@ export class AuthService {
     constructor(private httpClient: HttpClient) { }
 
     login(username: string, password: string) {
-        return this.httpClient.post<any>(api + '/auth/login', { username: username, password: password })
+        return this.httpClient.post<any>(api + '/users/login', { username: username, password: password })
             .map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
@@ -26,6 +27,10 @@ export class AuthService {
     logOut() {
         // remove user from local storage to log user out
         localStorage.removeItem('user');
+    }
+
+    updateUser(user: Admin, password: string) {
+        return this.httpClient.put<any>(api + '/users/update', { user: user, password: password });
     }
 
 }

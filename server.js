@@ -9,7 +9,7 @@ const session = require('express-session');
 const expressJwt = require('express-jwt');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const auth = require('./auth/users.controller');
+const users = require('./users/users.controller');
 const api = require('./api/offenders');
 
 let DBconnection = mongoose.connect(process.env.MONGODB_URI);
@@ -67,7 +67,7 @@ app.use(expressJwt({
         }
         return null;
     }
-}).unless({ path: ['/auth/login', '/auth/register'] }));
+}).unless({ path: ['/users/login', '/users/register'] }));
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -79,7 +79,7 @@ app.use(function (err, req, res, next) {
 });
 
 app.use('/api', api);
-app.use('/auth', auth);
+app.use('/users', users);
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));

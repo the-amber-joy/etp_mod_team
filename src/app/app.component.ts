@@ -8,9 +8,4 @@ import { Component } from '@angular/core';
 
 
 export class AppComponent {
-    isAuthenticated = false;
-
-    // ngOnInit() {
-    //   console.log(this.isAuthenticated)
-    // }
 }

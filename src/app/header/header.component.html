@@ -1,14 +1,16 @@
 <mat-toolbar color="primary" class="toolbar">
     <span>{{APP_TITLE}}</span>
-    <span *ngIf="currentUser" class="fill-remaining-space"></span>
+    <ng-container *ngIf="currentUser">
+        <span class="fill-remaining-space"></span>
         <mat-menu #appMenu="matMenu">
-            <i *ngIf="currentUser" #currentUser mat-menu-item>{{userData.user.displayName}}</i>
-            <!-- <button mat-menu-item (click)="settings()">Settings</button> -->
-            <span *ngIf="currentUser" [routerLink]="['/login']" mat-menu-item (click)="logOut()">
+            <i #currentUser mat-menu-item>{{userData.user.displayName}}</i>
+            <button mat-menu-item [routerLink]="['/resetpassword']">Settings</button>
+            <span  [routerLink]="['/login']" mat-menu-item (click)="logOut()">
                 Log Out
             </span>
         </mat-menu>
-        <button *ngIf="currentUser" mat-icon-button [matMenuTriggerFor]="appMenu">
+        <button mat-icon-button [matMenuTriggerFor]="appMenu">
             <mat-icon>settings</mat-icon>
         </button>
+    </ng-container>
 </mat-toolbar>
