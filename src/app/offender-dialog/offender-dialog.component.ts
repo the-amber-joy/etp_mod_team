@@ -69,6 +69,8 @@ export class OffenderDialogComponent implements OnInit {
         this.newOffender.watchStatus = this.getWatchStatus();
         this.newOffender.createdBy = this.data.admin;
         this.newOffender.updatedBy = this.data.admin;
+        this.newOffender.bannedBy = null;
+        this.newOffender.dateBanned = null;
         this.dialogRef.close(this.newOffender);
         }
   }
