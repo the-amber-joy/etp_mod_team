@@ -23,7 +23,16 @@ export class OffenderService {
         return this.httpClient.post<Offender>(api + '/api/offender', body)
     }
 
-    updateStatus(body: { _id: number, notes: Note[], points: number, isBanned: boolean, updated: Date, updatedBy: Admin, bannedBy?: Admin, dateBanned?: Date }): Observable<Offender> {
+    updateStatus(body: {
+        _id: number,
+        notes: Note[],
+        points: number,
+        isBanned: boolean,
+        updated: Date,
+        updatedBy: Admin,
+        bannedBy: Admin,
+        dateBanned: Date
+    }): Observable<Offender> {
         return this.httpClient.put<Offender>(api + '/api/update', body)
     }
 }

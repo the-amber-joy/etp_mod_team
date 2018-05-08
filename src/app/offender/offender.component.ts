@@ -33,7 +33,7 @@ export class OffenderComponent implements OnInit, AppModule {
 
     @Output()
     selectionChange: EventEmitter<MatSelectChange>
-    offenders: Offender[];
+    offenders: Offender[] = [];
     offender: Offender;
     newNote: string = '';
     addedName: string = '';
@@ -178,7 +178,9 @@ export class OffenderComponent implements OnInit, AppModule {
                 points: offender.points,
                 isBanned: offender.isBanned,
                 updated: offender.updated,
-                updatedBy: this.currentUser
+                updatedBy: this.currentUser,
+                bannedBy: this.currentUser,
+                dateBanned: new Date()
             }).subscribe();
             this.resetOffender(offender);
     }

@@ -17,7 +17,7 @@ export class Offender {
     updated: Date = new Date();
     createdBy: Admin;
     updatedBy: Admin;
+    changesMade?: boolean;
     bannedBy?: Admin;
     dateBanned?: Date;
-    changesMade?: boolean;
 }
