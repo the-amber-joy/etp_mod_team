@@ -124,6 +124,8 @@ export class OffenderComponent implements OnInit, AppModule {
             offender.banStatusChanged = true;
             offender.changesMade = true;
             offender.updatedBy = this.currentUser;
+            offender.bannedBy = this.currentUser;
+            offender.dateBanned = new Date();
         } else if (
             offender.originalStatus == offender.isBanned
             && offender.originalPoints == offender.points
@@ -135,7 +137,6 @@ export class OffenderComponent implements OnInit, AppModule {
 
     saveChanges(offender: Offender, currentUser: Admin) {
         currentUser = this.currentUser;
-        let confirmBan = false;
         let newNotes: Note[] = [];
 
         function saveNotes() {
@@ -164,7 +165,9 @@ export class OffenderComponent implements OnInit, AppModule {
                 points: offender.points,
                 isBanned: offender.isBanned,
                 updated: offender.updated,
-                updatedBy: this.currentUser
+                updatedBy: this.currentUser,
+                bannedBy: this.currentUser,
+                dateBanned: new Date()
             }).subscribe();
         }
 

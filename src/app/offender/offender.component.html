@@ -43,7 +43,7 @@
                         <mat-option [value]=3>Final Straw</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <span *ngIf="offender.isBanned">Banned on {{offender.updated | date}} by {{this.currentUser.displayName}}</span>
+                <span *ngIf="offender.isBanned">Banned on {{offender.dateBanned | date}} by {{offender.bannedBy.displayName}}</span>
             </form>
             </div>
 

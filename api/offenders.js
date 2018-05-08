@@ -40,8 +40,9 @@ api.route('/update').put((req, res) => {
                 "points": req.body.points,
                 "originalPoints": req.body.points,
                 "updated": req.body.updated,
-                "updatedBy": req.body.updatedBy
-
+                "updatedBy": req.body.updatedBy,
+                "bannedBy": req.body.bannedBy,
+                "dateBanned": req.body.dateBanned
             }
     }, { new: true }, (err, doc, res) => {
         if (err) {
