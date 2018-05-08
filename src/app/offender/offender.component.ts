@@ -137,7 +137,6 @@ export class OffenderComponent implements OnInit, AppModule {
 
     saveChanges(offender: Offender, currentUser: Admin) {
         currentUser = this.currentUser;
-        let confirmBan = false;
         let newNotes: Note[] = [];
 
         function saveNotes() {
