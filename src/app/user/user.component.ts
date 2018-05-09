@@ -34,10 +34,6 @@ export class UserComponent implements OnInit {
     getUsers() {
         return this.authService.getAll().subscribe(response => {
             this.users = response;
-            console.log(this.users);
-            // this.users.forEach(user => {
-            //     console.log(user);
-            // })
             return this.users;
         })
     }
