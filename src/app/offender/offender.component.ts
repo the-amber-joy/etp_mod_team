@@ -83,7 +83,6 @@ export class OffenderComponent implements OnInit, AppModule {
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim().toLocaleLowerCase();
 
-        console.log(filterValue);
         this.filteredNames = this.offenders.filter(offender => {
             if (offender.name.toLocaleLowerCase().indexOf(filterValue) !== -1) {
                 return true;
