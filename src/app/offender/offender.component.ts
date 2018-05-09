@@ -193,9 +193,13 @@ export class OffenderComponent implements OnInit, AppModule {
             this.addNewNote(offender);
         }
 
-        if (offender.originalStatus !== offender.isBanned && offender.isBanned == true) {
+        if ((offender.originalStatus !== offender.isBanned) || (offender.originalPoints !== offender.points)) {
             saveNotes();
             this.resetOffender(offender);
+            if (offender.originalStatus !== offender.isBanned && offender.isBanned == true) {
+                offender.bannedBy = this.currentUser;
+                offender.dateBanned = new Date();
+            }
             this.offenderService.updateStatus({
                 _id: offender._id,
                 notes: newNotes,
@@ -203,23 +207,10 @@ export class OffenderComponent implements OnInit, AppModule {
                 isBanned: offender.isBanned,
                 updated: offender.updated,
                 updatedBy: this.currentUser,
-                bannedBy: this.currentUser,
-                dateBanned: new Date()
+                bannedBy: offender.bannedBy,
+                dateBanned: offender.dateBanned
             }).subscribe();
         }
-
-            saveNotes();
-            this.offenderService.updateStatus({
-                _id: offender._id,
-                notes: newNotes,
-                points: offender.points,
-                isBanned: offender.isBanned,
-                updated: offender.updated,
-                updatedBy: this.currentUser,
-                bannedBy: this.currentUser,
-                dateBanned: new Date()
-            }).subscribe();
-        this.resetOffender(offender);
         this.clearValue();
     }
 
