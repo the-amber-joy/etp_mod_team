@@ -211,6 +211,7 @@ export class OffenderComponent implements OnInit, AppModule {
                 dateBanned: offender.dateBanned
             }).subscribe();
         }
+        this.clearValue();
     }
 
     resetOffender(offender) {
