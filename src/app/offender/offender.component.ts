@@ -11,6 +11,7 @@ import { AppModule } from '../app.module';
 import { MatSelectChange } from '@angular/material';
 import { OffenderDialogComponent } from '../offender-dialog/offender-dialog.component';
 import { HeaderService } from '../header/header.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'offenders-component',
@@ -34,6 +35,8 @@ export class OffenderComponent implements OnInit, AppModule {
     @Output()
     selectionChange: EventEmitter<MatSelectChange>
     offenders: Offender[] = [];
+    filteredNames: Offender[];
+    offenderNames = [];
     offender: Offender;
     newNote: string = '';
     addedName: string = '';
@@ -55,16 +58,39 @@ export class OffenderComponent implements OnInit, AppModule {
                 offender.watchStatus = this.getWatchStatus(offender);
             });
             this.sortnames();
+            this.filteredNames = this.offenders;
             return this.offenders;
         });
     }
 
     sortnames() {
+        this.offenders.forEach(offender => {
+            this.offenderNames.push(offender.name)
+        });
+
         this.offenders.sort(function (a, b) {
             var nameA = a.name.toUpperCase();
             var nameB = b.name.toUpperCase();
             return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
         });
+    }
+
+    clearValue() {
+        this.addedName = '';
+        this.applyFilter(this.addedName);
+    }
+
+    applyFilter(filterValue: string) {
+        filterValue = filterValue.trim().toLocaleLowerCase();
+
+        console.log(filterValue);
+        this.filteredNames = this.offenders.filter(offender => {
+            if (offender.name.toLocaleLowerCase().indexOf(filterValue) !== -1) {
+                return true;
+            }
+                return false;
+            }
+        );
     }
 
     openDialog(addedName) {
@@ -81,7 +107,8 @@ export class OffenderComponent implements OnInit, AppModule {
 
         dialogRef.afterClosed().subscribe(dialogData => {
             if (dialogData == null) {
-                return
+                this.clearValue();
+                return;
             }
             else {
                 return this.offenderService.postNew(dialogData).subscribe(response => {
@@ -89,6 +116,7 @@ export class OffenderComponent implements OnInit, AppModule {
                     response.originalStatus = response.isBanned;
                     this.offenders.push(response);
                     this.sortnames();
+                    this.clearValue();
                 })
             }
         });
@@ -192,7 +220,8 @@ export class OffenderComponent implements OnInit, AppModule {
                 bannedBy: this.currentUser,
                 dateBanned: new Date()
             }).subscribe();
-            this.resetOffender(offender);
+        this.resetOffender(offender);
+        this.clearValue();
     }
 
     resetOffender(offender) {
@@ -220,7 +249,8 @@ export class OffenderComponent implements OnInit, AppModule {
             offender.points = offender.originalPoints;
             offender.watchStatus = this.getWatchStatus(offender);
         }
-        offender.changesMade = false
+        offender.changesMade = false;
+        this.clearValue();
     }
 
     getWatchStatus(offender) {

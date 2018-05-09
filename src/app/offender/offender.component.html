@@ -7,13 +7,13 @@
         <button type="button" matSuffix mat-icon-button (click)="addedName=''">
             <mat-icon *ngIf="addedName != ''" class="cancelX">close</mat-icon>
         </button>
-        <input name="addedName" autocomplete="off" matInput [(ngModel)]="addedName" placeholder="Who is it now?">
+        <input (keyup)="applyFilter($event.target.value)" name="addedName" autocomplete="off" matInput [(ngModel)]="addedName" placeholder="Who is it now?">
     </mat-form-field>
 </form>
 
 <div class="offenders">
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let offender of offenders">
+        <mat-expansion-panel *ngFor="let offender of filteredNames">
 
             <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true" class="flex-parent">
                 <mat-panel-title class="flex-child">
