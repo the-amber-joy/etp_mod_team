@@ -53,8 +53,17 @@ export class OffenderComponent implements OnInit, AppModule {
                 offender.originalPoints = offender.points;
                 offender.originalStatus = offender.isBanned;
                 offender.watchStatus = this.getWatchStatus(offender);
-            })
+            });
+            this.sortnames();
             return this.offenders;
+        });
+    }
+
+    sortnames() {
+        this.offenders.sort(function (a, b) {
+            var nameA = a.name.toUpperCase();
+            var nameB = b.name.toUpperCase();
+            return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
         });
     }
 
@@ -76,9 +85,10 @@ export class OffenderComponent implements OnInit, AppModule {
             }
             else {
                 return this.offenderService.postNew(dialogData).subscribe(response => {
-                    response.originalPoints = response.points
-                    response.originalStatus = response.isBanned
-                    this.offenders.push(response)
+                    response.originalPoints = response.points;
+                    response.originalStatus = response.isBanned;
+                    this.offenders.push(response);
+                    this.sortnames();
                 })
             }
         });
