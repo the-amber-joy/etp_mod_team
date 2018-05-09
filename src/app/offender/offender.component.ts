@@ -46,7 +46,8 @@ export class OffenderComponent implements OnInit, AppModule {
         this.headerService.currentUser(
             {
                 show: true,
-                user: this.currentUser
+                user: this.currentUser,
+                currentPage: "OffenderComponent"
             }
         );
 
@@ -174,7 +175,7 @@ export class OffenderComponent implements OnInit, AppModule {
 
     saveChanges(offender: Offender, currentUser: Admin) {
         currentUser = this.currentUser;
-        let newNotes: Note[] = [];
+        let newNotes: Note[];
 
         function saveNotes() {
             if (offender.notesAdded) {
@@ -189,28 +190,27 @@ export class OffenderComponent implements OnInit, AppModule {
             }
         }
 
+        // Includes any additional note left in the input field without adding to array manually
         if (this.newNote !== '') {
             this.addNewNote(offender);
         }
 
-        if ((offender.originalStatus !== offender.isBanned) || (offender.originalPoints !== offender.points)) {
-            saveNotes();
-            this.resetOffender(offender);
-            if (offender.originalStatus !== offender.isBanned && offender.isBanned == true) {
-                offender.bannedBy = this.currentUser;
-                offender.dateBanned = new Date();
-            }
-            this.offenderService.updateStatus({
-                _id: offender._id,
-                notes: newNotes,
-                points: offender.points,
-                isBanned: offender.isBanned,
-                updated: offender.updated,
-                updatedBy: this.currentUser,
-                bannedBy: offender.bannedBy,
-                dateBanned: offender.dateBanned
-            }).subscribe();
+        saveNotes();
+        this.resetOffender(offender);
+        if (offender.originalStatus !== offender.isBanned && offender.isBanned == true) {
+            offender.bannedBy = this.currentUser;
+            offender.dateBanned = new Date();
         }
+        this.offenderService.updateStatus({
+            _id: offender._id,
+            notes: newNotes,
+            points: offender.points,
+            isBanned: offender.isBanned,
+            updated: offender.updated,
+            updatedBy: this.currentUser,
+            bannedBy: offender.bannedBy,
+            dateBanned: offender.dateBanned
+        }).subscribe();
         this.clearValue();
     }
 

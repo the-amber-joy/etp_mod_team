@@ -25,7 +25,8 @@ export class UserComponent implements OnInit {
         this.headerService.currentUser(
             {
                 show: true,
-                user: this.currentUser
+                user: this.currentUser,
+                currentPage: "UserComponent"
             }
         );
         this.getUsers();

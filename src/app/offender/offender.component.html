@@ -4,7 +4,7 @@
     <form (ngSubmit)="openDialog(addedName)">
     <button type="submit" color="accent" mat-raised-button [disabled]="addedName == ''">Add</button>
     <mat-form-field>
-        <button type="button" matSuffix mat-icon-button (click)="addedName=''">
+        <button type="button" matSuffix mat-icon-button (click)="clearValue()">
             <mat-icon *ngIf="addedName != ''" class="cancelX">close</mat-icon>
         </button>
         <input (keyup)="applyFilter($event.target.value)" name="addedName" autocomplete="off" matInput [(ngModel)]="addedName" placeholder="Who is it now?">

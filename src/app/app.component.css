@@ -2,6 +2,10 @@ mat-input-element {
     color: warn;
 }
 
+.mat-menu-item.current-user:hover {
+    cursor: default
+}
+
 .save-button {
     float: left;
     color: accent
