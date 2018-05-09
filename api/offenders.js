@@ -10,7 +10,6 @@ api.route('/offender')
         Offender.create(req.body, (err, doc) => {
             if (err)
                 res.send(err)
-                console.log(err)
             res.send(doc)
         })
     })
