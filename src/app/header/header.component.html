@@ -3,8 +3,8 @@
     <ng-container *ngIf="currentUser">
         <span class="fill-remaining-space"></span>
         <mat-menu #appMenu="matMenu">
-            <button *ngIf="userData.currentPage != 'ResetPasswordComponent'" mat-menu-item [routerLink]="['/resetpassword']">{{userData.user.displayName}}</button>
             <button *ngIf="userData.currentPage != 'OffenderComponent'" mat-menu-item [routerLink]="['/']">Main</button>
+            <button *ngIf="userData.currentPage != 'ResetPasswordComponent'" mat-menu-item [routerLink]="['/resetpassword']">{{userData.user.displayName}}</button>
             <button *ngIf="userData.currentPage != 'UserComponent'" mat-menu-item [routerLink]="['/users']">Moderator List</button>
             <span  [routerLink]="['/login']" mat-menu-item color="red" (click)="logOut()">
                 Log Out
