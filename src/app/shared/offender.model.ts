@@ -22,4 +22,5 @@ export class Offender {
     bannedBy?: Admin;
     dateBanned?: Date;
     editingName?: boolean;
+    addingLink?: boolean;
 }

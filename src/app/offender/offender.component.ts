@@ -56,6 +56,7 @@ export class OffenderComponent implements OnInit, AppModule {
                 offender.originalStatus = offender.isBanned;
                 offender.watchStatus = this.getWatchStatus(offender);
                 offender.editingName = false;
+                offender.addingLink = false;
             });
             this.sortnames();
             this.filteredNames = this.offenders;

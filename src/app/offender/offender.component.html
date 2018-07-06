@@ -13,7 +13,7 @@
 
 <div class="offenders">
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let o of filteredNames" hideToggle [disabled]="o.editingName">
+        <mat-expansion-panel *ngFor="let o of filteredNames" [disabled]="o.editingName">
 
             <mat-expansion-panel-header [class.changed-item]="o.changesMade == true" class="flex-parent">
                 <mat-panel-title class="flex-child">
@@ -27,8 +27,9 @@
             </mat-expansion-panel-header>
 
             <div class="fb-link">
-                <a href= {{o.fbLink}} *ngIf="o.fbLink" target="_blank">{{o.name}}'s Facebook Profile</a>
-                <button mat-button class="edit-button" color="primary" *ngIf="!o.fbLink">Facebook Profile missing for {{o.name}}</button>
+                <a href= {{o.fbLink}} *ngIf="o.fbLink && !o.addingLink" target="_blank">{{o.name}}'s Facebook Profile</a>
+                <input [(ngModel)]="o.fbLink" *ngIf="o.addingLink" (keyup.enter)="o.addingLink = false" (blur)="o.addingLink = false" placeholder="PASTE URL">
+                <button mat-button class="edit-button" (click)="o.addingLink = true" color="primary" *ngIf="!o.fbLink && !o.addingLink">Facebook Profile missing for {{o.name}}</button>
             </div>
 
             <div class="dates">
