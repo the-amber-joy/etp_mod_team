@@ -17,8 +17,8 @@
 
             <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true" class="flex-parent">
                 <mat-panel-title class="flex-child">
-                    <span *ngIf="!inputName" class="name" (click)="editName()">{{offender.name}}</span>
-                    <input *ngIf="inputName" name="offenderName" autocomplete="off" [(ngModel)]="offender.name" placeholder="They need a name, bro!">
+                    <span *ngIf="!offender.inputName" class="name" (click)="editName(offender)">{{offender.name}}</span>
+                    <input *ngIf="offender.inputName" name="offenderName" autocomplete="off" [(ngModel)]="offender.name" placeholder="They need a name, bro!">
 
                 </mat-panel-title>
                 <mat-panel-description class="flex-child">
