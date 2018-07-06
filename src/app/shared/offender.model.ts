@@ -21,5 +21,5 @@ export class Offender {
     changesMade?: boolean;
     bannedBy?: Admin;
     dateBanned?: Date;
-    inputName?: boolean;
+    editingName?: boolean;
 }

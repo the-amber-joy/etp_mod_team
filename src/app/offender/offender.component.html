@@ -13,50 +13,49 @@
 
 <div class="offenders">
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let offender of filteredNames">
+        <mat-expansion-panel *ngFor="let o of filteredNames" hideToggle [disabled]="o.editingName">
 
-            <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true" class="flex-parent">
+            <mat-expansion-panel-header [class.changed-item]="o.changesMade == true" class="flex-parent">
                 <mat-panel-title class="flex-child">
-                    <span *ngIf="!offender.inputName" class="name" (click)="editName(offender)">{{offender.name}}</span>
-                    <input *ngIf="offender.inputName" name="offenderName" autocomplete="off" [(ngModel)]="offender.name" placeholder="They need a name, bro!">
-
+                    <span *ngIf="!o.editingName" (click)="o.editingName = true" class="name">{{o.name}}</span>
+                    <input *ngIf="o.editingName" [(ngModel)]="o.name" (keyup.enter)="o.editingName = false" (blur)="o.editingName = false" name="offenderName" autocomplete="off" placeholder="They need a name, bro!">
                 </mat-panel-title>
-                <mat-panel-description class="flex-child">
-                    <span class="status" *ngIf="!offender.isBanned">{{offender.watchStatus}}</span>
-                    <span class="warning status" *ngIf="offender.isBanned">Banned</span>
+                <mat-panel-description *ngIf="!o.inputName" class="flex-child">
+                    <span class="status" *ngIf="!o.isBanned">{{o.watchStatus}}</span>
+                    <span class="warning status" *ngIf="o.isBanned">Banned</span>
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
             <div class="fb-link">
-                <a href= {{offender.fbLink}} *ngIf="offender.fbLink" target="_blank">{{offender.name}}'s Facebook Profile</a>
-                <button mat-button class="edit-button" color="primary" *ngIf="!offender.fbLink">Facebook Profile missing for {{offender.name}}</button>
+                <a href= {{o.fbLink}} *ngIf="o.fbLink" target="_blank">{{o.name}}'s Facebook Profile</a>
+                <button mat-button class="edit-button" color="primary" *ngIf="!o.fbLink">Facebook Profile missing for {{o.name}}</button>
             </div>
 
             <div class="dates">
-                <div class="date-added">First Offense: {{offender.created | date}}</div>
+                <div class="date-added">First Offense: {{o.created | date}}</div>
                 <div>
-                    Last Updated: {{offender.updated | date}} by {{offender.updatedBy.displayName}}
+                    Last Updated: {{o.updated | date}} by {{o.updatedBy.displayName}}
                 </div>
             </div>
 
             <div class="form-group status">
-            <form [class.changed-item]="offender.originalPoints != offender.points || offender.originalStatus != offender.isBanned">
-                <button class="ban-btn button" (click)="banStatusChanged(offender)" [class.banned]="offender.isBanned" mat-button matSuffix label="Click to Ban" mat-icon-button></button>
-                <mat-form-field *ngIf="!offender.isBanned">
-                    <mat-select placeholder="Status" [(value)]="offender.points" [disabled]="offender.isBanned" [(ngModel)]="offender.points"
-                        (selectionChange)="pointsChanged($event, offender)" name="points">
+            <form [class.changed-item]="o.originalPoints != o.points || o.originalStatus != o.isBanned">
+                <button class="ban-btn button" (click)="banStatusChanged(o)" [class.banned]="o.isBanned" mat-button matSuffix label="Click to Ban" mat-icon-button></button>
+                <mat-form-field *ngIf="!o.isBanned">
+                    <mat-select placeholder="Status" [(value)]="o.points" [disabled]="o.isBanned" [(ngModel)]="o.points"
+                        (selectionChange)="pointsChanged($event, o)" name="points">
                         <mat-option [value]=0>Probation</mat-option>
                         <mat-option [value]=1>Watching</mat-option>
                         <mat-option [value]=2>Warned</mat-option>
                         <mat-option [value]=3>Final Straw</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <span *ngIf="offender.isBanned">Banned on {{offender.dateBanned | date}} by {{offender.bannedBy.displayName}}</span>
+                <span *ngIf="o.isBanned">Banned on {{o.dateBanned | date}} by {{o.bannedBy.displayName}}</span>
             </form>
             </div>
 
             <div class="form-group notes">
-            <form (ngSubmit)="addNewNote(offender)">
+            <form (ngSubmit)="addNewNote(o)">
                 <button class="note-btn" type="submit" [disabled]="newNote == ''" mat-button matSuffix label="Add comment" mat-icon-button></button>
                 <mat-form-field>
                     <button type="button" [disabled]="newNote == ''" mat-button matSuffix mat-icon-button (click)="newNote=''">
@@ -69,16 +68,16 @@
 
             <div class="form-group history">
                 <h3 class="mat-h3">History</h3>
-                <ul *ngFor="let note of offender.notes">
+                <ul *ngFor="let note of o.notes">
                     <li [class.changed-item]="note.isNew">{{note.note}}
                         <em>({{note.created | date}} by {{note.createdBy.displayName}})</em>
                     </li>
                 </ul>
             </div>
-
-            <button class="save-btn" float="left" mat-raised-button color="primary" [disabled]="!offender.changesMade" (click)="saveChanges(offender, currentUser)">Save Changes</button>
-            <button class="cancel-btn" float="right" mat-raised-button color="warn" [disabled]="!offender.changesMade" (click)="discardChanges(offender)">Discard Changes</button>
-
+            <mat-action-row>
+                <button class="save-btn" float="left" mat-raised-button color="primary" [disabled]="!o.changesMade" (click)="saveChanges(o, currentUser)">Save Changes</button>
+                <button class="cancel-btn" float="right" mat-raised-button color="warn" [disabled]="!o.changesMade" (click)="discardChanges(o)">Discard Changes</button>
+            </mat-action-row>
         </mat-expansion-panel>
     </mat-accordion>
 </div>

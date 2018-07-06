@@ -35,6 +35,7 @@ export class OffenderComponent implements OnInit, AppModule {
     addedName = '';
     watchStatus: string;
 
+
     ngOnInit() {
         this.getAll();
     }
@@ -54,7 +55,7 @@ export class OffenderComponent implements OnInit, AppModule {
                 offender.originalPoints = offender.points;
                 offender.originalStatus = offender.isBanned;
                 offender.watchStatus = this.getWatchStatus(offender);
-                offender.inputName = false;
+                offender.editingName = false;
             });
             this.sortnames();
             this.filteredNames = this.offenders;
@@ -117,10 +118,6 @@ export class OffenderComponent implements OnInit, AppModule {
                 });
             }
         });
-    }
-
-    editName(offender) {
-        offender.inputName = true;
     }
 
     addNewNote(offender) {

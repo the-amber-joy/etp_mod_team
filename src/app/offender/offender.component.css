@@ -13,6 +13,10 @@ mat-icon {
     margin-right: auto;
 }
 
+.edit-name-btn:disabled {
+    color: rgba(0,0,0,.26);
+}
+
 .dates {
     margin-bottom: 25px;
 }
