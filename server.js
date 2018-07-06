@@ -5,7 +5,6 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-// const flash = require('flash');
 const expressJwt = require('express-jwt');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');

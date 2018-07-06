@@ -1,9 +1,5 @@
 * MVP
 
   Archive (link from header)
-  Live filtering / sorting by offender name
-        Check for duplicates before adding new offender?
   Delete function? (Offender won't show up on main view but still searchable in archive)
   Upload image function (for screenshots of offending posts/comments before they get deleted
-  Field for link to FB profile in case they change their name
-  Ability to Edit name field

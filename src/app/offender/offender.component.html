@@ -17,13 +17,21 @@
 
             <mat-expansion-panel-header [class.changed-item]="offender.changesMade == true" class="flex-parent">
                 <mat-panel-title class="flex-child">
-                    <span class="name">{{offender.name}}</span>
+                    <span *ngIf="!inputName" class="name" (click)="editName()">{{offender.name}}</span>
+                    <input *ngIf="inputName" name="offenderName" autocomplete="off" [(ngModel)]="offender.name" placeholder="They need a name, bro!">
+
                 </mat-panel-title>
                 <mat-panel-description class="flex-child">
                     <span class="status" *ngIf="!offender.isBanned">{{offender.watchStatus}}</span>
                     <span class="warning status" *ngIf="offender.isBanned">Banned</span>
                 </mat-panel-description>
             </mat-expansion-panel-header>
+
+            <div class="fb-link">
+                <a href= {{offender.fbLink}} *ngIf="offender.fbLink" target="_blank">{{offender.name}}'s Facebook Profile</a>
+                <button mat-button class="edit-button" color="primary" *ngIf="!offender.fbLink">Facebook Profile missing for {{offender.name}}</button>
+            </div>
+
             <div class="dates">
                 <div class="date-added">First Offense: {{offender.created | date}}</div>
                 <div>
@@ -31,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="form-group status" >
+            <div class="form-group status">
             <form [class.changed-item]="offender.originalPoints != offender.points || offender.originalStatus != offender.isBanned">
                 <button class="ban-btn button" (click)="banStatusChanged(offender)" [class.banned]="offender.isBanned" mat-button matSuffix label="Click to Ban" mat-icon-button></button>
                 <mat-form-field *ngIf="!offender.isBanned">

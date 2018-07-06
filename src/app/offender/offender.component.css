@@ -21,6 +21,10 @@ mat-icon {
     font-size: 16px;
 }
 
+.fb-link {
+    margin-bottom: 15px;
+}
+
 .note-btn:after {
     font-family: 'FontAwesome';
     content: "\f055";
@@ -91,4 +95,13 @@ li:before {
     flex-basis: 25%;
     font-size: 14px;
     min-width: 50%
+}
+
+.warning {
+    color: red;
+}
+
+.edit-button {
+    top: -20px;
+    margin: 5px;
 }
