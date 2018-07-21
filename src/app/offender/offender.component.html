@@ -17,8 +17,9 @@
 
             <mat-expansion-panel-header [class.changed-item]="o.changesMade == true" class="flex-parent">
                 <mat-panel-title class="flex-child">
-                    <span *ngIf="!o.editingName" (click)="o.editingName = true" class="name">{{o.name}}</span>
-                    <input *ngIf="o.editingName" [(ngModel)]="o.name" (keyup.enter)="o.editingName = false" (blur)="o.editingName = false" name="offenderName" autocomplete="off" type="text" placeholder="They need a name, bro!">
+                    <span class="name">{{o.name}}</span>
+                    <!-- <span *ngIf="!o.editingName" (click)="o.editingName = true" class="name">{{o.name}}</span>
+                    <input *ngIf="o.editingName" [(ngModel)]="o.name" (keyup.enter)="o.editingName = false" (blur)="o.editingName = false" name="offenderName" autocomplete="off" type="text" placeholder="They need a name, bro!"> -->
                 </mat-panel-title>
                 <mat-panel-description *ngIf="!o.inputName" class="flex-child">
                     <span class="status" *ngIf="!o.isBanned">{{o.watchStatus}}</span>
@@ -28,7 +29,7 @@
 
             <div class="fb-link">
                 <a href= {{o.fbLink}} *ngIf="o.fbLink && !o.addingLink" target="_blank">{{o.name}}'s Facebook Profile</a>
-                <input [(ngModel)]="o.fbLink" *ngIf="o.addingLink" (keyup.enter)="o.addingLink = false" (blur)="o.addingLink = false" placeholder="PASTE URL">
+                <input [(ngModel)]="o.fbLink" *ngIf="o.addingLink" (keyup.enter)="o.addingLink = false" (blur)="o.addingLink = false" placeholder="Paste link to FB profile">
                 <button mat-button class="edit-button" (click)="o.addingLink = true" color="primary" *ngIf="!o.fbLink && !o.addingLink">Facebook Profile missing for {{o.name}}</button>
             </div>
 
