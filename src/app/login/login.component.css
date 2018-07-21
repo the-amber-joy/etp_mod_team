@@ -7,3 +7,14 @@
 .login {
     margin: auto;
 }
+
+.login-btn {
+    background: linear-gradient(to left, black, red);
+    color: #fff;
+}
+
+.login-btn:disabled {
+    background: rgba(0,0,0,.12);
+    color: rgba(0,0,0,.26);
+    box-shadow: none;
+}
