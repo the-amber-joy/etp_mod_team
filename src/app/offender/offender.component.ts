@@ -64,10 +64,6 @@ export class OffenderComponent implements OnInit, AppModule {
         });
     }
 
-    noName() {
-        alert("They need a name, bro!");
-    }
-    
     sortnames() {
         this.offenders.forEach(offender => {
             this.offenderNames.push(offender.name);
