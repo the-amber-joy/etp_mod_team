@@ -4,6 +4,7 @@ import { Admin } from './admin.model';
 export class Offender {
     _id?: number;
     name: string;
+    originalName: string;
     nickName?: string;
     otherNames?: { altName: string }[];
     points: number;
@@ -23,4 +24,6 @@ export class Offender {
     dateBanned?: Date;
     editingName?: boolean;
     addingLink?: boolean;
+    originalLink?: string;
+    linkUpdated: boolean;
 }

@@ -17,8 +17,16 @@
 
             <mat-expansion-panel-header [class.changed-item]="o.changesMade == true" class="flex-parent">
                 <mat-panel-title class="flex-child">
+                    <!-- <span class="name">{{o.name}}</span> -->
                     <span *ngIf="!o.editingName" (click)="o.editingName = true" class="name">{{o.name}}</span>
-                    <input *ngIf="o.editingName" [(ngModel)]="o.name" (keyup.enter)="o.editingName = false" (blur)="o.name == '' ? noName() : null" autocomplete="off" type="text" placeholder="They need a name, bro!">
+                    <input *ngIf="o.editingName"
+                    [(ngModel)]="o.name"
+                    (keyup.enter)="editName($event, o)"
+                    (blur)="editName($event, o)"
+                    name="offenderName"
+                    autocomplete="off"
+                    type="text"
+                    placeholder="They need a name, bro!">
                 </mat-panel-title>
                 <mat-panel-description *ngIf="!o.inputName" class="flex-child">
                     <span class="status" *ngIf="!o.isBanned">{{o.watchStatus}}</span>
@@ -27,8 +35,14 @@
             </mat-expansion-panel-header>
 
             <div class="fb-link">
-                <a href= {{o.fbLink}} *ngIf="o.fbLink && !o.addingLink" target="_blank">{{o.name}}'s Facebook Profile</a>
-                <input [(ngModel)]="o.fbLink" *ngIf="o.addingLink" (keyup.enter)="o.addingLink = false" (blur)="o.addingLink = false" placeholder="PASTE URL">
+                <span *ngIf="o.fbLink && !o.addingLink">
+                    <a href= {{o.fbLink}} target="_blank">{{o.name}}'s Facebook Profile</a>
+                    <button type="button" matSuffix mat-icon-button (click)="clearValue()">
+                        <mat-icon class="cancelX" (click)="o.addingLink = true">edit</mat-icon>
+                    </button>
+                </span>
+
+                <input [(ngModel)]="o.fbLink" *ngIf="o.addingLink" (keyup.enter)="editLink(o)" (blur)="editLink(o)" placeholder="Paste link to FB profile">
                 <button mat-button class="edit-button" (click)="o.addingLink = true" color="primary" *ngIf="!o.fbLink && !o.addingLink">Facebook Profile missing for {{o.name}}</button>
             </div>
 
@@ -39,9 +53,10 @@
                 </div>
             </div>
 
-            <div class="form-group status">
+            <div class="col-md-4 status">
             <form [class.changed-item]="o.originalPoints != o.points || o.originalStatus != o.isBanned">
-                <button class="ban-btn button" (click)="banStatusChanged(o)" [class.banned]="o.isBanned" mat-button matSuffix label="Click to Ban" mat-icon-button></button>
+                <button class="ban-btn button" (click)="banStatusChanged(o)" [class.banned]="o.isBanned"
+                    mat-button matSuffix label="Click to Ban" mat-icon-button></button>
                 <mat-form-field *ngIf="!o.isBanned">
                     <mat-select placeholder="Status" [(value)]="o.points" [disabled]="o.isBanned" [(ngModel)]="o.points"
                         (selectionChange)="pointsChanged($event, o)" name="points">
@@ -55,9 +70,10 @@
             </form>
             </div>
 
-            <div class="form-group notes">
+            <div class="col-md-6 notes">
             <form (ngSubmit)="addNewNote(o)">
-                <button class="note-btn" type="submit" [disabled]="newNote == ''" mat-button matSuffix label="Add comment" mat-icon-button></button>
+                <button class="note-btn" type="submit" [disabled]="newNote == ''" mat-button matSuffix
+                    label="Add comment" mat-icon-button></button>
                 <mat-form-field>
                     <button type="button" [disabled]="newNote == ''" mat-button matSuffix mat-icon-button (click)="newNote=''">
                         <mat-icon *ngIf="newNote != ''" class="cancelX">close</mat-icon>

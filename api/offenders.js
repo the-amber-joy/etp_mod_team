@@ -43,6 +43,7 @@ api.route('/update').put((req) => {
 
     Offender.update({ _id: req.body._id }, {
         $set: {
+            "fbLink": req.body.fbLink,
             "isBanned": req.body.isBanned,
             "originalStatus": req.body.isBanned,
             "points": req.body.points,
@@ -62,27 +63,26 @@ api.route('/update').put((req) => {
 });
 
 // EDIT existing Offender by ID
-// api.route('/edit').put((req, res) => {
-//     Offender.update({ _id: req.body._id }, {
-//         $push: {
-//             "otherNames": {
-//                 $each: req.body.oldName
-//             }
-//         },
-//         $set:
-//         {
-//             "name": req.body.newName,
-//             "fbLink": req.body.fbLink,
-//             "updated": req.body.updated,
-//             "updatedBy": req.body.updatedBy,
-//         }
-//     }, { new: true }, (err, doc, res) => {
-//         if (err) {
-//             console.log(err)
-//         }
-//         return doc;
-//     })
-// });
+api.route('/edit').put((req, res) => {
+    Offender.update({ _id: req.body._id }, {
+        // $push: {
+        //     "otherNames": {
+        //         $each: req.body.oldName
+        //     }
+        // },
+        $set:
+        {
+            "name": req.body.name,
+            "updated": req.body.updated,
+            "updatedBy": req.body.updatedBy,
+        }
+    }, { new: true }, (err, doc, res) => {
+        if (err) {
+            console.log(err)
+        }
+        return doc;
+    })
+});
 
 // GET ONE BY NAME (allows partial string search, case-insensitive)
 // api.route('/offender').get((req, res) => {

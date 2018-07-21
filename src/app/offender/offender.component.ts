@@ -54,9 +54,12 @@ export class OffenderComponent implements OnInit, AppModule {
             this.offenders.forEach(offender => {
                 offender.originalPoints = offender.points;
                 offender.originalStatus = offender.isBanned;
+                offender.originalLink = offender.fbLink;
+                offender.originalName = offender.name;
                 offender.watchStatus = this.getWatchStatus(offender);
                 offender.editingName = false;
                 offender.addingLink = false;
+                offender.linkUpdated = false;
             });
             this.sortnames();
             this.filteredNames = this.offenders;
@@ -119,6 +122,34 @@ export class OffenderComponent implements OnInit, AppModule {
                 });
             }
         });
+    }
+
+    editName(e, offender) {
+        if (offender.name === '' || offender.name === undefined) {
+            alert('Seriously, they need a name');
+            offender.name = offender.originalName;
+        } else if (offender.name !== offender.originalName) {
+            this.offenderService.editName({
+                _id: offender._id,
+                name: offender.name,
+                updated: offender.updated,
+                updatedBy: this.currentUser
+            }).subscribe();
+            offender.editingName = false;
+        }
+    }
+
+    editLink(offender) {
+        offender.addingLink = false;
+        if (offender.originalLink === undefined) {
+            offender.originalLink = '';
+        }
+        if (offender.fbLink !== offender.originalLink) {
+            offender.linkUpdated = true;
+            offender.changesMade = true;
+        } else {
+            offender.changesMade = false;
+        }
     }
 
     addNewNote(offender) {
@@ -195,6 +226,12 @@ export class OffenderComponent implements OnInit, AppModule {
         if (offender.notesAdded) {
             saveNotes();
         }
+
+        if (offender.linkUpdated) {
+            offender.originalLink = offender.fbLink;
+            offender.linkUpdated = false;
+        }
+
         this.resetOffender(offender);
 
         if (offender.originalStatus !== offender.isBanned && offender.isBanned === true) {
@@ -210,13 +247,15 @@ export class OffenderComponent implements OnInit, AppModule {
             updatedBy: this.currentUser,
             bannedBy: offender.bannedBy,
             dateBanned: offender.dateBanned,
-            notes: newNotes
+            notes: newNotes,
+            fbLink: offender.fbLink
         }).subscribe();
 
         this.clearValue();
     }
 
     resetOffender(offender) {
+        offender.fbLink = offender.originalLink;
         offender.originalPoints = offender.points;
         offender.originalStatus = offender.isBanned;
         offender.watchStatus = this.getWatchStatus(offender);
@@ -236,6 +275,9 @@ export class OffenderComponent implements OnInit, AppModule {
         }
         if (offender.banStatusChanged) {
             offender.isBanned = offender.originalStatus;
+        }
+        if (offender.linkUpdated) {
+            offender.fbLink = offender.originalLink;
         }
         if (offender.pointsChanged) {
             offender.points = offender.originalPoints;
