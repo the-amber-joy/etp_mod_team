@@ -4,15 +4,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule, MatCheckboxModule, MatFormFieldModule,
-    MatFormFieldControl, MatInputModule, MatSlideToggleModule,
-    MatDividerModule, MatSelectModule, MatSelectChange, MatExpansionModule,
+    MatInputModule, MatSlideToggleModule,
+    MatDividerModule, MatSelectModule, MatExpansionModule,
     MatListModule, MatDialogModule, MatIconModule, MatMenuModule,
     MatToolbarModule, MatCardModule, MatTableModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { OffenderComponent } from "../app/offender/offender.component";
+import { OffenderComponent } from '../app/offender/offender.component';
 import { OffenderService } from './offender/offender.service';
 import { OffenderDialogComponent } from './offender-dialog/offender-dialog.component';
 import { LoginComponent } from './login/login.component';
@@ -23,12 +23,14 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './shared/auth.service';
 import { HeaderModule } from './header/header.module';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         OffenderComponent,
         OffenderDialogComponent,
+        EditDialogComponent,
         LoginComponent,
         UserComponent,
         ResetPasswordComponent,
@@ -69,6 +71,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ],
     entryComponents: [
         OffenderDialogComponent,
+        EditDialogComponent,
     ]
 })
 export class AppModule { }

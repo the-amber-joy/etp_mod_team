@@ -1,0 +1,5 @@
+* MVP
+
+  Archive (link from header)
+  Delete function? (Offender won't show up on main view but still searchable in archive)
+  Upload image function (for screenshots of offending posts/comments before they get deleted

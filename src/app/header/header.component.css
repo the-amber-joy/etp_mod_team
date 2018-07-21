@@ -1,8 +1,14 @@
+.mat-toolbar.mat-primary {
+    background: linear-gradient(to right, black, red);
+    color: #fff;
+}
+
 .toolbar {
   position: fixed;
   top: 0;
   left: 0;
   margin-bottom: 10px;
+  z-index: 1;
 }
 
 .fill-remaining-space {

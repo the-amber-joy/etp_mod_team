@@ -9,7 +9,7 @@ import { UserComponent } from '../user/user.component';
 export class HeaderService {
     userData = new Subject<any>();
 
-    currentUser(data: { show: boolean, user: Admin }) {
+    currentUser(data: { show: boolean, user: Admin, currentPage: string }) {
         this.userData.next(data);
     }
 

@@ -13,12 +13,20 @@ mat-icon {
     margin-right: auto;
 }
 
+.edit-name-btn:disabled {
+    color: rgba(0,0,0,.26);
+}
+
 .dates {
     margin-bottom: 25px;
 }
 
 .date-added{
     font-size: 16px;
+}
+
+.fb-link {
+    margin-bottom: 15px;
 }
 
 .note-btn:after {
@@ -91,4 +99,13 @@ li:before {
     flex-basis: 25%;
     font-size: 14px;
     min-width: 50%
+}
+
+.warning {
+    color: red;
+}
+
+.edit-button {
+    top: -20px;
+    margin: 5px;
 }

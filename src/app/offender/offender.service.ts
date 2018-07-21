@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Offender } from "../shared/offender.model";
+import { Offender } from '../shared/offender.model';
 import { Note } from '../shared/note.model';
 import { Admin } from '../shared/admin.model';
 
-var api = environment.api;
+const api = environment.api;
 
 @Injectable()
 export class OffenderService {
@@ -16,11 +16,11 @@ export class OffenderService {
     constructor(private httpClient: HttpClient) { }
 
     getAll(): Observable<Offender[]> {
-        return this.httpClient.get<Offender[]>(api + '/api/offenders')
+        return this.httpClient.get<Offender[]>(api + '/api/offenders');
     }
 
     postNew(body: {offender: Offender}): Observable<Offender> {
-        return this.httpClient.post<Offender>(api + '/api/offender', body)
+        return this.httpClient.post<Offender>(api + '/api/offender', body);
     }
 
     updateStatus(body: {
@@ -33,6 +33,16 @@ export class OffenderService {
         bannedBy: Admin,
         dateBanned: Date
     }): Observable<Offender> {
-        return this.httpClient.put<Offender>(api + '/api/update', body)
+        return this.httpClient.put<Offender>(api + '/api/update', body);
+    }
+
+    editOffender(body: {
+        _id: number,
+        name: string,
+        fbLink: string,
+        updated: Date,
+        updatedBy: Admin,
+    }): Observable<Offender> {
+        return this.httpClient.put<Offender>(api + '/api/edit', body);
     }
 }

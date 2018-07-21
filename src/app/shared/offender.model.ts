@@ -1,5 +1,5 @@
-import { Note } from "../shared/note.model";
-import { Admin } from "./admin.model";
+import { Note } from '../shared/note.model';
+import { Admin } from './admin.model';
 
 export class Offender {
     _id?: number;
@@ -8,11 +8,12 @@ export class Offender {
     otherNames?: { altName: string }[];
     points: number;
     originalPoints?: number;
+    fbLink?: string;
     watchStatus: string;
     isBanned: boolean;
     originalStatus?: boolean;
     notes: Note[];
-    notesAdded: boolean = false;
+    notesAdded = false;
     created: Date = new Date();
     updated: Date = new Date();
     createdBy: Admin;
@@ -20,4 +21,6 @@ export class Offender {
     changesMade?: boolean;
     bannedBy?: Admin;
     dateBanned?: Date;
+    editingName?: boolean;
+    addingLink?: boolean;
 }
