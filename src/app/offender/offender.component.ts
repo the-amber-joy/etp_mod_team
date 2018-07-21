@@ -128,6 +128,8 @@ export class OffenderComponent implements OnInit, AppModule {
         if (offender.name === '' || offender.name === undefined) {
             alert('Seriously, they need a name');
             offender.name = offender.originalName;
+        } else if (offender.name === offender.originalName) {
+            offender.editingName = false;
         } else if (offender.name !== offender.originalName) {
             this.offenderService.editName({
                 _id: offender._id,
