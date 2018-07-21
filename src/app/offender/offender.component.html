@@ -28,8 +28,14 @@
             </mat-expansion-panel-header>
 
             <div class="fb-link">
-                <a href= {{o.fbLink}} *ngIf="o.fbLink && !o.addingLink" target="_blank">{{o.name}}'s Facebook Profile</a>
-                <input [(ngModel)]="o.fbLink" *ngIf="o.addingLink" (keyup.enter)="o.addingLink = false" (blur)="o.addingLink = false" placeholder="Paste link to FB profile">
+                <span *ngIf="o.fbLink && !o.addingLink">
+                    <a href= {{o.fbLink}} target="_blank">{{o.name}}'s Facebook Profile</a>
+                    <button type="button" matSuffix mat-icon-button (click)="clearValue()">
+                        <mat-icon class="cancelX" (click)="o.addingLink = true">edit</mat-icon>
+                    </button>
+                </span>
+
+                <input [(ngModel)]="o.fbLink" *ngIf="o.addingLink" (keyup.enter)="editLink(o)" (blur)="editLink(o)" placeholder="Paste link to FB profile">
                 <button mat-button class="edit-button" (click)="o.addingLink = true" color="primary" *ngIf="!o.fbLink && !o.addingLink">Facebook Profile missing for {{o.name}}</button>
             </div>
 

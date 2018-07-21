@@ -43,6 +43,7 @@ api.route('/update').put((req) => {
 
     Offender.update({ _id: req.body._id }, {
         $set: {
+            "fbLink": req.body.fbLink,
             "isBanned": req.body.isBanned,
             "originalStatus": req.body.isBanned,
             "points": req.body.points,

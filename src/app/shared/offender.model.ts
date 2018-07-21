@@ -23,4 +23,6 @@ export class Offender {
     dateBanned?: Date;
     editingName?: boolean;
     addingLink?: boolean;
+    originalLink?: string;
+    linkUpdated: boolean;
 }

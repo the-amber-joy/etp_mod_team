@@ -31,7 +31,8 @@ export class OffenderService {
         updated: Date,
         updatedBy: Admin,
         bannedBy: Admin,
-        dateBanned: Date
+        dateBanned: Date,
+        fbLink: string
     }): Observable<Offender> {
         return this.httpClient.put<Offender>(api + '/api/update', body);
     }
