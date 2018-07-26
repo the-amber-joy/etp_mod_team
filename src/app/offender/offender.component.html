@@ -23,6 +23,7 @@
                     [(ngModel)]="o.name"
                     (keyup.enter)="editName($event, o)"
                     (blur)="editName($event, o)"
+                    (keydown)="$event.stopPropagation()"
                     name="offenderName"
                     autocomplete="off"
                     type="text"
