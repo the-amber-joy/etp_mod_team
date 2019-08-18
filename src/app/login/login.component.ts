@@ -27,15 +27,20 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        this.headerService.currentUser(
-            {
-                show: true,
-                user: null,
-                currentPage: "LoginComponent"
-            }
-        );    }
+        if (localStorage.getItem('user') !== null) {
+            this.router.navigate(['/']);
+        } else {
+            // get return url from route parameters or default to '/'
+            this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+            this.headerService.currentUser(
+                {
+                    show: true,
+                    user: null,
+                    currentPage: "LoginComponent"
+                }
+            )
+        }
+    }
 
     login() {
         this.auth.login(this.username, this.password)
