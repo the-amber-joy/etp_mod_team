@@ -6,7 +6,10 @@ import { Offender } from '../shared/offender.model';
 import { Note } from '../shared/note.model';
 import { Admin } from '../shared/admin.model';
 
-const api = environment.api;
+let api = '';
+if (process.env.NODE_ENV !== 'production') {
+    api = environment.api;
+}
 
 @Injectable()
 export class OffenderService {

@@ -5,7 +5,10 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Admin } from './admin.model';
 
-const api = environment.api;
+let api = '';
+if (process.env.NODE_ENV !== 'production') {
+    api = environment.api;
+}
 
 @Injectable()
 export class AuthService {
