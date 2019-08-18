@@ -12,11 +12,19 @@ const cookieParser = require('cookie-parser');
 const users = require('./users/users.controller');
 const api = require('./api/offenders');
 
-let DBconnection = mongoose.connect(process.env.MLAB_MONGODB_URI, { useNewUrlParser: true });
+if (process.env.NODE_ENV == 'develop') {
+    DB = LOCAL_MONGODB_URI;
+} else if (process.env.TEST_ENV) {
+    DB = TEST_MONGODB_URI;
+} else {
+    DB = PROD_MONGODB_URI
+}
+
+let DBconnection = mongoose.connect(process.env.DB, { useNewUrlParser: true });
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose connected to ' + process.env.MLAB_MONGODB_URI);
+    console.log('Mongoose connected to ' + process.env.DB);
 });
 mongoose.connection.on('error', function (err) {
     console.log('Mongoose connection error: ' + err);
