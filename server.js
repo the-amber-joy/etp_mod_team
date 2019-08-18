@@ -12,10 +12,10 @@ const cookieParser = require('cookie-parser');
 const users = require('./users/users.controller');
 const api = require('./api/offenders');
 
-if (process.env.NODE_ENV == 'develop') {
+if (process.env.NODE_ENV == 'local') {
     DB = process.env.LOCAL_MONGODB_URI;
-} else if (process.env.NODE_ENV == 'test') {
-    DB = Tprocess.env.EST_MONGODB_URI;
+} else if (process.env.NODE_ENV == 'develop') {
+    DB = process.env.EST_MONGODB_URI;
 } else {
     DB = process.env.PROD_MONGODB_URI
 }
