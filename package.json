@@ -48,6 +48,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
+    "q": "^1.5.1",
     "rxjs": "^6.5.2",
     "serve-favicon": "^2.5.0",
     "systemjs": "^5.0.0",
