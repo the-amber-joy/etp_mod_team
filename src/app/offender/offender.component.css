@@ -30,13 +30,14 @@ mat-icon {
 }
 
 .note-btn:after {
-    font-family: 'FontAwesome';
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f055";
     font-size: 2em;
 }
 
 .note-btn.mat-icon-button {
-     color: #28a745;
+    color: #28a745;
 }
 
 .note-btn:disabled {
@@ -44,13 +45,14 @@ mat-icon {
 }
 
 .ban-btn:after {
-    font-family: 'FontAwesome';
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f05e";
     font-size: 2em;
 }
 
 .ban-btn.mat-icon-button {
-     color: rgba(0,0,0,.26);
+    color: rgba(0,0,0,.26);
 }
 
 .ban-btn.banned {
@@ -62,28 +64,30 @@ mat-icon {
 }
 
 ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 li {
-  padding-left: 1.3em;
+    padding-left: 1.3em;
 }
 
 li:before {
-  font-family: "FontAwesome";
-  content: "\f075";
-  display: inline-block;
-  margin-left: -1.3em;
-  width: 1.3em;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f075";
+    display: inline-block;
+    margin-left: -1.3em;
+    width: 1.3em;
 }
 
 .changed-item:before {
-  font-family: "FontAwesome";
-  content: "\f069";
-  color: #f44336;
-  margin-left: -1.3em;
-  width: 1.3em;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f069";
+    color: #f44336;
+    margin-left: -1.3em;
+    width: 1.3em;
 }
 
 .mat-expansion-panel-header-description {
@@ -108,4 +112,11 @@ li:before {
 .edit-button {
     top: -20px;
     margin: 5px;
+}
+
+.loading-spinner {
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

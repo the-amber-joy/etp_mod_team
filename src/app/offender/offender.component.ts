@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { Offender } from '../shared/offender.model';
 import { Note } from '../shared/note.model';
@@ -16,6 +17,7 @@ import { HeaderService } from '../header/header.service';
     styleUrls: ['./offender.component.css']
 })
 export class OffenderComponent implements OnInit, AppModule {
+    faSpinner = faSpinner;
     currentUser: Admin;
     constructor(
         public dialog: MatDialog,
@@ -29,11 +31,11 @@ export class OffenderComponent implements OnInit, AppModule {
     selectionChange: EventEmitter<MatSelectChange>;
     offenders: Offender[] = [];
     filteredNames: Offender[];
-    offenderNames = [];
     offender: Offender;
     newNote = '';
     addedName = '';
     watchStatus: string;
+    loading: boolean;
 
 
     ngOnInit() {
@@ -41,6 +43,7 @@ export class OffenderComponent implements OnInit, AppModule {
     }
 
     getAll() {
+        this.loading = true;
         this.headerService.currentUser(
             {
                 show: true,
@@ -63,13 +66,16 @@ export class OffenderComponent implements OnInit, AppModule {
             });
             this.sortnames();
             this.filteredNames = this.offenders;
+            this.loading = false;
             return this.offenders;
         });
     }
 
     sortnames() {
+        let offenderNames: string[] = [];
+
         this.offenders.forEach(offender => {
-            this.offenderNames.push(offender.name);
+            offenderNames.push(offender.name.trim());
         });
 
         this.offenders.sort(function (a, b) {

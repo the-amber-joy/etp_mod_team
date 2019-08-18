@@ -10,6 +10,7 @@ import {
     MatToolbarModule, MatCardModule, MatTableModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { OffenderComponent } from '../app/offender/offender.component';
@@ -57,7 +58,8 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
         MatCardModule,
         AppRoutingModule,
         HeaderModule,
-        MatTableModule
+        MatTableModule,
+        FontAwesomeModule
     ],
     providers: [
         HttpClientModule,

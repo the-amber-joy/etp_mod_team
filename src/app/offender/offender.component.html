@@ -11,6 +11,7 @@
     </mat-form-field>
 </form>
 
+<div *ngIf="loading" class="loading-spinner"><fa-icon [icon]="faSpinner" [spin]="true" size="2x"></fa-icon></div>
 <div class="offenders">
     <mat-accordion>
         <mat-expansion-panel *ngFor="let o of filteredNames" [disabled]="o.editingName">
