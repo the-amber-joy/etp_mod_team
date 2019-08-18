@@ -14,7 +14,7 @@ const api = require('./api/offenders');
 
 if (process.env.NODE_ENV == 'develop') {
     DB = LOCAL_MONGODB_URI;
-} else if (process.env.TEST_ENV) {
+} else if (process.env.NODE_ENV == 'test') {
     DB = TEST_MONGODB_URI;
 } else {
     DB = PROD_MONGODB_URI
