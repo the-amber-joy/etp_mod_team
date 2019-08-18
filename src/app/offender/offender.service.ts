@@ -19,9 +19,6 @@ export class OffenderService {
     constructor(private httpClient: HttpClient) { }
 
     getAll(): Observable<Offender[]> {
-        console.log("env:", process.env.NODE_ENV);
-        console.log("env api:", process.env.API);
-        console.log("angular api:", environment.api)
         return this.httpClient.get<Offender[]>(api + '/api/offenders');
     }
 
