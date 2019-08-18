@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { Admin } from './admin.model';
 
 let api = '';
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV == 'local') {
     api = environment.api;
 }
 

@@ -47,7 +47,7 @@
                 }
               ]
             },
-            "dev": {
+            "development": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -90,6 +90,9 @@
           },
           "configurations": {
             "production": {
+              "browserTarget": "ETP Mod Team app:build:production"
+            },
+            "development": {
               "browserTarget": "ETP Mod Team app:build:production"
             }
           }
