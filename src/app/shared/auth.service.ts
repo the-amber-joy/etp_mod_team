@@ -5,10 +5,6 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Admin } from './admin.model';
 
-let api = '';
-if (process.env.NODE_ENV == 'local') {
-    api = environment.api;
-}
 
 @Injectable()
 export class AuthService {
@@ -16,9 +12,7 @@ export class AuthService {
     constructor(private httpClient: HttpClient) { }
 
     login(username: string, password: string) {
-        console.log('environment:', process.env.NODE_ENV);
-        console.log('api:', api);
-        return this.httpClient.post<any>(api + '/users/login', { username: username, password: password })
+        return this.httpClient.post<any>(environment.api + '/users/login', { username: username, password: password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
@@ -36,11 +30,11 @@ export class AuthService {
     }
 
     updateUser(user: Admin, password: string) {
-        return this.httpClient.put<any>(api + '/users/update', { user: user, password: password });
+        return this.httpClient.put<any>(environment.api + '/users/update', { user: user, password: password });
     }
 
     getAll(): Observable<Admin[]> {
-        return this.httpClient.get<Admin[]>(api + '/users/getAll')
+        return this.httpClient.get<Admin[]>(environment.api + '/users/getAll')
     }
 
 }
