@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const Q = require('q');
+const Promise = require('bluebird');
 const User = require('../mongoDBmodels/admin_DBmodel')
 const service = {};
 
@@ -13,7 +13,7 @@ service.update = update;
 module.exports = service;
 
 function authenticate(username, password) {
-    const deferred = Q.defer();
+    const deferred = Promise.defer();
 
     User.findOne({ username: username }, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
@@ -38,7 +38,7 @@ function authenticate(username, password) {
 }
 
 function getAll() {
-    const deferred = Q.defer();
+    const deferred = Promise.defer();
 
     User.find((err, users) => {
         if (err) deferred.reject(err.name + ': ' + err.message);
@@ -60,7 +60,7 @@ function getAll() {
 }
 
 function create(userParam) {
-    const deferred = Q.defer();
+    const deferred = Promise.defer();
 
     // validation
     User.findOne(
@@ -93,7 +93,7 @@ function create(userParam) {
 }
 
 function update(userParam) {
-    const deferred = Q.defer();
+    const deferred = Promise.defer();
 
     // validation
     User.findOne(
