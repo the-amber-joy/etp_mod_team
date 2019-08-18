@@ -1,9 +1,9 @@
-var _ = require('lodash');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
-var Q = require('q');
+const _ = require('lodash');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const Q = require('q');
 const User = require('../mongoDBmodels/admin_DBmodel')
-var service = {};
+const service = {};
 
 service.authenticate = authenticate;
 service.getAll = getAll;
@@ -13,7 +13,7 @@ service.update = update;
 module.exports = service;
 
 function authenticate(username, password) {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     User.findOne({ username: username }, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
@@ -38,7 +38,7 @@ function authenticate(username, password) {
 }
 
 function getAll() {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     User.find((err, users) => {
         if (err) deferred.reject(err.name + ': ' + err.message);
@@ -60,7 +60,7 @@ function getAll() {
 }
 
 function create(userParam) {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     // validation
     User.findOne(
@@ -78,7 +78,7 @@ function create(userParam) {
 
     function createUser() {
         // set user object to userParam without the cleartext password
-        var user = _.omit(userParam, 'password');
+        const user = _.omit(userParam, 'password');
 
         // add hashed password to user object
         user.hash = bcrypt.hashSync(userParam.password, 10);
@@ -93,7 +93,7 @@ function create(userParam) {
 }
 
 function update(userParam) {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     // validation
     User.findOne(
@@ -121,7 +121,7 @@ function update(userParam) {
 
     function updateUser() {
         // fields to update
-        var set = {
+        const set = {
             displayName: userParam.user.displayName,
         };
 
@@ -130,7 +130,7 @@ function update(userParam) {
             set.hash = bcrypt.hashSync(userParam.password, 10);
         }
 
-        User.update(
+        User.updateOne(
             { _id: userParam.user._id },
             { $set: set },
             function (err, res) {

@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var userService = require('./user.service');
+const express = require('express');
+const router = express.Router();
+const userService = require('./user.service');
 
 // routes
 router.post('/login', login);
@@ -39,7 +39,7 @@ function register(req, res) {
 }
 
 function update(req, res) {
-    userService.update(req.body)
+    userService.updateOne(req.body)
         .then(function () {
             res.json('success');
         })

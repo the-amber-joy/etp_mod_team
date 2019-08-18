@@ -1,5 +1,6 @@
 require('dotenv').config();
 const cors = require('cors');
+const favicon = require('serve-favicon');
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -11,7 +12,7 @@ const cookieParser = require('cookie-parser');
 const users = require('./users/users.controller');
 const api = require('./api/offenders');
 
-let DBconnection = mongoose.connect(process.env.MONGODB_URI);
+let DBconnection = mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {
@@ -53,8 +54,10 @@ process.on('SIGTERM', function () {
 // app.use(flash());
 app.use(cors());
 app.use(express.static(__dirname + '/dist'));
+app.use(favicon(path.join(__dirname, '/dist/assets', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.use(expressJwt({
     secret: process.env.secret,

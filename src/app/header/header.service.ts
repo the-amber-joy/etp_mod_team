@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs/Subject';
-import { Route, Resolve } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 import { Admin } from '../shared/admin.model';
-import { UserComponent } from '../user/user.component';
 
 @Injectable()
 export class HeaderService {

@@ -28,7 +28,7 @@ api.route('/offenders').get((req, res) => {
 api.route('/update').put((req) => {
     function updateNotes(){
         if (req.body.notes && req.body.notes.length > 0) {
-            Offender.update(
+            Offender.updateOne(
                 { _id: req.body._id },
                 { $push: { "notes": { $each: req.body.notes } } },
                 (err) => {
@@ -41,7 +41,7 @@ api.route('/update').put((req) => {
     }
     updateNotes();
 
-    Offender.update({ _id: req.body._id }, {
+    Offender.updateOne({ _id: req.body._id }, {
         $set: {
             "fbLink": req.body.fbLink,
             "isBanned": req.body.isBanned,
@@ -64,7 +64,7 @@ api.route('/update').put((req) => {
 
 // EDIT existing Offender by ID
 api.route('/edit').put((req, res) => {
-    Offender.update({ _id: req.body._id }, {
+    Offender.updateOne({ _id: req.body._id }, {
         // $push: {
         //     "otherNames": {
         //         $each: req.body.oldName
