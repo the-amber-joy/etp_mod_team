@@ -54,7 +54,7 @@ process.on('SIGTERM', function () {
 // app.use(flash());
 app.use(cors());
 app.use(express.static(__dirname + '/dist'));
-app.use(favicon(path.join(__dirname, '/dist/assets', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, '/dist/assets', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
