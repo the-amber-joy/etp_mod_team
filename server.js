@@ -13,18 +13,18 @@ const users = require('./users/users.controller');
 const api = require('./api/offenders');
 
 if (process.env.NODE_ENV == 'develop') {
-    DB = LOCAL_MONGODB_URI;
+    DB = process.env.LOCAL_MONGODB_URI;
 } else if (process.env.NODE_ENV == 'test') {
-    DB = TEST_MONGODB_URI;
+    DB = Tprocess.env.EST_MONGODB_URI;
 } else {
-    DB = PROD_MONGODB_URI
+    DB = process.env.PROD_MONGODB_URI
 }
 
-let DBconnection = mongoose.connect(process.env.DB, { useNewUrlParser: true });
+let DBconnection = mongoose.connect(DB, { useNewUrlParser: true });
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose connected to ' + process.env.DB);
+    console.log('Mongoose connected to ' + DB);
 });
 mongoose.connection.on('error', function (err) {
     console.log('Mongoose connection error: ' + err);
