@@ -16,7 +16,7 @@ if (process.env.NODE_ENV == 'local') {
     DB = process.env.LOCAL_MONGODB_URI;
 } else if (process.env.NODE_ENV == 'develop') {
     DB = process.env.TEST_MONGODB_URI;
-} else {
+} else if (process.env.NODE_ENV == 'production') {
     DB = process.env.PROD_MONGODB_URI
 }
 
