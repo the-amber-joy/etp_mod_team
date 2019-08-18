@@ -12,11 +12,11 @@ const cookieParser = require('cookie-parser');
 const users = require('./users/users.controller');
 const api = require('./api/offenders');
 
-let DBconnection = mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+let DBconnection = mongoose.connect(process.env.MLAB_MONGODB_URI, { useNewUrlParser: true });
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose connected to ' + process.env.MONGODB_URI);
+    console.log('Mongoose connected to ' + process.env.MLAB_MONGODB_URI);
 });
 mongoose.connection.on('error', function (err) {
     console.log('Mongoose connection error: ' + err);
