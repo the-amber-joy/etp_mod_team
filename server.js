@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser');
 const users = require('./users/users.controller');
 const api = require('./api/offenders');
 
+console.log("database:", process.env.MONGODB_URI);
 let DBconnection = mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 // CONNECTION EVENTS
