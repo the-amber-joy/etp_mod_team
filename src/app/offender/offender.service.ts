@@ -7,7 +7,7 @@ import { Note } from '../shared/note.model';
 import { Admin } from '../shared/admin.model';
 
 let api = '';
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV == 'local') {
     api = environment.api;
 }
 

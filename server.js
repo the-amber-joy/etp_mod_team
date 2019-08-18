@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV !== 'production') { require('dotenv').config() }
+if (process.env.NODE_ENV == 'local') { require('dotenv').config() }
 const cors = require('cors');
 const favicon = require('serve-favicon');
 const express = require('express');
@@ -17,7 +17,8 @@ if (process.env.NODE_ENV == 'local') {
 } else {
     DB = process.env.MONGODB_URI;
 }
-
+console.log("environment (server):", process.env.NODE_ENV);
+console.log("mongoose uri (server):", process.env.MONGODB_URI);
 let DBconnection = mongoose.connect(DB, { useNewUrlParser: true });
 
 // CONNECTION EVENTS
