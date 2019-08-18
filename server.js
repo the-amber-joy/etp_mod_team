@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV == 'local') { require('dotenv').config() }
+require('dotenv').config()
 const cors = require('cors');
 const favicon = require('serve-favicon');
 const express = require('express');
@@ -12,17 +12,11 @@ const cookieParser = require('cookie-parser');
 const users = require('./users/users.controller');
 const api = require('./api/offenders');
 
-if (process.env.NODE_ENV == 'local') {
-    DB = process.env.LOCAL_MONGODB_URI;
-} else {
-    DB = process.env.MONGODB_URI;
-}
-
-let DBconnection = mongoose.connect(DB, { useNewUrlParser: true });
+let DBconnection = mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose connected to ' + DB);
+    console.log('Mongoose connected to ' + process.env.MONGODB_URI);
 });
 mongoose.connection.on('error', function (err) {
     console.log('Mongoose connection error: ' + err);

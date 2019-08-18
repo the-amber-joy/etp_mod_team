@@ -47,4 +47,3 @@ config.json
 post_sample.json
 todo.txt
 .env
-environment.*

@@ -1,12 +1,10 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "$schema": "./node_modules/@angular-devkit/core/src/workspace/workspace-schema.json",
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "versions": {
+    "ETP Mod Team app": {
       "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
       "projectType": "application",
       "architect": {
         "build": {
@@ -46,40 +44,6 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
-            },
-            "development": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.develop.ts"
-                }
-              ]
-            },
-            "local": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.local.ts"
-                }
-              ]
             }
           }
         },
@@ -90,9 +54,6 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "ETP Mod Team app:build:production"
-            },
-            "development": {
               "browserTarget": "ETP Mod Team app:build:production"
             }
           }
@@ -164,6 +125,7 @@
       }
     }
   },
+  "cli": {},
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
