@@ -16,6 +16,8 @@ export class AuthService {
     constructor(private httpClient: HttpClient) { }
 
     login(username: string, password: string) {
+        console.log('environment:', process.env.NODE_ENV);
+        console.log('api:', api);
         return this.httpClient.post<any>(api + '/users/login', { username: username, password: password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
