@@ -1,3 +1,5 @@
+***This tool had been running on my etpmod.team domain for a few years, but the team eventually stopped using it, so I retired it because it wasn't worth the cost of registering and hosting.***
+ 
 # ETP Mod Team tool
 ### (aka 'The Shitlist')
 
